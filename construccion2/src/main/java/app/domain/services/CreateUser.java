@@ -3,7 +3,7 @@ package app.domain.services;
 import app.domain.model.User;
 import app.domain.ports.UserPort;
 
-public class UserService {
+public class CreateUser {
 	
 	private UserPort userPort;
 	
