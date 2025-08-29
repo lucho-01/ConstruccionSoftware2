@@ -1,9 +1,9 @@
 package app.domain.port;
 
-import app.domain.model.diagnosticAid;
+import app.domain.model.DiagnosticAid;
 
 public interface DiagnosticAidPort {
-	public diagnosticAid findByOrderNumber(diagnosticAid diagnosticAid) throws Exception;
-	public void save(diagnosticAid diagnosticAid) throws Exception;
+	public DiagnosticAid findByOrderNumber(DiagnosticAid diagnosticAid) throws Exception;
+	public void save(DiagnosticAid diagnosticAid) throws Exception;
 }
 

@@ -1,12 +1,21 @@
 package app.domain.model;
 
-public class medications {
+public class Medications {
+	private Employee doctor;
 	private long orderNumber;
 	private long iDmedications;
 	private int item;
 	private String dose;
 	private String treatmentDuration;
 	
+	
+	
+	public Employee getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Employee doctor) {
+		this.doctor = doctor;
+	}
 	public long getOrderNumber() {
 		return orderNumber;
 	}

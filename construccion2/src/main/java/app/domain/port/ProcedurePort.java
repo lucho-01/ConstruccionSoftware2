@@ -1,10 +1,10 @@
 package app.domain.port;
 
-import app.domain.model.procedure;
+import app.domain.model.Procedure;
 
 
 public interface ProcedurePort {
-	public procedure findByOrderNumber(procedure procedure) throws Exception;
-	public void save(procedure procedure) throws Exception;
+	public Procedure findByOrderNumber(Procedure procedure) throws Exception;
+	public void save(Procedure procedure) throws Exception;
 	
 }

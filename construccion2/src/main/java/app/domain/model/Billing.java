@@ -2,7 +2,7 @@ package app.domain.model;
 
 import java.sql.Date;
 
-public class billing {
+public class Billing {
 	private long patientDocument;
 	private long policyNumber;
 	private int patientAge;

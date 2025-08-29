@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import app.domain.model.enums.Gender;
 
-public class patient {
+public class Patient {
 	private  long id;
 	private  long document;
 	private  long phoneNumber;
@@ -15,7 +15,16 @@ public class patient {
 	private  Gender gender;
 	private double weigth;
 	private double size;
+	private Employee doctor;
 	
+	
+	
+	public Employee getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Employee doctor) {
+		this.doctor = doctor;
+	}
 	public long getId() {
 		return id;
 	}

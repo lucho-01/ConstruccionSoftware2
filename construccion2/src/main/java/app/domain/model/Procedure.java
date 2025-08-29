@@ -1,31 +1,31 @@
 package app.domain.model;
 
-public class diagnosticAid {
+public class Procedure {
 	private long orderNumber;
-	private long idDiagnosticAid;
-	private int amount;
+	private double amount;
+	private String repetitionFrequency;
 	private boolean specialistAssistance;
 	private long IdTypeSpecialist;
 	private int item;
 	
-	
+
 	public long getOrderNumber() {
 		return orderNumber;
 	}
 	public void setOrderNumber(long orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	public long getIdDiagnosticAid() {
-		return idDiagnosticAid;
-	}
-	public void setIdDiagnosticAid(long idDiagnosticAid) {
-		this.idDiagnosticAid = idDiagnosticAid;
-	}
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	public String getRepetitionFrequency() {
+		return repetitionFrequency;
+	}
+	public void setRepetitionFrequency(String repetitionFrequency) {
+		this.repetitionFrequency = repetitionFrequency;
 	}
 	public boolean isSpecialistAssistance() {
 		return specialistAssistance;
@@ -45,4 +45,6 @@ public class diagnosticAid {
 	public void setItem(int item) {
 		this.item = item;
 	}
+	
+	
 }

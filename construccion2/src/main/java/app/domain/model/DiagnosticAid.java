@@ -1,31 +1,31 @@
 package app.domain.model;
 
-public class procedure {
+public class DiagnosticAid {
 	private long orderNumber;
-	private double amount;
-	private String repetitionFrequency;
+	private long idDiagnosticAid;
+	private int amount;
 	private boolean specialistAssistance;
 	private long IdTypeSpecialist;
 	private int item;
 	
-
+	
 	public long getOrderNumber() {
 		return orderNumber;
 	}
 	public void setOrderNumber(long orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	public double getAmount() {
+	public long getIdDiagnosticAid() {
+		return idDiagnosticAid;
+	}
+	public void setIdDiagnosticAid(long idDiagnosticAid) {
+		this.idDiagnosticAid = idDiagnosticAid;
+	}
+	public int getAmount() {
 		return amount;
 	}
-	public void setAmount(double amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
-	}
-	public String getRepetitionFrequency() {
-		return repetitionFrequency;
-	}
-	public void setRepetitionFrequency(String repetitionFrequency) {
-		this.repetitionFrequency = repetitionFrequency;
 	}
 	public boolean isSpecialistAssistance() {
 		return specialistAssistance;
@@ -45,6 +45,4 @@ public class procedure {
 	public void setItem(int item) {
 		this.item = item;
 	}
-	
-	
 }

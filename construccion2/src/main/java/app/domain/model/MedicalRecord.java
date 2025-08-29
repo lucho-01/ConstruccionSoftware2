@@ -2,21 +2,35 @@ package app.domain.model;
 
 import java.sql.Date;
 
-public class medicalRecord {
+public class MedicalRecord {
+	private Employee doctor;
 	private long doctorDocument;
 	private String symptomatology;
 	private String reasonConsultation;
 	private String diagnosis;
 	private Date date;
-	private patient fullName;
-	private patient birthdate;
+	private Patient fullName;
+	private Patient birthdate;
 	private String allergics;
 	private boolean familyHistory;
 	private int age;
+	private Patient patient;
 	
 	
 	
 	
+	public Employee getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Employee doctor) {
+		this.doctor = doctor;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	public int getAge() {
 		return age;
 	}
@@ -53,16 +67,16 @@ public class medicalRecord {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public patient getFullName() {
+	public Patient getFullName() {
 		return fullName;
 	}
-	public void setFullName(patient fullName) {
+	public void setFullName(Patient fullName) {
 		this.fullName = fullName;
 	}
-	public patient getBirthdate() {
+	public Patient getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(patient birthdate) {
+	public void setBirthdate(Patient birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getAllergics() {

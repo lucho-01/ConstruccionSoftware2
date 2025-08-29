@@ -1,12 +1,12 @@
 package app.domain.services;
 
-import app.domain.model.employee;
+import app.domain.model.Employee;
 import app.domain.port.EmployeePort;
 
 public class EmployeeService {
 	private EmployeePort employeePort;
 	
-	public void createEmployee(employee employee) throws Exception {
+	public void createEmployee(Employee employee) throws Exception {
 		if(employeePort.findByDocument(employee)!=null) {
 			throw new Exception("Ya existe un empleado con esa cedula");		
 		}		

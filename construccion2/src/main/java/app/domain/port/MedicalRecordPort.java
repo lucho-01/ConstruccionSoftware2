@@ -2,12 +2,12 @@ package app.domain.port;
 
 import java.util.List;
 
-import app.domain.model.patient;
-import app.domain.model.medicalRecord;
+import app.domain.model.Patient;
+import app.domain.model.MedicalRecord;
 
 public interface MedicalRecordPort {
 	
-	public void save(medicalRecord medicalRecord) throws Exception;
-	public List<medicalRecord> findByPatient(patient patient) throws Exception;
+	public void save(MedicalRecord medicalRecord) throws Exception;
+	public List<MedicalRecord> findByPatient(Patient patient) throws Exception;
 
 }

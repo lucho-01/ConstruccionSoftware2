@@ -1,6 +1,6 @@
 package app.domain.model;
 
-public class emergencyContact {
+public class EmergencyContact {
 	private String name;
 	private String lastName;
 	private long phoneNumber;

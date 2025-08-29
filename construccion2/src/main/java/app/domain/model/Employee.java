@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import app.domain.model.enums.Role;
 
-public class employee {
+public class Employee {
 
 	private long id;
 	private long docoument;

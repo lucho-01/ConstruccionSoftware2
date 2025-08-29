@@ -2,7 +2,7 @@ package app.domain.model;
 
 import java.sql.Date;
 
-public class insuranceInformation {
+public class InsuranceInformation {
 	private String insuranceCompanyName;
 	private long policyNumber;
 	private boolean policyStatus;

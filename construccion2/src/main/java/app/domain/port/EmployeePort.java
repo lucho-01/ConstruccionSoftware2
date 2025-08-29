@@ -1,10 +1,10 @@
 package app.domain.port;
 
-import app.domain.model.employee;
+import app.domain.model.Employee;
 
 public interface EmployeePort {
-	public employee findByDocument(employee employee) throws Exception;
-	public employee findByEmployeeName(employee employee) throws Exception;
-	public void save(employee employee) throws Exception;
+	public Employee findByDocument(Employee employee) throws Exception;
+	public Employee findByEmployeeName(Employee employee) throws Exception;
+	public void save(Employee employee) throws Exception;
 	
 }
