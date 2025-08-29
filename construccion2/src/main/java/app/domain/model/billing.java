@@ -12,6 +12,7 @@ public class billing {
 	private Date policyValidity;
 	private Date policyEndDate;
 	
+	
 	public long getPatientDocument() {
 		return patientDocument;
 	}

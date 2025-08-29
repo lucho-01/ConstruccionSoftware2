@@ -15,9 +15,7 @@ public class employee {
 	private String address;
 	private String userName;
 	private String password;
-	Role role;
-
-	
+	private Role role;
 	
 	public String getFullName() {
 		return fullName;
@@ -79,4 +77,12 @@ public class employee {
 	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public void assigCredentials(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+			
+	}
+	
+	
 }

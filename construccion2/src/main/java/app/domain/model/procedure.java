@@ -7,6 +7,8 @@ public class procedure {
 	private boolean specialistAssistance;
 	private long IdTypeSpecialist;
 	private int item;
+	
+
 	public long getOrderNumber() {
 		return orderNumber;
 	}

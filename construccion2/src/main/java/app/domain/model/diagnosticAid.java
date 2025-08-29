@@ -8,6 +8,7 @@ public class diagnosticAid {
 	private long IdTypeSpecialist;
 	private int item;
 	
+	
 	public long getOrderNumber() {
 		return orderNumber;
 	}

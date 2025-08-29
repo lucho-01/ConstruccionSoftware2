@@ -5,14 +5,16 @@ import java.sql.Date;
 import app.domain.model.enums.Gender;
 
 public class patient {
-	private long id;
-	private long document;
-	private long phoneNumber;
-	private String fullName;
-	private String address;
-	private String email;
-	private Date birthdate;
-	private Gender gender;
+	private  long id;
+	private  long document;
+	private  long phoneNumber;
+	private  String fullName;
+	private  String address;
+	private  String email;
+	private  Date birthdate;
+	private  Gender gender;
+	private double weigth;
+	private double size;
 	
 	public long getId() {
 		return id;
@@ -63,4 +65,18 @@ public class patient {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
+	public double getWeigth() {
+		return weigth;
+	}
+	public void setWeigth(double weigth) {
+		this.weigth = weigth;
+	}
+	public double getSize() {
+		return size;
+	}
+	public void setSize(double size) {
+		this.size = size;
+	}
+	
+	
 }

@@ -8,6 +8,8 @@ public class insuranceInformation {
 	private boolean policyStatus;
 	private Date policyValidity;
 	
+	
+	
 	public String getInsuranceCompanyName() {
 		return insuranceCompanyName;
 	}
