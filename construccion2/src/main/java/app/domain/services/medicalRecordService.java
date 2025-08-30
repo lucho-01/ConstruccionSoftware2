@@ -1,11 +1,11 @@
 package app.domain.services;
 
+import app.domain.model.Employee;
 import app.domain.model.MedicalRecord;
 import app.domain.model.Patient;
 import app.domain.model.enums.Role;
-import app.domain.port.MedicalRecordPort;
-import app.domain.model.Employee;
 import app.domain.port.EmployeePort;
+import app.domain.port.MedicalRecordPort;
 import app.domain.port.PatientPort;
 
 
@@ -29,7 +29,16 @@ public class medicalRecordService {
 		
 		medicalRecord.setPatient(patient);
 		medicalRecord.setDoctor(doctor);
-		medicalRecordPort.save(medicalRecord);;
-		
+		medicalRecordPort.save(medicalRecord);
 	}
+	
+	public void update(MedicalRecord medicalRecord) throws Exception{
+		Patient patient = patientPort.findByDocument(medicalRecord.getPatient());
+		if(patient == null) {
+			throw new Exception("La historia clinica debe tener un paciente valido");
+			
+			
+		}
+	}
+	
 }
