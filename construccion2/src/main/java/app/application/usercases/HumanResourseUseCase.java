@@ -36,5 +36,26 @@ public class HumanResourseUseCase {
 		employeeService.createEmployee(employee);
 		
 	}
+	public void deleteInformationSupport(Employee employee) throws Exception {
+		
+		employeeService.deleteEmployee(employee);
+		
+	}
+	public void deleteAdministrator(Employee employee) throws Exception {
+		
+		employeeService.deleteEmployee(employee);
+		
+	}
+	public void deleteNurses(Employee employee) throws Exception {
+		
+		employeeService.deleteEmployee(employee);
+		
+	}
+	
+	public void deleteDoctor(Employee employee) throws Exception {
+		
+		employeeService.deleteEmployee(employee);
+		
+	}
 	
 }

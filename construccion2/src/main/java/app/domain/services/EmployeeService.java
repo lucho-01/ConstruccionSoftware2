@@ -16,4 +16,11 @@ public class EmployeeService {
 		employeePort.save(employee);
 		
 	}
+	public void deleteEmployee(Employee employee) throws Exception {
+		if(employeePort.findByDocument(employee)!= null) {
+			employeePort.deleteById(employee);
+		}
+
+	}
 }
+

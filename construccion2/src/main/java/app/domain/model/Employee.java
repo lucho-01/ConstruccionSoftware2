@@ -7,7 +7,7 @@ import app.domain.model.enums.Role;
 public class Employee {
 
 	private long id;
-	private long docoument;
+	private long document;
 	private long phoneNumber;
 	private String fullName;
 	private String email;
@@ -36,10 +36,10 @@ public class Employee {
 		this.id = id;
 	}
 	public long getDocoument() {
-		return docoument;
+		return document;
 	}
 	public void setDocoument(long docoument) {
-		this.docoument = docoument;
+		this.document = docoument;
 	}
 	public Date getBirthdate() {
 		return birthdate;
