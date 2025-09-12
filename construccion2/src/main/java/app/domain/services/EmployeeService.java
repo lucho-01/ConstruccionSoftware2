@@ -17,10 +17,24 @@ public class EmployeeService {
 		
 	}
 	public void deleteEmployee(Employee employee) throws Exception {
-		if(employeePort.findByDocument(employee)!= null) {
+		if(employeePort.findByDocument(employee)== null) {
+			
+			throw new Exception("El empleado no existe");			
+		}
+		else {
 			employeePort.deleteById(employee);
 		}
 
+	}
+	
+	public void updateEmployee(Employee employee) throws Exception {
+		if(employeePort.findByDocument(employee)== null) {
+			
+			throw new Exception("El empleado no existe");
+		}
+		else {
+			employeePort.update(employee);
+		}
 	}
 }
 

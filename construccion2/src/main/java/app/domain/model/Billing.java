@@ -6,7 +6,7 @@ public class Billing {
 	private long patientDocument;
 	private long policyNumber;
 	private int patientAge;
-	private String patientNAme;
+	private String patientName;
 	private String doctorName;
 	private String  insuranceCompanyName;
 	private Date policyValidity;
@@ -32,10 +32,10 @@ public class Billing {
 		this.patientAge = patientAge;
 	}
 	public String getPatientNAme() {
-		return patientNAme;
+		return patientName;
 	}
 	public void setPatientNAme(String patientNAme) {
-		this.patientNAme = patientNAme;
+		this.patientName = patientNAme;
 	}
 	public String getDoctorName() {
 		return doctorName;

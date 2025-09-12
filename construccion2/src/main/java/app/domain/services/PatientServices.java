@@ -26,5 +26,14 @@ public class PatientServices {
 		patientPort.save(patient);
 		
 	}
-	
+		public void updatePatient(Patient patient) throws Exception{
+			
+			if(patientPort.findByDocument(patient)==null) {
+				throw new Exception("El paciente no existe");
+			}
+			else {
+				patientPort.updatePatient(patient);
+			}
+			
+		}
 }

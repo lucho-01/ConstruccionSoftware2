@@ -5,10 +5,6 @@ public class EmergencyContact {
 	private String lastName;
 	private long phoneNumber;
 	
-	
-	
-	
-	
 	public String getName() {
 		return name;
 	}
