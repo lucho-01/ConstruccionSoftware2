@@ -9,8 +9,8 @@ public class EmergencyContactService {
 	
     public void createEmergencyContact(EmergencyContact emergencyContact) throws Exception {
 
-        if (emergencyContact.getPhoneNumber() > 10) {
-            throw new Exception("El número de teléfono del contacto de emergencia no puede ser mayor a 10 digitos.");
+        if (emergencyContact.getPhoneNumber() == null || emergencyContact.getPhoneNumber().length() > 10) {
+            throw new Exception("El número de teléfono del contacto de emergencia no puede estar vacio y no puede ser mayor a 10 digitos.");
         }
         
         if (emergencyContact.getName() == null) {

@@ -3,7 +3,7 @@ package app.domain.model;
 public class EmergencyContact {
 	private String name;
 	private String lastName;
-	private long phoneNumber;
+	private String phoneNumber;
 	
 	public String getName() {
 		return name;
@@ -17,10 +17,10 @@ public class EmergencyContact {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	

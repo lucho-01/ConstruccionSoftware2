@@ -35,10 +35,9 @@ public class medicalRecordService {
 	public void update(MedicalRecord medicalRecord) throws Exception{
 		Patient patient = patientPort.findByDocument(medicalRecord.getPatient());
 		if(patient == null) {
-			throw new Exception("La historia clinica debe tener un paciente valido");
-			
-			
+			throw new Exception("La historia clinica debe tener un paciente valido");					
 		}
+		medicalRecordPort.update(medicalRecord);
 	}
 	
 }

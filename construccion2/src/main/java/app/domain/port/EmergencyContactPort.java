@@ -4,5 +4,5 @@ import app.domain.model.EmergencyContact;
 
 public interface EmergencyContactPort {
 	
-	public void save (EmergencyContact emergencycontac) throws Exception;
+	public void save (EmergencyContact emergencycontact) throws Exception;
 }

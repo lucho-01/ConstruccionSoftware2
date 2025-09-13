@@ -16,9 +16,6 @@ public class MedicalRecord {
 	private int age;
 	private Patient patient;
 	
-	
-	
-	
 	public Employee getDoctor() {
 		return doctor;
 	}
