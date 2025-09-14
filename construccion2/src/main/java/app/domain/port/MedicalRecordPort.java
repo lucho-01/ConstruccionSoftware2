@@ -9,6 +9,5 @@ public interface MedicalRecordPort {
 	
 	public void save(MedicalRecord medicalRecord) throws Exception;
 	public void update(MedicalRecord medicalRecord) throws Exception;
-	public List<MedicalRecord> findByPatient(Patient patient) throws Exception;
 
 }

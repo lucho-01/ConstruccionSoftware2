@@ -1,5 +1,8 @@
 package app.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.MedicalAppointment;
 import app.domain.port.MedicalAppointmentPort;
 

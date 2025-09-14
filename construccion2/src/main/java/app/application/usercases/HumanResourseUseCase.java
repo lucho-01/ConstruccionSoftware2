@@ -11,13 +11,12 @@ public class HumanResourseUseCase {
 	public void createEmployee(Employee employee, Role role) throws Exception {
 		
 		employee.setRole(role);
-		employeeService.createEmployee(employee);
-		
+		employeeService.createEmployee(employee);		
 	}
+	
 	public void deleteEmployee(Employee employee) throws Exception {
 		
-		employeeService.deleteEmployee(employee);
-		
+		employeeService.deleteEmployee(employee);		
 	}
 	
 	public void updateEmployee(Employee employee) throws Exception {

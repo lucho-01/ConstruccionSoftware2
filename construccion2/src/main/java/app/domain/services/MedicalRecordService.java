@@ -9,7 +9,7 @@ import app.domain.port.MedicalRecordPort;
 import app.domain.port.PatientPort;
 
 
-public class medicalRecordService {
+public class MedicalRecordService {
 	
 	private MedicalRecordPort medicalRecordPort;
 	private EmployeePort employeePort;

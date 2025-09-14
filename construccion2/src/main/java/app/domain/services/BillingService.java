@@ -6,7 +6,7 @@ import app.domain.port.BillingPort;
 public class BillingService {
 	
 	private BillingPort billingPort;
-    public void createInvoice(Billing billing) throws Exception {
+    public void createBilling(Billing billing) throws Exception {
 
         if (billingPort.findByDocument(billing)==null) {
             throw new Exception("El paciente no existe");
