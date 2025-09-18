@@ -1,0 +1,44 @@
+package app.adapter.in.validators;
+
+import java.sql.Date;
+
+import app.domain.model.enums.Role;
+
+public class EmployeeValidator extends SimpleValidator{
+	
+	public String fullNameValidator(String value) throws Exception {
+		return stringValidator("El nombre completo del empleado", value);
+	}
+	
+	public String userNameValidator(String value) throws Exception {
+		return stringValidator("El nombre de usuaro del empleado", value);
+	}
+	
+	public String passwordValidator(String value) throws Exception {
+		return stringValidator("La contraseña del empleado", value);
+	}
+	
+	public String addressValidator(String value) throws Exception {
+		return stringValidator("La dirección del empleado", value);
+	}
+	
+	public String emailValidator(String value) throws Exception {
+		return stringValidator("El email del empelado", value);
+	}
+	
+	public long documentValidator(String value) throws Exception {
+		return longValidator("el documento del empleado", value);
+	}
+	
+	public long phoneNumberValidator(String value) throws Exception {
+		return longValidator("el documento del empleado", value);
+	}
+	
+	public Role roleValidator(String value) throws Exception {
+		return roleValidator("el rol del empleado", value);
+	}
+	
+	public Date birthDateValidator(String value) throws Exception {
+		return dateValidator("la fecha de nacimiento del empleado", value);
+	}
+}

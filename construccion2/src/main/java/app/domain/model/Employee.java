@@ -11,7 +11,7 @@ public class Employee {
 	private long phoneNumber;
 	private String fullName;
 	private String email;
-	private Date birthdate;
+	private String birthdate;
 	private String address;
 	private String userName;
 	private String password;
@@ -41,10 +41,10 @@ public class Employee {
 	public void setDocoument(long docoument) {
 		this.document = docoument;
 	}
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getAddress() {

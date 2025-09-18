@@ -8,9 +8,8 @@ public class HumanResourseUseCase {
 	
 	private EmployeeService employeeService;
 	
-	public void createEmployee(Employee employee, Role role) throws Exception {
+	public void createEmployee(Employee employee) throws Exception {
 		
-		employee.setRole(role);
 		employeeService.createEmployee(employee);		
 	}
 	

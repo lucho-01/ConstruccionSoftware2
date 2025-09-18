@@ -10,7 +10,6 @@ public class RegisterVisit {
     private Procedure procedure;
     private DiagnosticAid diagnosticAid;
     
-    
 	public String getPatientId() {
 		return patientId;
 	}
