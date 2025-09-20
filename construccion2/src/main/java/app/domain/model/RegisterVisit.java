@@ -9,6 +9,9 @@ public class RegisterVisit {
     private Medications medications;
     private Procedure procedure;
     private DiagnosticAid diagnosticAid;
+    private String medication;
+    private String procedures;
+    private String diagnosticAids;
     
 	public String getPatientId() {
 		return patientId;
@@ -57,6 +60,24 @@ public class RegisterVisit {
 	}
 	public void setDiagnosticAid(DiagnosticAid diagnosticAid) {
 		this.diagnosticAid = diagnosticAid;
+	}
+	public String getMedication() {
+		return medication;
+	}
+	public void setMedication(String medication) {
+		this.medication = medication;
+	}
+	public String getProcedures() {
+		return procedures;
+	}
+	public void setProcedures(String procedures) {
+		this.procedures = procedures;
+	}
+	public String getDiagnosticAids() {
+		return diagnosticAids;
+	}
+	public void setDiagnosticAids(String diagnosticAids) {
+		this.diagnosticAids = diagnosticAids;
 	}
 
 }

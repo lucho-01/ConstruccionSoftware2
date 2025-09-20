@@ -19,7 +19,7 @@ public class NursesUseCase {
 		registerVisitService.registerVisit(registerVisit);	
 	}
 	
-	public List<Patient> search(Patient patient) throws Exception{
+	public List<Patient> searchPatient(Patient patient) throws Exception{
 		return searchPatientService.search(patient);
 	}
 	

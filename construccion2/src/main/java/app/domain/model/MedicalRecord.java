@@ -6,14 +6,11 @@ public class MedicalRecord {
 	private Employee doctor;
 	private long doctorDocument;
 	private String symptomatology;
+	private String nameDoctor;
+	private String namePatient;
 	private String reasonConsultation;
 	private String diagnosis;
 	private Date date;
-	private Patient fullName;
-	private Patient birthdate;
-	private String allergics;
-	private boolean familyHistory;
-	private int age;
 	private Patient patient;
 	
 	public Employee getDoctor() {
@@ -21,18 +18,6 @@ public class MedicalRecord {
 	}
 	public void setDoctor(Employee doctor) {
 		this.doctor = doctor;
-	}
-	public Patient getPatient() {
-		return patient;
-	}
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
 	}
 	public long getDoctorDocument() {
 		return doctorDocument;
@@ -64,29 +49,24 @@ public class MedicalRecord {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Patient getFullName() {
-		return fullName;
+
+	public Patient getPatient() {
+		return patient;
 	}
-	public void setFullName(Patient fullName) {
-		this.fullName = fullName;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
-	public Patient getBirthdate() {
-		return birthdate;
+	public String getNameDoctor() {
+		return nameDoctor;
 	}
-	public void setBirthdate(Patient birthdate) {
-		this.birthdate = birthdate;
+	public void setNameDoctor(String nameDoctor) {
+		this.nameDoctor = nameDoctor;
 	}
-	public String getAllergics() {
-		return allergics;
+	public String getNamePatient() {
+		return namePatient;
 	}
-	public void setAllergics(String allergics) {
-		this.allergics = allergics;
-	}
-	public boolean isFamilyHistory() {
-		return familyHistory;
-	}
-	public void setFamilyHistory(boolean familyHistory) {
-		this.familyHistory = familyHistory;
+	public void setNamePatient(String namePatient) {
+		this.namePatient = namePatient;
 	}
 	
 }

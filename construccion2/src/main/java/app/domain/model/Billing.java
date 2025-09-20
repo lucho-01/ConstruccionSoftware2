@@ -31,11 +31,11 @@ public class Billing {
 	public void setPatientAge(int patientAge) {
 		this.patientAge = patientAge;
 	}
-	public String getPatientNAme() {
+	public String getPatientName() {
 		return patientName;
 	}
-	public void setPatientNAme(String patientNAme) {
-		this.patientName = patientNAme;
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 	public String getDoctorName() {
 		return doctorName;
