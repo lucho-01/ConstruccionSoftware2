@@ -1,11 +1,15 @@
 package app.adapter.in.builder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import app.adapter.in.validators.MedicalRecordValidator;
 import app.domain.model.MedicalRecord;
 import app.domain.model.Patient;
 
+@Component
 public class MedicalRecordBuilder {
-
+	@Autowired
 	private MedicalRecordValidator medicalRecordValidator;
 	
 	public MedicalRecord build(String nameDoctor, String symptomatology, String reasonConsultation, String diagnosis, String date, String doctorDocument, String namePatient) throws Exception{

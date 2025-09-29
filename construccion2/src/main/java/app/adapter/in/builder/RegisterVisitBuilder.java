@@ -1,11 +1,14 @@
 package app.adapter.in.builder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import app.adapter.in.validators.RegisterVisitValidator;
 import app.domain.model.Order;
 import app.domain.model.RegisterVisit;
-
+@Component
 public class RegisterVisitBuilder {
-
+	@Autowired
 	private RegisterVisitValidator registerVisitValidator;
 	
 	public RegisterVisit build(String bloodPressure, String oxygenLevel, String pulse, String temperature,String medication, String procedures, String diagnosticAids) throws Exception{

@@ -1,6 +1,7 @@
 package app.domain.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import app.domain.model.enums.Role;
 
@@ -47,6 +48,9 @@ public class MedicalAppointment {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Date getDateTime() {
+		return date;
 	}
 	
 }

@@ -3,11 +3,16 @@ package app.adapter.in.validators;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import app.domain.model.enums.Gender;
 import app.domain.model.enums.Role;
 import app.domain.port.EmployeePort;
 
+@Component
 public abstract class SimpleValidator {
+	@Autowired
 	private EmployeePort employeePort;
 	
 	public String stringValidator(String element, String value)throws Exception {

@@ -1,10 +1,14 @@
 package app.adapter.in.builder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import app.adapter.in.validators.PatientValidator;
 import app.domain.model.Patient;
 
+@Component
 public class PatientBuilder {
-
+	@Autowired
 	private PatientValidator patientValidator;
 	
 	public Patient build(String fullName, String document, String email, String phoneNumber, String address, String gender, String birthdate, String weigth, String size) throws Exception{

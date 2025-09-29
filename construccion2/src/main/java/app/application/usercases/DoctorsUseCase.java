@@ -2,6 +2,9 @@ package app.application.usercases;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.MedicalRecord;
 import app.domain.model.Order;
 import app.domain.model.Patient;
@@ -9,8 +12,9 @@ import app.domain.services.MedicalRecordService;
 import app.domain.services.OrderService;
 import app.domain.services.SearchMedicalRecordService;
 
+@Service
 public class DoctorsUseCase {
-	
+	@Autowired
 	private MedicalRecordService medicalRecordService;
 	private SearchMedicalRecordService searchMedicalRecordService;
 	private OrderService orderService;

@@ -1,5 +1,8 @@
 package app.adapter.in.validators;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class OrderValidator extends SimpleValidator{
 
 	public String medicationValidator(String value) throws Exception{

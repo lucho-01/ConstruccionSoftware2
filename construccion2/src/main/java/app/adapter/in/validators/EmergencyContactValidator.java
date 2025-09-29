@@ -1,5 +1,8 @@
 package app.adapter.in.validators;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class EmergencyContactValidator extends SimpleValidator{
 
 	public String nameValidator(String value) throws Exception{

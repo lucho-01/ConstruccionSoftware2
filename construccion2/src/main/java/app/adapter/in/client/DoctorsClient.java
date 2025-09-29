@@ -2,6 +2,9 @@ package app.adapter.in.client;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import app.adapter.in.builder.MedicalRecordBuilder;
 import app.adapter.in.builder.OrderBuilder;
 import app.adapter.in.builder.PatientBuilder;
@@ -11,13 +14,18 @@ import app.domain.model.Order;
 import app.domain.model.Patient;
 import app.domain.model.enums.Gender;
 
+@Controller
 public class DoctorsClient {
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para crear orden \n 2. Para crear registro medico \n 3. Para actualizar registro medico \n 4. Para buscar historia clinica \n 5. Para salir ";
 	private static Scanner reader = new Scanner(System.in);
 	
+	@Autowired
 	private DoctorsUseCase doctorsUseCase;
+	@Autowired
 	private PatientBuilder patientBuilder;
+	@Autowired
 	private MedicalRecordBuilder medicalRecordBuilder;
+	@Autowired
 	private OrderBuilder OrderBuilder;
 	
 	public void session() {

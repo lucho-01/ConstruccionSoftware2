@@ -2,6 +2,9 @@ package app.adapter.in.validators;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MedicalRecordValidator extends SimpleValidator{
 
 	public String nameDoctorValidator(String value) throws Exception {
