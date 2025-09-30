@@ -93,7 +93,7 @@ public class DoctorsClient {
 	
 	private MedicalRecord readInfoFromMedicalRecord() throws Exception {
 		System.out.println("ingrese el nombre del doctor");
-		String nameDoctor = reader.nextLine();
+		String doctorName = reader.nextLine();
 		System.out.println("ingrese el documento del doctor");
 		String doctorDocument = reader.nextLine();
 		System.out.println("ingrese los sintomas del paciente");
@@ -103,11 +103,11 @@ public class DoctorsClient {
 		System.out.println("ingrese el diagnostico");
 		String diagnosis = reader.nextLine();	
 		System.out.println("ingrese el nombre del paciente");
-		String namePatient = reader.nextLine();
+		String patientName = reader.nextLine();
 		System.out.println("ingrese la fecha");
 		String date = reader.nextLine();
 		
-		return medicalRecordBuilder.build(nameDoctor, symptomatology, reasonConsultation, diagnosis, date, doctorDocument, namePatient);
+		return medicalRecordBuilder.build(doctorName, symptomatology, reasonConsultation, diagnosis, date, doctorDocument, patientName);
 				
 	}	
 	private Patient readInfoFromPatient() throws Exception {

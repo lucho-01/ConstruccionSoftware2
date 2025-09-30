@@ -12,15 +12,15 @@ public class MedicalRecordBuilder {
 	@Autowired
 	private MedicalRecordValidator medicalRecordValidator;
 	
-	public MedicalRecord build(String nameDoctor, String symptomatology, String reasonConsultation, String diagnosis, String date, String doctorDocument, String namePatient) throws Exception{
+	public MedicalRecord build(String doctorName, String symptomatology, String reasonConsultation, String diagnosis, String date, String doctorDocument, String patientName) throws Exception{
 		MedicalRecord medicalRecord = new MedicalRecord();
-		medicalRecord.setNameDoctor(medicalRecordValidator.nameDoctorValidator(nameDoctor));
+		medicalRecord.setDoctor(medicalRecordValidator.doctorNameValidator(doctorName, null));
 		medicalRecord.setDoctorDocument(medicalRecordValidator.doctorDocumentValidator(doctorDocument));
 		medicalRecord.setDiagnosis(medicalRecordValidator.diagnosisValidator(diagnosis));
 		medicalRecord.setReasonConsultation(medicalRecordValidator.reasonConsultationValidator(reasonConsultation));
 		medicalRecord.setSymptomatology(medicalRecordValidator.symptomatologyValidator(symptomatology));
 		medicalRecord.setDate(medicalRecordValidator.dateValidator(date));
-		medicalRecord.setNamePatient(medicalRecordValidator.namePatientValidator(namePatient));
+		medicalRecord.setPatient(medicalRecordValidator.patientNameValidator(patientName, null));
 		
 		return medicalRecord;
 	

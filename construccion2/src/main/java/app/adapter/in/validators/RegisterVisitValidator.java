@@ -1,5 +1,8 @@
 package app.adapter.in.validators;
 
+import app.domain.model.DiagnosticAid;
+import app.domain.model.Medications;
+import app.domain.model.Procedure;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
@@ -24,15 +27,16 @@ public class RegisterVisitValidator extends SimpleValidator{
 		return integrerValidator("El nivel de oxigeno del paciente", value);
 	}
 	
-	public String medicationValidator(String value) throws Exception {
-		return stringValidator("El medicamento del paciente", value);
+	public Medications medicationsValidator(String value, Medications medications) throws Exception {
+		return medicationsValidator("El medicamento del paciente", medications);
 	}
 	
-	public String proceduresValidator(String value) throws Exception {
-		return stringValidator("El procedimiento del paciente", value);
+	public Procedure procedureValidator(String value, Procedure procedure) throws Exception {
+		return procedureValidator("El procedimiento del paciente", procedure);
 	}
 	
-	public String diagnosticAidsValidator(String value) throws Exception {
-		return stringValidator("La ayuda diagnostica del paciente", value);
-	}
+	public DiagnosticAid diagnosticAidValidator(String value, DiagnosticAid diagnosticAid) throws Exception {
+		return diagnosticAidValidator("La ayuda diagnostica del paciente", diagnosticAid);
+
+        }
 }

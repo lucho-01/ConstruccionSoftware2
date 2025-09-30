@@ -13,11 +13,11 @@ public class BillingBuilder {
 	
 	public Billing build(String namePatient, String doctorName, String patientDocument, String patientAge, String policyNumber, String insuranceCompanyName, String policyValidity, String policyEndDate) throws Exception{
 		Billing billing= new Billing();
-		billing.setDoctorName(billingValidator.doctorNameValidator(doctorName));
+		billing.setDoctorName(billingValidator.doctorNameValidator(doctorName, null));
 		billing.setInsuranceCompanyName(billingValidator.insuranceCompanyNameValidator(insuranceCompanyName));
 		billing.setPatientAge(billingValidator.patientAgeValidator(patientAge));
 		billing.setPatientDocument(billingValidator.PatientDocumentValidator(patientDocument));
-		billing.setPatientName(billingValidator.namePatientValidator(namePatient));
+		billing.setPatientName(billingValidator.patientNameValidator(namePatient, null));
 		billing.setPolicyEndDate(billingValidator.policyEndDateValidator(insuranceCompanyName));
 		billing.setPolicyNumber(billingValidator.policyNumberValidator(policyNumber));
 		billing.setPolicyValidity(billingValidator.policyValidityValidator(policyValidity));

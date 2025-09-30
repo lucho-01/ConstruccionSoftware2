@@ -1,5 +1,10 @@
 package app.adapter.in.validators;
 
+import app.domain.model.DiagnosticAid;
+import app.domain.model.Employee;
+import app.domain.model.Medications;
+import app.domain.model.Patient;
+import app.domain.model.Procedure;
 import java.sql.Date;
 import java.util.List;
 
@@ -82,4 +87,76 @@ public abstract class SimpleValidator {
 		}
 	}
 	
+        	public Medications medicationsValidator(String element, Medications medications) throws Exception {
+		medicationsValidator(element,medications);
+	    if (medications == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    if (medications.getDose()==null) {
+	        throw new Exception(element + " debe ingresar un valor válido");
+	    }
+
+	    if(medications.getTreatmentDuration()==null) {
+	    	throw new Exception(element + "debe ingresar un valor valido");
+	    }
+
+	    return medications;
+	}
+
+	public Procedure procedureValidator(String element, Procedure procedure) throws Exception {
+	    if (procedure == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    if (procedure.isSpecialistAssistance()!=true && procedure.isSpecialistAssistance()!=false) {
+	        throw new Exception(element + " debe ingresar un valor válido");
+	    }
+
+	    return procedure;
+	}
+
+	public DiagnosticAid diagnosticAidValidator(String element, DiagnosticAid diagnosticAid) throws Exception {
+	    if (diagnosticAid == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    if (diagnosticAid.isSpecialistAssistance() != true && diagnosticAid.isSpecialistAssistance() != false) {
+	        throw new Exception(element + " debe ingresar un valor válido");
+	    }
+
+	    return diagnosticAid;
+	}
+
+	public List listValidator(String element, List list) throws Exception {
+	    if (list == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    return list;
+	}
+
+	public Patient patientNameValidator(String element, Patient patient) throws Exception {
+	    if (patient == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    if (patient.getFullName() == null || patient.getFullName().trim().isEmpty()) {
+	        throw new Exception(element + " debe tener un nombre válido");
+	    }
+
+	    return patient;
+	}
+
+	public Employee doctorNameValidator(String element, Employee doctor) throws Exception {
+	    if (doctor == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    if (doctor.getFullName() == null || doctor.getFullName().trim().isEmpty()) {
+	        throw new Exception(element + " debe tener un nombre válido");
+	    }
+
+	    return doctor;
+	}
 }

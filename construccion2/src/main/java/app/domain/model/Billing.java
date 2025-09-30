@@ -6,11 +6,27 @@ public class Billing {
 	private long patientDocument;
 	private long policyNumber;
 	private int patientAge;
-	private String patientName;
-	private String doctorName;
+        private Employee doctorName;
+        private Patient patientName;
 	private String  insuranceCompanyName;
 	private Date policyValidity;
 	private Date policyEndDate;
+
+    public Employee getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(Employee doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public Patient getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(Patient patientName) {
+        this.patientName = patientName;
+    }
 	
 	
 	public long getPatientDocument() {
@@ -30,18 +46,6 @@ public class Billing {
 	}
 	public void setPatientAge(int patientAge) {
 		this.patientAge = patientAge;
-	}
-	public String getPatientName() {
-		return patientName;
-	}
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
-	}
-	public String getDoctorName() {
-		return doctorName;
-	}
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
 	}
 	public String getInsuranceCompanyName() {
 		return insuranceCompanyName;

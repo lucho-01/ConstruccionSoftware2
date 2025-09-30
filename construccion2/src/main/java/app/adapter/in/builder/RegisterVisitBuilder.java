@@ -17,9 +17,9 @@ public class RegisterVisitBuilder {
 		registerVisit.setOxygenLevel(registerVisitValidator.oxygenLevelValidator(oxygenLevel));
 		registerVisit.setPulse(registerVisitValidator.pulseValidator(pulse));
 		registerVisit.setTemperature(registerVisitValidator.temperatureValidator(temperature));
-		registerVisit.setDiagnosticAids(registerVisitValidator.diagnosticAidsValidator(diagnosticAids));
-		registerVisit.setMedication(registerVisitValidator.medicationValidator(medication));
-		registerVisit.setProcedures(registerVisitValidator.proceduresValidator(procedures));
+		registerVisit.setDiagnosticAid(registerVisitValidator.diagnosticAidValidator(diagnosticAids, null));
+		registerVisit.setMedications(registerVisitValidator.medicationsValidator(medication, null));
+		registerVisit.setProcedure(registerVisitValidator.procedureValidator(procedures, null));
 				
 		return registerVisit;
 	}

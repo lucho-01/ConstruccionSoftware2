@@ -6,8 +6,6 @@ public class MedicalRecord {
 	private Employee doctor;
 	private long doctorDocument;
 	private String symptomatology;
-	private String nameDoctor;
-	private String namePatient;
 	private String reasonConsultation;
 	private String diagnosis;
 	private Date date;
@@ -55,18 +53,6 @@ public class MedicalRecord {
 	}
 	public void setPatient(Patient patient) {
 		this.patient = patient;
-	}
-	public String getNameDoctor() {
-		return nameDoctor;
-	}
-	public void setNameDoctor(String nameDoctor) {
-		this.nameDoctor = nameDoctor;
-	}
-	public String getNamePatient() {
-		return namePatient;
-	}
-	public void setNamePatient(String namePatient) {
-		this.namePatient = namePatient;
 	}
 	
 }

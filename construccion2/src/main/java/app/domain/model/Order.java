@@ -9,9 +9,6 @@ public class Order {
 	    private List<Medications> medications;
 	    private List<Procedure> procedure;
 	    private List<DiagnosticAid> diagnosticAid;
-	    private String medication;
-	    private String procedures;
-	    private String diagnosticAids;
 
 	    public String getOrderId() { return orderId; }
 	    public void setOrderId(String orderId) { this.orderId = orderId; }
@@ -39,18 +36,6 @@ public class Order {
 		}
 		public void setDiagnosticAid(List<DiagnosticAid> diagnosticAid) {
 			this.diagnosticAid = diagnosticAid;
-		}
-		public String getMedication() {
-			return medication;
-		}
-		public void setMedication(String medication) {
-			this.medication = medication;
-		}
-		public void setProcedures(String procedures) {
-			this.procedures = procedures;
-		}
-		public void setDiagnosticAids(String diagnosticAids) {
-			this.diagnosticAids = diagnosticAids;
 		}
 	}
 

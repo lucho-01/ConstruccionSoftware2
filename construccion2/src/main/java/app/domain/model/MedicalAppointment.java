@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import app.domain.model.enums.Role;
 
 public class MedicalAppointment {
-	private String nameDoctor;
-	private String namepatient;
 	private long AppointmentId;
 	private Employee Doctor;
 	private Patient patient;
@@ -30,18 +28,6 @@ public class MedicalAppointment {
 	}
 	public void setAppointmentId(long appointmentId) {
 		AppointmentId = appointmentId;
-	}
-	public String getNameDoctor() {
-		return nameDoctor;
-	}
-	public void setNameDoctor(String nameDoctor) {
-		this.nameDoctor = nameDoctor;
-	}
-	public String getNamepatient() {
-		return namepatient;
-	}
-	public void setNamepatient(String namepatient) {
-		this.namepatient = namepatient;
 	}
 	public Date getDate() {
 		return date;

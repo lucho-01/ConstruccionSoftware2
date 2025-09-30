@@ -113,13 +113,13 @@ private MedicalAppointment readInfoFromMedicalAppointment() throws Exception {
 	
 
 	System.out.println("ingrese el nombre del paciente");
-	String namePatient = reader.nextLine();
+	String patientName = reader.nextLine();
 	System.out.println("ingrese el nombre del doctor");
-	String nameDoctor = reader.nextLine();
+	String doctorName = reader.nextLine();
 	System.out.println("ingrese la fecha de la cita");
 	String date = reader.nextLine();
 	
-	return medicalAppointmentBuilder.build(nameDoctor, namePatient, date);
+	return medicalAppointmentBuilder.build(doctorName, patientName, date);
     		
 	}	
 
@@ -127,9 +127,9 @@ private Billing readInfoFromBilling() throws Exception {
 	
 
 	System.out.println("ingrese el nombre del paciente");
-	String namePatient = reader.nextLine();
+	String patientName = reader.nextLine();
 	System.out.println("ingrese el nombre del doctor");
-	String nameDoctor= reader.nextLine();
+	String doctorName= reader.nextLine();
 	System.out.println("ingrese el documento del paciente");
 	String patientDocument = reader.nextLine();
 	System.out.println("ingrese el numero de poliza del paciente");
@@ -143,7 +143,7 @@ private Billing readInfoFromBilling() throws Exception {
 	System.out.println("ingrese la fecha de finalizacion de la poliza del paciente");
 	String policyEndDate = reader.nextLine();
 	
-	return billingBuilder.build(namePatient, nameDoctor, patientDocument, patientAge, policyNumber, insuranceCompanyName, policyValidity, policyEndDate); 
+	return billingBuilder.build(patientName, doctorName, patientDocument, patientAge, policyNumber, insuranceCompanyName, policyValidity, policyEndDate); 
 	
 	}
 

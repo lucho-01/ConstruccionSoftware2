@@ -11,11 +11,11 @@ public class OrderBuilder {
 	@Autowired
 	private OrderValidator orderValidator;
 	
-	public Order build(String medications, String procedures, String diagnosticAids) throws Exception{
+	public Order build(String medications, String procedure, String diagnosticAid) throws Exception{
 		Order order = new Order();
-		order.setMedication(orderValidator.medicationValidator(medications));
-		order.setDiagnosticAids(orderValidator.diagnosticAidsValidator(diagnosticAids));
-		order.setProcedures(orderValidator.proceduresValidator(procedures));	
+		order.setDiagnosticAid(orderValidator.listDiagnosticAidValidator(diagnosticAid, null));
+		order.setMedications(orderValidator.listMedicationsvalidator(medications, null));
+		order.setProcedure(orderValidator.listProcedureValidator(procedure, null));	
 		
 		return order;
 		

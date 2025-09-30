@@ -11,10 +11,10 @@ public class MedicalAppointmentBuilder {
 	@Autowired
 	private MedicalAppointmentValidator medicalAppointmentValidator;;
 	
-	public MedicalAppointment build(String nameDoctor, String namePatient, String date) throws Exception{
+	public MedicalAppointment build(String doctorName, String patientName, String date) throws Exception{
 		MedicalAppointment medicalAppointment = new MedicalAppointment();
-		medicalAppointment.setNameDoctor(medicalAppointmentValidator.nameDoctorValidator(nameDoctor));
-		medicalAppointment.setNamepatient(medicalAppointmentValidator.namePatientValidator(namePatient));
+		medicalAppointment.setDoctor(medicalAppointmentValidator.doctorNameValidator(doctorName, null));
+		medicalAppointment.setPatient(medicalAppointmentValidator.patientNameValidator(patientName, null));
 		medicalAppointment.setDate(medicalAppointmentValidator.dateValidator(date));	
 		
 		return medicalAppointment;
