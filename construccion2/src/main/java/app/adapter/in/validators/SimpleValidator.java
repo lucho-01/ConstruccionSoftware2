@@ -117,7 +117,7 @@ public abstract class SimpleValidator {
 	}
 
 	public DiagnosticAid diagnosticAidValidator(String element, DiagnosticAid diagnosticAid) throws Exception {
-	    if (diagnosticAid == null) {
+	    if (diagnosticAid.equals("")) {
 	        throw new Exception(element + " no puede ser nulo");
 	    }
 
@@ -128,11 +128,13 @@ public abstract class SimpleValidator {
 	    return diagnosticAid;
 	}
 
-	public List listValidator(String element, List list) throws Exception {
+	public List<String> listValidator(String element, List<String> list) throws Exception {
 	    if (list == null) {
 	        throw new Exception(element + " no puede ser nulo");
 	    }
-
+	    if (list.isEmpty()) {
+	        throw new Exception(element + " no puede estar vacío");
+	    }
 	    return list;
 	}
 

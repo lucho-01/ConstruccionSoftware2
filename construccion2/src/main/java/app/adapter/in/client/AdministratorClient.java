@@ -2,6 +2,9 @@ package app.adapter.in.client;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import app.adapter.in.builder.BillingBuilder;
 import app.adapter.in.builder.EmergencyContactBuilder;
 import app.adapter.in.builder.MedicalAppointmentBuilder;
@@ -13,15 +16,21 @@ import app.domain.model.MedicalAppointment;
 import app.domain.model.Patient;
 import app.domain.model.enums.Gender;
 
+@Controller
 public class AdministratorClient {
 
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para crear paciente \n 2. Para actualizar paciente \n 3. Para crear cita medica\n 4. Para crear factura \n 5. Para crear contacto de emergencia \n 5. Para salir";
 	private static Scanner reader = new Scanner(System.in);
 	
+	@Autowired
 	private AdministratorUseCase administratorUseCase;
+	@Autowired
 	private PatientBuilder patientBuilder;
+	@Autowired
 	private MedicalAppointmentBuilder medicalAppointmentBuilder;
+	@Autowired
 	private BillingBuilder billingBuilder;
+	@Autowired
 	private EmergencyContactBuilder emergencyContactBuilder;
 	
 	public void session() {

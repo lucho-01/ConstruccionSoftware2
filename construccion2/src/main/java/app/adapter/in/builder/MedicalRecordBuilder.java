@@ -12,6 +12,9 @@ public class MedicalRecordBuilder {
 	@Autowired
 	private MedicalRecordValidator medicalRecordValidator;
 	
+	public MedicalRecordBuilder() {
+		this.medicalRecordValidator = new MedicalRecordValidator();
+	}
 	public MedicalRecord build(String doctorName, String symptomatology, String reasonConsultation, String diagnosis, String date, String doctorDocument, String patientName) throws Exception{
 		MedicalRecord medicalRecord = new MedicalRecord();
 		medicalRecord.setDoctor(medicalRecordValidator.doctorNameValidator(doctorName, null));

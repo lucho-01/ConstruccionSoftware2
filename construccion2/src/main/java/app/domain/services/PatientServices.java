@@ -1,13 +1,17 @@
 package app.domain.services;
-import app.domain.model.Patient;
-import app.domain.port.PatientPort;
-import app.domain.port.EmployeePort;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Employee;
+import app.domain.model.Patient;
+import app.domain.port.EmployeePort;
+import app.domain.port.PatientPort;
 
-
+@Service
 public class PatientServices {
-	
+	@Autowired
 	private PatientPort patientPort;
+	@Autowired
 	private EmployeePort employeePort;
 	
 	

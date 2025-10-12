@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderValidator extends SimpleValidator{
 
-	public List listDiagnosticAidValidator(String value, List list) throws Exception {
+	public List listDiagnosticAidValidator(String value, List<String> list) throws Exception {
             return listValidator("Ayuda diagnostica de la orden", list);
 	}
         
-        public List listProcedureValidator(String value, List list) throws Exception {
+        public List listProcedureValidator(String value, List<String> list) throws Exception {
             return listValidator("El procedimiento de la orden", list);
                 }
-        public List listMedicationsvalidator(String value, List list) throws Exception {
-            return listValidator("Medicina de la orden", list);
+        public List listMedicationsValidator(String value, List<String> list) throws Exception {
+            return listMedicationsValidator("Medicina de la orden", list);
                 }
 	
 }

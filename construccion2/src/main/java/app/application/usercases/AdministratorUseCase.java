@@ -1,5 +1,8 @@
 package app.application.usercases;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Billing;
 import app.domain.model.EmergencyContact;
 import app.domain.model.MedicalAppointment;
@@ -9,8 +12,10 @@ import app.domain.services.EmergencyContactService;
 import app.domain.services.MedicalAppointmentService;
 import app.domain.services.PatientServices;
 
+@Service
 public class AdministratorUseCase {
 	
+	@Autowired
 	private PatientServices patientServices;
 	private MedicalAppointmentService medicalAppointmentService;
 	private EmergencyContactService emergencyContactService;

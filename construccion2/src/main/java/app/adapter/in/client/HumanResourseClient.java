@@ -14,6 +14,10 @@ public class HumanResourseClient {
 	private HumanResourseUseCase humanResourseUseCase;
 	private EmployeeBuilder employeeBuilder;
 	
+    public HumanResourseClient() {
+        this.employeeBuilder = new EmployeeBuilder();
+    }
+	
 	public void session() {
 		boolean session = true;
 		while (session) {
