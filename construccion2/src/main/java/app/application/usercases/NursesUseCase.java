@@ -2,15 +2,18 @@ package app.application.usercases;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Order;
 import app.domain.model.Patient;
 import app.domain.model.RegisterVisit;
 import app.domain.services.RegisterVisitService;
 import app.domain.services.SearchOrderService;
 import app.domain.services.SearchPatientService;
-
+@Service
 public class NursesUseCase {
-	
+	@Autowired
 	private RegisterVisitService registerVisitService;
 	private SearchPatientService searchPatientService;
 	private SearchOrderService searchOrderService;

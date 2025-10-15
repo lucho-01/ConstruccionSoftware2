@@ -8,16 +8,15 @@ import app.domain.model.Procedure;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import app.domain.model.enums.Gender;
 import app.domain.model.enums.Role;
 import app.domain.port.EmployeePort;
 
-@Component
+
 public abstract class SimpleValidator {
-	@Autowired
+	
 	private EmployeePort employeePort;
 	
 	public String stringValidator(String element, String value)throws Exception {
@@ -61,7 +60,7 @@ public abstract class SimpleValidator {
 		roleValidator(element,value);
 		try {
 			 Role roleValue = Role.valueOf(value.toUpperCase());
-			return roleValue;
+			 return roleValue;
 		}catch(Exception e) {
 			throw new Exception(element + " debe ser un rol valido"); 
 		}
@@ -117,7 +116,7 @@ public abstract class SimpleValidator {
 	}
 
 	public DiagnosticAid diagnosticAidValidator(String element, DiagnosticAid diagnosticAid) throws Exception {
-	    if (diagnosticAid.equals("")) {
+		if (diagnosticAid.equals("")) {
 	        throw new Exception(element + " no puede ser nulo");
 	    }
 

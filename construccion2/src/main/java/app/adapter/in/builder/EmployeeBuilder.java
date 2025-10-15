@@ -12,20 +12,21 @@ public class EmployeeBuilder {
 		private EmployeeValidator employeeValidator;
 		
 	    public EmployeeBuilder() {
-	        this.employeeValidator = new EmployeeValidator(); // ✅ Inicialización
+	        this.employeeValidator = new EmployeeValidator(); //  Inicialización
 	    }
 		
-		public Employee build(String fullName, String document, String userName, String email, String phoneNumber, String password, String address, String role) throws Exception{
+		public Employee build(String fullName, String document, String email, String birthDate, String address,String phoneNumber, String userName, String password, String age, String roleInput ) throws Exception{
 			Employee employee = new Employee();
 			employee.setFullName(employeeValidator.fullNameValidator(fullName));
-			employee.setDocoument(employeeValidator.documentValidator(document));
-			employee.setUserName(employeeValidator.userNameValidator(userName));
-			employee.setPassword(employeeValidator.passwordValidator(password));
+			employee.setDocument(employeeValidator.documentValidator(document));
 			employee.setEmail(employeeValidator.emailValidator(email));
+			employee.setBirthdate(employeeValidator.addressValidator(birthDate));
 			employee.setAddress(employeeValidator.addressValidator(address));
 			employee.setPhoneNumber(employeeValidator.phoneNumberValidator(phoneNumber));
-			employee.setRole(employeeValidator.roleValidator(role));
-			employee.setBirthdate(employeeValidator.addressValidator(address));
+			employee.setUserName(employeeValidator.userNameValidator(userName));
+			employee.setPassword(employeeValidator.passwordValidator(password));
+			employee.setAge(age);
+			employee.setFullName(employeeValidator.fullNameValidator(roleInput));
 			return employee;
 		}
 		

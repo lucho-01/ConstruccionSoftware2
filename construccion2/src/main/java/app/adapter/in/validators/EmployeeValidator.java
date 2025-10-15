@@ -14,7 +14,7 @@ public class EmployeeValidator extends SimpleValidator{
 	}
 	
 	public String userNameValidator(String value) throws Exception {
-		return stringValidator("El nombre de usuaro del empleado", value);
+		return stringValidator("El nombre de usuario del empleado", value);
 	}
 	
 	public String passwordValidator(String value) throws Exception {
@@ -34,7 +34,7 @@ public class EmployeeValidator extends SimpleValidator{
 	}
 	
 	public long phoneNumberValidator(String value) throws Exception {
-		return longValidator("el documento del empleado", value);
+		return longValidator("el numero de telefono del empleado", value);
 	}
 	
 	public Role roleValidator(String value) throws Exception {

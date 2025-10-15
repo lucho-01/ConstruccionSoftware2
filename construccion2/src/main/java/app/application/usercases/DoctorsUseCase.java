@@ -17,6 +17,7 @@ public class DoctorsUseCase {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 	private SearchMedicalRecordService searchMedicalRecordService;
+	@Autowired
 	private OrderService orderService;
 	
 	public void createMedicalRecord(MedicalRecord medicalRecord) throws Exception {

@@ -1,10 +1,13 @@
 package app.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.RegisterVisit;
 import app.domain.port.RegisterVisitPort;
-
+@Service
 public class RegisterVisitService {
-	
+	@Autowired
     private RegisterVisitPort registerVisitPort;
 
     public void registerVisit(RegisterVisit registerVisit) throws Exception {

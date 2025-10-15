@@ -1,15 +1,22 @@
 package app.application.usercases;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Employee;
 import app.domain.model.enums.Role;
 import app.domain.services.EmployeeService;
-
+@Service
 public class HumanResourseUseCase {
-	
+	@Autowired
 	private EmployeeService employeeService;
 	
+	public HumanResourseUseCase() {
+		this.employeeService = new EmployeeService();
+	}
+	
 	public void createEmployee(Employee employee) throws Exception {
-		
+		employee.setRole(Role.DOCTORS);
 		employeeService.createEmployee(employee);		
 	}
 	

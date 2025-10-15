@@ -1,10 +1,13 @@
 package app.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Procedure;
 import app.domain.port.ProcedurePort;
-
+@Service
 public class ProcedureService {
-	
+	@Autowired
 	private ProcedurePort procedurePort;
 	
 	public void createProcedure(Procedure procedure) throws Exception{

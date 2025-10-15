@@ -1,15 +1,19 @@
 package app.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.Employee;
 import app.domain.model.Medications;
 import app.domain.model.enums.Role;
 import app.domain.port.EmployeePort;
 import app.domain.port.MedicationsPort;
 
-
+@Service
 public class MedicationService {
-	
+	@Autowired
 	private MedicationsPort medicationPort;
+	@Autowired
 	private EmployeePort employeePort;
 	
 	

@@ -17,8 +17,11 @@ public class AdministratorUseCase {
 	
 	@Autowired
 	private PatientServices patientServices;
+	@Autowired
 	private MedicalAppointmentService medicalAppointmentService;
+	@Autowired
 	private EmergencyContactService emergencyContactService;
+	@Autowired
 	private BillingService billingService;
 	
 	public void createPatient(Patient patient) throws Exception {	

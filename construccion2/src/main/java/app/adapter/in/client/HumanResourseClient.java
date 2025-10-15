@@ -2,16 +2,22 @@ package app.adapter.in.client;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import app.adapter.in.builder.EmployeeBuilder;
 import app.application.usercases.HumanResourseUseCase;
 import app.domain.model.Employee;
 import app.domain.model.enums.Role;
 
+
+@Controller
 public class HumanResourseClient {
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para crear empleado \n 2. Para actualizar empleado \n 3. Para eliminar empleado \n 4. Para salir ";
 	private static Scanner reader = new Scanner(System.in);
-	
+	@Autowired
 	private HumanResourseUseCase humanResourseUseCase;
+	@Autowired
 	private EmployeeBuilder employeeBuilder;
 	
     public HumanResourseClient() {
@@ -76,18 +82,16 @@ public class HumanResourseClient {
 		System.out.println("ingrese la direccion del empleado");
 		String address = reader.nextLine();
 		System.out.println("ingrese el numero de telefono del empleado");
-		String userName = reader.nextLine();
-		System.out.println("ingrese el nombre de de usuario");
 		String phoneNumber = reader.nextLine();
+		System.out.println("ingrese el nombre de de usuario");
+		String userName = reader.nextLine();
 		System.out.println("ingrese la contraseña");
 		String password = reader.nextLine();
 		System.out.println("ingrese la edad del empleado");
 		String age = reader.nextLine();
 	    System.out.println("Ingrese el rol del empleado (ADMIN, DOCTOR, ENFERMERA, etc.)");
 	    String roleInput = reader.nextLine().toUpperCase();
-	    Role role = Role.valueOf(roleInput);
-	    
-	    return employeeBuilder.build(fullName, document, userName, email, phoneNumber, password, address, roleInput);
+	    return employeeBuilder.build(fullName, document,email, birthDate, address, phoneNumber, userName, password,age, roleInput);
 	    		
 		
 	}

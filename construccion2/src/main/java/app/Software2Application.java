@@ -16,7 +16,8 @@ public class Software2Application implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception{
-		HumanResourseClient humanResourseClient = new HumanResourseClient();
+		HumanResourseClient  humanResourseClient= new HumanResourseClient();
+		DoctorsClient doctorsClient = new DoctorsClient();
 		humanResourseClient.session();
 	}
 

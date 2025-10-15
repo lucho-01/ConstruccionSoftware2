@@ -1,10 +1,13 @@
 package app.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.model.EmergencyContact;
 import app.domain.port.EmergencyContactPort;
-
+@Service
 public class EmergencyContactService {
-	
+	@Autowired
 	private EmergencyContactPort emergencyContactPort;
 	
     public void createEmergencyContact(EmergencyContact emergencyContact) throws Exception {
