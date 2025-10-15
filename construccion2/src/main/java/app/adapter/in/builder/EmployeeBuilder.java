@@ -11,10 +11,6 @@ public class EmployeeBuilder {
 		@Autowired
 		private EmployeeValidator employeeValidator;
 		
-	    public EmployeeBuilder() {
-	        this.employeeValidator = new EmployeeValidator(); //  Inicialización
-	    }
-		
 		public Employee build(String fullName, String document, String email, String birthDate, String address,String phoneNumber, String userName, String password, String age, String roleInput ) throws Exception{
 			Employee employee = new Employee();
 			employee.setFullName(employeeValidator.fullNameValidator(fullName));

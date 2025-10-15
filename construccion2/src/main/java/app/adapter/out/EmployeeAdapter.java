@@ -1,12 +1,12 @@
 package app.adapter.out;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import app.domain.model.Employee;
 import app.domain.port.EmployeePort;
 
 
-@Service
+@Repository
 public class EmployeeAdapter implements EmployeePort {
 
 	@Override

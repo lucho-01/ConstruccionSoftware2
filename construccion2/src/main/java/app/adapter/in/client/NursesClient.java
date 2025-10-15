@@ -2,6 +2,8 @@ package app.adapter.in.client;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import app.adapter.in.builder.OrderBuilder;
 import app.adapter.in.builder.PatientBuilder;
 import app.adapter.in.builder.RegisterVisitBuilder;
@@ -15,11 +17,15 @@ public class NursesClient {
 
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para registrar visita \n 2. Para buscar paciente \n 3. Para buscar orden \n 4. Para Salir ";
 	private static Scanner reader = new Scanner(System.in);
-	
+	@Autowired
 	private NursesUseCase nursesUseCase;
+	@Autowired
 	private RegisterVisit registerVisit;
+	@Autowired
 	private PatientBuilder patientBuilder;
+	@Autowired
 	private OrderBuilder orderBuilder;
+	@Autowired
 	private RegisterVisitBuilder registerVisitBuilder;
 	
 	public void session() {
@@ -94,8 +100,10 @@ public class NursesClient {
 		String procedures = reader.nextLine();
 		System.out.println("ingrese la ayuda diagnostica");
 		String diagnosticAids = reader.nextLine();	
+		System.out.println("ingrese la identificación del paciente");
+		String patientId = reader.nextLine();
 		
-		return orderBuilder.build(medication, procedures, diagnosticAids);
+		return orderBuilder.build(medication, procedures, diagnosticAids, patientId);
 	}
 	
 	private Patient readInfoFromPatient() throws Exception {

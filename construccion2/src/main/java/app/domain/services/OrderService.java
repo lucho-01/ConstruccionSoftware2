@@ -11,13 +11,13 @@ public class OrderService {
 	private OrderPort orderPort;
 
     public void createOrder(Order order) throws Exception {
-        if (order.getPatientId() == null) {
+        if (order.getPatientId() == 0) {
             throw new Exception("La orden debe estar asociada a un paciente.");
         }
 
         if ((order.getMedications() == null) &&
-            (order.getProcedures() == null) &&
-            (order.getDiagnosticAids() == null)) {
+            (order.getProcedure() == null) &&
+            (order.getDiagnosticAid() == null)) {
             throw new Exception("La orden debe tener al menos un medicamento, procedimiento o ayuda diagnóstica.");
         }
         

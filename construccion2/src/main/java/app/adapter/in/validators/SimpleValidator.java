@@ -86,7 +86,7 @@ public abstract class SimpleValidator {
 		}
 	}
 	
-        	public Medications medicationsValidator(String element, Medications medications) throws Exception {
+        public Medications medicationsValidator(String element, Medications medications) throws Exception {
 		medicationsValidator(element,medications);
 	    if (medications == null) {
 	        throw new Exception(element + " no puede ser nulo");
@@ -125,16 +125,6 @@ public abstract class SimpleValidator {
 	    }
 
 	    return diagnosticAid;
-	}
-
-	public List<String> listValidator(String element, List<String> list) throws Exception {
-	    if (list == null) {
-	        throw new Exception(element + " no puede ser nulo");
-	    }
-	    if (list.isEmpty()) {
-	        throw new Exception(element + " no puede estar vacío");
-	    }
-	    return list;
 	}
 
 	public Patient patientNameValidator(String element, Patient patient) throws Exception {

@@ -27,13 +27,7 @@ public class DoctorsClient {
 	private MedicalRecordBuilder medicalRecordBuilder;
 	@Autowired
 	private OrderBuilder orderBuilder;
-	
-	public DoctorsClient() {
-		this.doctorsUseCase = new DoctorsUseCase();
-		this.medicalRecordBuilder = new MedicalRecordBuilder();
-		this.orderBuilder = new OrderBuilder();
-		this.patientBuilder = new PatientBuilder();
-	}
+
 	public void session() {
 		boolean session = true;
 		while (session) {
@@ -92,9 +86,11 @@ public class DoctorsClient {
 		System.out.println("ingrese el procedimiento");
 		String procedures = reader.nextLine();
 		System.out.println("ingrese la ayuda diagnostica");
-		String diagnosticAids = reader.nextLine();	
+		String diagnosticAids = reader.nextLine();
+		System.out.println("ingrese la identificación del paciente");
+		String patientId = reader.nextLine();
 		
-		return orderBuilder.build(medication, procedures, diagnosticAids);
+		return orderBuilder.build(medication, procedures, diagnosticAids, patientId);
 	}	
 	
 	private MedicalRecord readInfoFromMedicalRecord() throws Exception {

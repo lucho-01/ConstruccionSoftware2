@@ -1,23 +1,26 @@
 package app.adapter.in.validators;
 
-import app.domain.model.DiagnosticAid;
-import app.domain.model.Medications;
-import app.domain.model.Procedure;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
+
+import app.domain.model.DiagnosticAid;
 
 @Component
 public class OrderValidator extends SimpleValidator{
 
-	public List listDiagnosticAidValidator(String value, List<String> list) throws Exception {
-            return listValidator("Ayuda diagnostica de la orden", list);
+	public String DiagnosticAidValidator (String value) throws Exception {
+            return stringValidator("Ayuda diagnostica de la orden", value);
 	}
         
-        public List listProcedureValidator(String value, List<String> list) throws Exception {
-            return listValidator("El procedimiento de la orden", list);
+        public String ProcedureValidator(String value) throws Exception {
+            return stringValidator("El procedimiento de la orden", value);
                 }
-        public List listMedicationsValidator(String value, List<String> list) throws Exception {
-            return listMedicationsValidator("Medicina de la orden", list);
+        public String MedicationsValidator(String value) throws Exception {
+            return stringValidator("Medicina de la orden", value);
                 }
+        public long patientIdValidator(String value) throws Exception{
+        	return longValidator("la identificacion del paciente", value);
+        }
 	
 }

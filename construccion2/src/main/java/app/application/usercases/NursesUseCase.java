@@ -15,7 +15,9 @@ import app.domain.services.SearchPatientService;
 public class NursesUseCase {
 	@Autowired
 	private RegisterVisitService registerVisitService;
+	@Autowired
 	private SearchPatientService searchPatientService;
+	@Autowired
 	private SearchOrderService searchOrderService;
 	
 	public void registerVisit(RegisterVisit registerVisit) throws Exception {		

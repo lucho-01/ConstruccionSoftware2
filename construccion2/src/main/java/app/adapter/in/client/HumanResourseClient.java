@@ -8,9 +8,6 @@ import org.springframework.stereotype.Controller;
 import app.adapter.in.builder.EmployeeBuilder;
 import app.application.usercases.HumanResourseUseCase;
 import app.domain.model.Employee;
-import app.domain.model.enums.Role;
-
-
 @Controller
 public class HumanResourseClient {
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para crear empleado \n 2. Para actualizar empleado \n 3. Para eliminar empleado \n 4. Para salir ";
@@ -19,10 +16,6 @@ public class HumanResourseClient {
 	private HumanResourseUseCase humanResourseUseCase;
 	@Autowired
 	private EmployeeBuilder employeeBuilder;
-	
-    public HumanResourseClient() {
-        this.employeeBuilder = new EmployeeBuilder();
-    }
 	
 	public void session() {
 		boolean session = true;

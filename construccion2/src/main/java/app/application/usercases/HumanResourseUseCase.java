@@ -11,9 +11,6 @@ public class HumanResourseUseCase {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	public HumanResourseUseCase() {
-		this.employeeService = new EmployeeService();
-	}
 	
 	public void createEmployee(Employee employee) throws Exception {
 		employee.setRole(Role.DOCTORS);
