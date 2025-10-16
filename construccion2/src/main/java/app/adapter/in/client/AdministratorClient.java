@@ -106,11 +106,11 @@ private Patient readInfoFromPatient() throws Exception {
 		String address = reader.nextLine();
 		System.out.println("ingrese el numero de telefono del paciente");
 		String phoneNumber = reader.nextLine();
-		System.out.println("ingrese lel peso del paciente");
+		System.out.println("ingrese el peso del paciente");
 		String weigth = reader.nextLine();
 		System.out.println("ingrese el tamaño del paciente");
 		String size = reader.nextLine();
-	    System.out.println("Ingrese el genero del empleado (MASCULINO, FEMENINO, OTRO)");
+	    System.out.println("Ingrese el genero del paciente (MALE, FEMALE, OTHER)");
 	    String genderInput = reader.nextLine().toUpperCase();
 	    Gender gender = Gender.valueOf(genderInput);
 	    

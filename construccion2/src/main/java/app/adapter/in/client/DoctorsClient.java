@@ -57,9 +57,6 @@ public class DoctorsClient {
 			}
 			
 			case "4":{
-				Patient patient= readInfoFromPatient();
-				doctorsUseCase.searchMedicalRecord(patient);
-				return true;
 			}
 			
 			case "5": {
@@ -111,32 +108,6 @@ public class DoctorsClient {
 		
 		return medicalRecordBuilder.build(doctorName, symptomatology, reasonConsultation, diagnosis, date, doctorDocument, patientName);
 				
-	}	
-	private Patient readInfoFromPatient() throws Exception {
-		
-
-		System.out.println("ingrese el nombre completo del paciente");
-		String fullName = reader.nextLine();
-		System.out.println("ingrese la cedula del paciente");
-		String document = reader.nextLine();
-		System.out.println("ingrese el email del paciente");
-		String email = reader.nextLine();
-		System.out.println("ingrese la fecha de nacimiento del paciente");
-		String birthDate = reader.nextLine();
-		System.out.println("ingrese la direccion del paciente");
-		String address = reader.nextLine();
-		System.out.println("ingrese el numero de telefono del paciente");
-		String phoneNumber = reader.nextLine();
-		System.out.println("ingrese lel peso del paciente");
-		String weigth = reader.nextLine();
-		System.out.println("ingrese el tamaño del paciente");
-		String size = reader.nextLine();
-	    System.out.println("Ingrese el genero del empleado (MASCULINO, FEMENINO, OTRO)");
-	    String genderInput = reader.nextLine().toUpperCase();
-	    Gender gender = Gender.valueOf(genderInput);
-	    
-	    return patientBuilder.build(fullName, document, email, phoneNumber, address, genderInput, birthDate, weigth, size);
-	    		
-	}	
+	}		
 
 }

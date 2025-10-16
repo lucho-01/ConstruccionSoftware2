@@ -3,6 +3,7 @@ package app.adapter.in.client;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import app.adapter.in.builder.OrderBuilder;
 import app.adapter.in.builder.PatientBuilder;
@@ -12,15 +13,13 @@ import app.domain.model.Order;
 import app.domain.model.Patient;
 import app.domain.model.RegisterVisit;
 import app.domain.model.enums.Gender;
-
+@Controller
 public class NursesClient {
 
 	private static final String MENU = "Ingrese una de las opciones \n 1. Para registrar visita \n 2. Para buscar paciente \n 3. Para buscar orden \n 4. Para Salir ";
 	private static Scanner reader = new Scanner(System.in);
 	@Autowired
 	private NursesUseCase nursesUseCase;
-	@Autowired
-	private RegisterVisit registerVisit;
 	@Autowired
 	private PatientBuilder patientBuilder;
 	@Autowired
@@ -125,7 +124,7 @@ public class NursesClient {
 		String weigth = reader.nextLine();
 		System.out.println("ingrese el tamaño del paciente");
 		String size = reader.nextLine();
-	    System.out.println("Ingrese el genero del empleado (MASCULINO, FEMENINO, OTRO)");
+	    System.out.println("Ingrese el genero del empleado (MALE, FEMALE, OTHER)");
 	    String genderInput = reader.nextLine().toUpperCase();
 	    Gender gender = Gender.valueOf(genderInput);
 	    

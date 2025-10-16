@@ -11,7 +11,7 @@ public class Patient {
 	private  String fullName;
 	private  String address;
 	private  String email;
-	private  Date birthdate;
+	private  String birthdate;
 	private  Gender gender;
 	private double weigth;
 	private double size;
@@ -62,10 +62,10 @@ public class Patient {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 	public Gender getGender() {

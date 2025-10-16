@@ -1,6 +1,5 @@
 package app.domain.model;
 
-import java.sql.Date;
 import app.domain.model.enums.Role;
 
 public class Employee {
@@ -14,7 +13,7 @@ public class Employee {
 	private String address;
 	private String userName;
 	private String password;
-	private String age;
+	private int age;
 	private Role role;
 	
 	public String getFullName() {
@@ -83,10 +82,10 @@ public class Employee {
 		this.password = password;
 			
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	

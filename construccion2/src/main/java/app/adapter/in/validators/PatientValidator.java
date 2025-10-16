@@ -37,15 +37,11 @@ public class PatientValidator extends SimpleValidator{
 		return longValidator("el documento del paciente", value);
 	}
 	
-	public Date birthdateValidator(String value) throws Exception {
-		return dateValidator("la fecha de nacimiento del paciente", value);
+	public String birthdateValidator(String value) throws Exception {
+		return super.stringValidator("la fecha de nacimiento del paciente", value);
 	}
 	
 	public Gender genderValidator(String value) throws Exception {
-		return genderValidator("el genero del paciente", value);
-	}
-	
-	public Date birthDateValidator(String value) throws Exception {
-		return dateValidator("la fecha de nacimiento del paciente", value);
+		return super.genderValidator("el genero del paciente", value);
 	}
 }

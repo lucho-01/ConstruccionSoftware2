@@ -17,7 +17,6 @@ import app.domain.port.EmployeePort;
 
 public abstract class SimpleValidator {
 	
-	private EmployeePort employeePort;
 	
 	public String stringValidator(String element, String value)throws Exception {
 		if(value == null || value.equals("")) {
@@ -61,22 +60,20 @@ public abstract class SimpleValidator {
 	        Role roleValue = Role.valueOf(value.toUpperCase());
 	        return roleValue;
 	    } catch (IllegalArgumentException e) {	        
-	        throw new Exception(element + " debe ser un rol válido (ADMIN, DOCTOR, ENFERMERA, etc.)");
+	        throw new Exception(element + " debe ser un rol válido (ADMINISTRATOR, DOCTORS, NURSES)");
 	    }
 	}
 	
 	public Gender genderValidator(String element, String value) throws Exception {
-		genderValidator(element,value);
 		try {
 			 Gender genderValue = Gender.valueOf(value.toUpperCase());
 			return genderValue;
 		}catch(Exception e) {
-			throw new Exception(element + " debe ser un genero valido"); 
+			throw new Exception(element + " debe ser un genero valido(MALE, FEMALE, OTHER)"); 
 		}
 	}
 	
 	public Date dateValidator(String element, String value) throws Exception {
-		dateValidator(element,value);
 		try {
 			 Date dateValue = Date.valueOf(value);
 			return dateValue;

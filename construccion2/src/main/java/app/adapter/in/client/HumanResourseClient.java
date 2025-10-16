@@ -88,7 +88,7 @@ public class HumanResourseClient {
 		String password = reader.nextLine();
 		System.out.println("ingrese la edad del empleado");
 		String age = reader.nextLine();
-	    System.out.println("Ingrese el rol del empleado (ADMIN, DOCTOR, ENFERMERA, etc.)");
+	    System.out.println("Ingrese el rol del empleado (ADMINISTRTOR, DOCTORS, NURSES)");
 	    String roleInput = reader.nextLine().toUpperCase();
 	    return employeeBuilder.build(fullName, document,email, birthDate, address, phoneNumber, userName, password,age, roleInput);
 	    		

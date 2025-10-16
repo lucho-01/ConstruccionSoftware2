@@ -12,6 +12,9 @@ public class EmployeeValidator extends SimpleValidator{
 	public String fullNameValidator(String value) throws Exception {
 		return stringValidator("El nombre completo del empleado", value);
 	}
+	public int ageValidator(String value) throws Exception{
+		return integrerValidator("la edad del empleado", value);
+	}
 	
 	public String userNameValidator(String value) throws Exception {
 		return stringValidator("El nombre de usuario del empleado", value);

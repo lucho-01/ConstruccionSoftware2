@@ -21,7 +21,7 @@ public class EmployeeBuilder {
 			employee.setPhoneNumber(employeeValidator.phoneNumberValidator(phoneNumber));
 			employee.setUserName(employeeValidator.userNameValidator(userName));
 			employee.setPassword(employeeValidator.passwordValidator(password));
-			employee.setAge(age);
+			employee.setAge(employeeValidator.ageValidator(age));
 			employee.setRole(employeeValidator.roleValidator(roleInput));
 			return employee;
 		}
