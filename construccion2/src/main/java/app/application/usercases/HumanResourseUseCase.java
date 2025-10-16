@@ -13,7 +13,6 @@ public class HumanResourseUseCase {
 	
 	
 	public void createEmployee(Employee employee) throws Exception {
-		employee.setRole(Role.DOCTORS);
 		employeeService.createEmployee(employee);		
 	}
 	

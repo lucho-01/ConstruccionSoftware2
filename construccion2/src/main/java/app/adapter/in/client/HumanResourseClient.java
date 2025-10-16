@@ -35,14 +35,20 @@ public class HumanResourseClient {
 				return true;
 			}
 			case "2":{
-				Employee employee= readInfoFromEmployee();
-				humanResourseUseCase.updateEmployee(employee);
-				return true;
+				System.out.println("Ingrese el ID del empleado que desea actualizar:");
+			    long id = Long.parseLong(reader.nextLine());
+			    Employee employee = readInfoFromEmployee();
+			    employee.setId(id);
+			    humanResourseUseCase.updateEmployee(employee);
+			    return true;
 			}
 			case "3":{
-				Employee employee= readInfoFromEmployee();
-				humanResourseUseCase.deleteEmployee(employee);
-				return true;
+				System.out.println("Ingrese el ID del empleado que desea eliminar:");
+			    long id = Long.parseLong(reader.nextLine());
+			    Employee employee = new Employee();
+			    employee.setId(id);
+			    humanResourseUseCase.deleteEmployee(employee);
+			    return true;
 			}
 			
 			case "4": {

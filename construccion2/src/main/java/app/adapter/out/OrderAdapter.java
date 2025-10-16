@@ -15,8 +15,7 @@ public class OrderAdapter implements OrderPort{
 
 	@Override
 	public void save(Order order) throws Exception {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Se ha guardado una orden.");
 	}
 
 }

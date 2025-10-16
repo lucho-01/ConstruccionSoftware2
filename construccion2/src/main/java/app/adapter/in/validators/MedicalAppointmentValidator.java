@@ -18,6 +18,6 @@ public class MedicalAppointmentValidator extends SimpleValidator{
 	}
 	
 	public Date dateValidator(String value) throws Exception{
-		return dateValidator("ffecha de la cita", value);
+		return dateValidator("fecha de la cita", value);
 	}
 }

@@ -57,13 +57,12 @@ public abstract class SimpleValidator {
 	}
 	
 	public Role roleValidator(String element, String value) throws Exception {
-		roleValidator(element,value);
-		try {
-			 Role roleValue = Role.valueOf(value.toUpperCase());
-			 return roleValue;
-		}catch(Exception e) {
-			throw new Exception(element + " debe ser un rol valido"); 
-		}
+	    try {
+	        Role roleValue = Role.valueOf(value.toUpperCase());
+	        return roleValue;
+	    } catch (IllegalArgumentException e) {	        
+	        throw new Exception(element + " debe ser un rol válido (ADMIN, DOCTOR, ENFERMERA, etc.)");
+	    }
 	}
 	
 	public Gender genderValidator(String element, String value) throws Exception {

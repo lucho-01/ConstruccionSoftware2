@@ -22,7 +22,7 @@ public class EmployeeBuilder {
 			employee.setUserName(employeeValidator.userNameValidator(userName));
 			employee.setPassword(employeeValidator.passwordValidator(password));
 			employee.setAge(age);
-			employee.setFullName(employeeValidator.fullNameValidator(roleInput));
+			employee.setRole(employeeValidator.roleValidator(roleInput));
 			return employee;
 		}
 		

@@ -21,23 +21,25 @@ public class EmployeeService {
 		
 	}
 	public void deleteEmployee(Employee employee) throws Exception {
-		if(employeePort.findByDocument(employee)== null) {
-			
-			throw new Exception("El empleado no existe");			
-		}
-		else {
-			employeePort.deleteById(employee);
-		}
+		Employee existing = employeePort.findById(employee);
+
+	    if (existing == null) {
+	        throw new Exception("El empleado no existe");
+	    } else {
+	        employeePort.deleteById(employee);
+	        System.out.println("Empleado eliminado correctamente: " + existing.getFullName());
+	    }
 
 	}
 	
 	public void updateEmployee(Employee employee) throws Exception {
-		if(employeePort.findByDocument(employee)== null) {
+		if(employeePort.findById(employee)== null) {
 			
 			throw new Exception("El empleado no existe");
 		}
 		else {
 			employeePort.update(employee);
+			System.out.println("Empleado actualizado correctamente! ");
 		}
 	}
 }
