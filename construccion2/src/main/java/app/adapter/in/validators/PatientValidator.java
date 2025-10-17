@@ -1,9 +1,8 @@
 package app.adapter.in.validators;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
+import app.domain.model.Employee;
 import app.domain.model.enums.Gender;
 
 @Component
@@ -11,6 +10,9 @@ public class PatientValidator extends SimpleValidator{
 
 	public String fullNameValidator(String value) throws Exception {
 		return stringValidator("El nombre completo del paciente", value);
+	}
+	public Employee doctorDocumentValidator(String value, Employee doctorDocument) throws Exception {
+		return super.doctorNameValidator("El documento del doctor", doctorDocument);
 	}
 	
 	public String addressValidator(String value) throws Exception {

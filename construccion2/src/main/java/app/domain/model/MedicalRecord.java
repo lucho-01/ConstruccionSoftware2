@@ -11,12 +11,6 @@ public class MedicalRecord {
 	private Date date;
 	private Patient patient;
 	
-	public Employee getDoctor() {
-		return doctor;
-	}
-	public void setDoctor(Employee doctor) {
-		this.doctor = doctor;
-	}
 	public long getDoctorDocument() {
 		return doctorDocument;
 	}
@@ -47,7 +41,12 @@ public class MedicalRecord {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	public Employee getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Employee doctor) {
+		this.doctor = doctor;
+	}
 	public Patient getPatient() {
 		return patient;
 	}

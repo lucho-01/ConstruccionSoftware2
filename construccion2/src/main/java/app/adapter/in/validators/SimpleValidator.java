@@ -36,7 +36,6 @@ public abstract class SimpleValidator {
 	}
 	
 	public long longValidator(String element, String value) throws Exception {
-		stringValidator(element,value);
 		try {
 			long longValue = Long.parseLong(value);
 			return longValue;
@@ -145,5 +144,17 @@ public abstract class SimpleValidator {
 	    }
 
 	    return doctor;
+	}
+	public Employee doctorDocumentValidator(String element, Employee doctorDocument) throws Exception {
+	    if (doctorDocument == null) {
+	        throw new Exception(element + " no puede ser nulo");
+	    }
+
+	    String document = String.valueOf(doctorDocument.getDocument());
+	    if (document == null || document.trim().isEmpty()) {
+	        throw new Exception(element + " no puede estar vacío");
+	    }
+
+	    return doctorDocument;
 	}
 }

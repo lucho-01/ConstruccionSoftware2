@@ -17,14 +17,7 @@ public class Patient {
 	private double size;
 	private Employee doctor;
 	
-	
-	
-	public Employee getDoctor() {
-		return doctor;
-	}
-	public void setDoctor(Employee doctor) {
-		this.doctor = doctor;
-	}
+
 	public long getId() {
 		return id;
 	}
@@ -86,6 +79,11 @@ public class Patient {
 	public void setSize(double size) {
 		this.size = size;
 	}
-	
+	public Employee getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Employee doctor) {
+		this.doctor = doctor;
+	}
 	
 }

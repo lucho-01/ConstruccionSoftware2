@@ -127,8 +127,10 @@ public class NursesClient {
 	    System.out.println("Ingrese el genero del empleado (MALE, FEMALE, OTHER)");
 	    String genderInput = reader.nextLine().toUpperCase();
 	    Gender gender = Gender.valueOf(genderInput);
+	    System.out.println("ingrese el documento del doctor");
+	    String doctor = reader.nextLine();
 	    
-	    return patientBuilder.build(fullName, document, email, phoneNumber, address, genderInput, birthDate, weigth, size);
+	    return patientBuilder.build(fullName, doctor, document, email, phoneNumber, address, genderInput, birthDate, weigth, size);
 	    		
 	}	
 }
