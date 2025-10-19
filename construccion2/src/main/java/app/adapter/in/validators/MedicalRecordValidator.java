@@ -1,7 +1,5 @@
 package app.adapter.in.validators;
 
-import app.domain.model.Employee;
-import app.domain.model.Patient;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
@@ -9,13 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MedicalRecordValidator extends SimpleValidator{
 
-	public Employee doctorNameValidator(String value, Employee doctor) throws Exception {
-		return super.doctorNameValidator("El nombre del doctor", doctor);
-	}
-        
-        public Patient patientNameValidator(String value, Patient patient) throws Exception {
-		return super.patientNameValidator("El nombre del paciente", patient);
-	}
+
 	
 	public String symptomatologyValidator(String value) throws Exception {
 		return stringValidator("La sintomatologia del paciente", value);
@@ -30,11 +22,8 @@ public class MedicalRecordValidator extends SimpleValidator{
 	}
 	
 	public Date dateValidator(String value) throws Exception {
-		return dateValidator("La fecha de la historia", value);
-	}
-	
-	public long doctorDocumentValidator(String value) throws Exception {
-		return longValidator("el documento del doctor", value);
+		stringValidator("La fecha de la historia", value);
+		return Date.valueOf(value);
 	}
 		
 }

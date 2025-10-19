@@ -41,10 +41,12 @@ public class EmployeeValidator extends SimpleValidator{
 	}
 	
 	public Role roleValidator(String value) throws Exception {
-		return roleValidator("el rol del empleado", value);
+		 stringValidator("el rol del empleado", value);
+		 return Role.valueOf(value);
 	}
 	
 	public Date birthDateValidator(String value) throws Exception {
-		return dateValidator("la fecha de nacimiento del empleado", value);
+		stringValidator("la fecha de nacimiento del empleado", value);
+		return Date.valueOf(value);
 	}
 }

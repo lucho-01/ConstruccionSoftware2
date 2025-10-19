@@ -1,8 +1,8 @@
 package app.domain.model;
 
 public class RegisterVisit {
-    private String patientId;
-    private String bloodPressure;
+    private Patient patient;
+    private double bloodPressure;
     private double temperature;
     private int pulse;
     private int oxygenLevel;
@@ -10,16 +10,11 @@ public class RegisterVisit {
     private Procedure procedure;
     private DiagnosticAid diagnosticAid;
     
-	public String getPatientId() {
-		return patientId;
-	}
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
-	}
-	public String getBloodPressure() {
+
+	public double getBloodPressure() {
 		return bloodPressure;
 	}
-	public void setBloodPressure(String bloodPressure) {
+	public void setBloodPressure(double bloodPressure) {
 		this.bloodPressure = bloodPressure;
 	}
 	public double getTemperature() {
@@ -57,6 +52,12 @@ public class RegisterVisit {
 	}
 	public void setDiagnosticAid(DiagnosticAid diagnosticAid) {
 		this.diagnosticAid = diagnosticAid;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 }

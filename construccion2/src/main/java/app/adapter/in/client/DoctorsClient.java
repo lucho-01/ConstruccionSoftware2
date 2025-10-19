@@ -22,8 +22,6 @@ public class DoctorsClient {
 	@Autowired
 	private DoctorsUseCase doctorsUseCase;
 	@Autowired
-	private PatientBuilder patientBuilder;
-	@Autowired
 	private MedicalRecordBuilder medicalRecordBuilder;
 	@Autowired
 	private OrderBuilder orderBuilder;

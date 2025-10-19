@@ -12,12 +12,16 @@ public class EmergencyContactService {
 	
     public void createEmergencyContact(EmergencyContact emergencyContact) throws Exception {
 
-        if (emergencyContact.getPhoneNumber() == null || emergencyContact.getPhoneNumber().length() > 10) {
-            throw new Exception("El número de teléfono del contacto de emergencia no puede estar vacio y no puede ser mayor a 10 digitos.");
+        if (emergencyContact.getPhoneNumber() == null || emergencyContact.getPhoneNumber().length() != 10) {
+            throw new Exception("El número de teléfono del contacto de emergencia no puede estar vacio y debe tener 10 digitos.");
         }
         
         if (emergencyContact.getName() == null) {
             throw new Exception("El nombre del contacto de emergencia no puede estar vacío.");
+        }
+        
+        if (emergencyContact.getLastName() == null) {
+            throw new Exception("El Apellido del contacto de emergencia no puede estar vacío.");
         }
 
         emergencyContactPort.save(emergencyContact);

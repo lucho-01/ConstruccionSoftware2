@@ -11,17 +11,6 @@ import app.domain.model.enums.Gender;
 @Component
 public class BillingValidator extends SimpleValidator{
 
-	public Employee doctorNameValidator(String value, Employee doctor) throws Exception {
-		return doctorNameValidator("El nombre del doctor", doctor);
-	}
-        
-        public Patient patientNameValidator(String value, Patient patient) throws Exception {
-		return patientNameValidator("El nombre del paciente", patient);
-	}
-	
-	public long PatientDocumentValidator(String value) throws Exception {
-		return longValidator("El documento del paciente", value);
-	}
 	
 	public long policyNumberValidator(String value) throws Exception {
 		return longValidator("el numero de poliza del paciente", value);
@@ -36,11 +25,13 @@ public class BillingValidator extends SimpleValidator{
 	}
 	
 	public Date policyValidityValidator(String value) throws Exception {
-		return dateValidator("La validacion de la poliza del paciente", value);
+		stringValidator("La validacion de la poliza del paciente", value);
+		return Date.valueOf(value);
 	}
 	
 	public Date policyEndDateValidator(String value) throws Exception {
-		return dateValidator("la fecha de finalizacion de la poliza del paciente", value);
+		stringValidator("la fecha de finalizacion de la poliza del paciente", value);
+		return Date.valueOf(value);
 	}
 	
 }

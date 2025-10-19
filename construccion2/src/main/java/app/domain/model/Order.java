@@ -1,11 +1,9 @@
 package app.domain.model;
 
-import java.util.List;
-
 public class Order {
 	
 	    private long orderId;
-	    private long patientId;
+	    private Patient patient;
 	    private String medications;
 	    private String procedure;
 	    private String diagnosticAid;
@@ -16,12 +14,6 @@ public class Order {
 		}
 		public void setOrderId(long orderId) {
 			this.orderId = orderId;
-		}
-		public long getPatientId() {
-			return patientId;
-		}
-		public void setPatientId(long patientId) {
-			this.patientId = patientId;
 		}
 		public String getMedications() {
 			return medications;
@@ -40,6 +32,12 @@ public class Order {
 		}
 		public void setDiagnosticAid(String diagnosticAid) {
 			this.diagnosticAid = diagnosticAid;
+		}
+		public Patient getPatient() {
+			return patient;
+		}
+		public void setPatient(Patient patient) {
+			this.patient = patient;
 		}
 
 }

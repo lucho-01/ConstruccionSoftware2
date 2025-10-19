@@ -4,20 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import app.adapter.in.validators.OrderValidator;
-import app.domain.model.DiagnosticAid;
+import app.adapter.in.validators.PatientValidator;
 import app.domain.model.Order;
+import app.domain.model.Patient;
 
 @Component
 public class OrderBuilder {
 	@Autowired
 	private OrderValidator orderValidator;
+	@Autowired
+	private PatientValidator patientValidator;
 	
-	public Order build(String medications, String procedure, String diagnosticAid, String patientId) throws Exception{
+	public Order build(String medications, String procedure, String diagnosticAid, String patientDocument) throws Exception{
 		Order order = new Order();
+		Patient patient= new Patient();
 		order.setDiagnosticAid(orderValidator.DiagnosticAidValidator(diagnosticAid));
 		order.setMedications(orderValidator.MedicationsValidator(medications));
 		order.setProcedure(orderValidator.ProcedureValidator(procedure));	
-		order.setPatientId(orderValidator.patientIdValidator(patientId));
+		patient.setDocument(patientValidator.documentValidator(patientDocument));
+
 		
 		return order;
 		
