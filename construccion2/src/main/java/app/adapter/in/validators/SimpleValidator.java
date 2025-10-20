@@ -1,20 +1,5 @@
 package app.adapter.in.validators;
 
-import app.domain.model.DiagnosticAid;
-import app.domain.model.Employee;
-import app.domain.model.Medications;
-import app.domain.model.Patient;
-import app.domain.model.Procedure;
-import java.sql.Date;
-import java.util.List;
-
-
-
-import app.domain.model.enums.Gender;
-import app.domain.model.enums.Role;
-import app.domain.port.EmployeePort;
-
-
 public abstract class SimpleValidator {
 	
 	

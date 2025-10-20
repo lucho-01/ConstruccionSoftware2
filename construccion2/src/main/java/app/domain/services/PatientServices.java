@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import app.domain.model.Employee;
 import app.domain.model.Patient;
-import app.domain.model.enums.Role;
 import app.domain.port.EmployeePort;
 import app.domain.port.PatientPort;
 
@@ -63,16 +62,17 @@ public class PatientServices {
 	        throw new Exception("El correo electrónico no tiene un formato válido (ej. usuario@dominio.com)");
 	    }
 	    
-	    if (patient.getDoctor() == null) {
+	    if (patient.getDoctor() == null || patient.getDoctor().getDocument() == 0) {
 	        throw new Exception("Debe asignar un doctor al paciente antes de crearlo.");
 	    }
-	  
-	    Employee doctor = employeePort.findByDocument(patient.getDoctor());;
-	    if (doctor == null || doctor.getRole().equals(Role.DOCTORS)) {
-	        throw new Exception("El paciente debe estar asignado a un doctor");
+
+	    Employee doctor = employeePort.findByDocument(patient.getDoctor());
+	    if (doctor == null) {
+	        throw new Exception("El paciente debe estar asignado a un doctor válido.");
 	    }
+
 	    patient.setDoctor(doctor);
-		patientPort.save(patient);
+	    patientPort.save(patient);
 		
 	}
 		public void updatePatient(Patient patient) throws Exception{
