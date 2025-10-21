@@ -1,8 +1,5 @@
 package app.domain.port;
 
-import java.util.List;
-
-import app.domain.model.Patient;
 import app.domain.model.MedicalRecord;
 
 public interface MedicalRecordPort {

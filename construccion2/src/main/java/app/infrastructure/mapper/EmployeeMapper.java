@@ -1,9 +1,11 @@
 package app.infrastructure.mapper;
 
+import org.springframework.stereotype.Component;
+
 import app.domain.model.Employee;
 import app.infrastructure.entities.EmployeeEntity;
-import java.time.LocalDate;
 
+@Component
 public class EmployeeMapper {
 
     public static EmployeeEntity toEntity(Employee employee) {

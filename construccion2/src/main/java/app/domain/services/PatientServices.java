@@ -62,7 +62,7 @@ public class PatientServices {
 	        throw new Exception("El correo electrónico no tiene un formato válido (ej. usuario@dominio.com)");
 	    }
 	    
-	    if (patient.getDoctor() == null || patient.getDoctor().getDocument() == 0) {
+	    if (patient.getDoctor() == null) {
 	        throw new Exception("Debe asignar un doctor al paciente antes de crearlo.");
 	    }
 

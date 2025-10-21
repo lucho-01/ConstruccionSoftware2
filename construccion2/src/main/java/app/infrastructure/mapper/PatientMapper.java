@@ -1,12 +1,15 @@
 package app.infrastructure.mapper;
 
-import app.domain.model.Patient;
-import app.infrastructure.entities.PatientEntity;
-import app.infrastructure.entities.EmployeeEntity;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Component;
+
+import app.domain.model.Patient;
+import app.infrastructure.entities.EmployeeEntity;
+import app.infrastructure.entities.PatientEntity;
+
+@Component
 public class PatientMapper {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

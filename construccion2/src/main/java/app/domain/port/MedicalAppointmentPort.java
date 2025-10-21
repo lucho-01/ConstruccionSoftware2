@@ -1,7 +1,6 @@
 package app.domain.port;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 import app.domain.model.Employee;
 import app.domain.model.MedicalAppointment;
