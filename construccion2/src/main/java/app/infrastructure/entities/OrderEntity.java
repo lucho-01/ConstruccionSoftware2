@@ -1,15 +1,6 @@
 package app.infrastructure.entities;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders")
@@ -17,7 +8,7 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private Long id; // puedes dejarlo como orderId si prefieres
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
@@ -26,16 +17,19 @@ public class OrderEntity {
     @Column(length = 255)
     private String medications;
 
-    @Column(length = 255)
-    private String procedure;
+    @Column(name = "medical_procedure", length = 255)
+    private String procedure; // ✅ evita conflicto SQL
 
     @Column(length = 255)
     private String diagnosticAid;
 
+    // 🔹 Constructor explícito
+    public OrderEntity() {}
+
     // === Getters y Setters ===
 
-    public Long getOrderId() { return orderId; }
-    public void setOrderId(Long orderId) { this.orderId = orderId; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public PatientEntity getPatient() { return patient; }
     public void setPatient(PatientEntity patient) { this.patient = patient; }

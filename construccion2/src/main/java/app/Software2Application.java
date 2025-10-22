@@ -27,7 +27,7 @@ public class Software2Application implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception{
-		doctorsClient.session();
+		administratorClient.session();
 	}
 
 }

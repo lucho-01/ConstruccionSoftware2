@@ -61,7 +61,7 @@ public class PatientServices {
 	    if (!patient.getEmail().matches(emailRegex)) {
 	        throw new Exception("El correo electrónico no tiene un formato válido (ej. usuario@dominio.com)");
 	    }
-	    
+
 	    if (patient.getDoctor() == null) {
 	        throw new Exception("Debe asignar un doctor al paciente antes de crearlo.");
 	    }
@@ -77,11 +77,12 @@ public class PatientServices {
 	}
 		public void updatePatient(Patient patient) throws Exception{
 			
-			if(patientPort.findByDocument(patient)==null) {
+			if(patientPort.findById(patient)==null) {
 				throw new Exception("El paciente no existe");
 			}
 			else {
 				patientPort.updatePatient(patient);
+				System.out.println("Paciente actualizado correctamente! ");
 			}
 			
 		}

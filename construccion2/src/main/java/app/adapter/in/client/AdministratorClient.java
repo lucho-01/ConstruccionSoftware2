@@ -51,7 +51,10 @@ public class AdministratorClient {
 				return true;
 			}
 			case "2":{
+				System.out.println("Ingrese el ID del paciente que desea actualizar:");
+			    long id = Long.parseLong(reader.nextLine());
 				Patient patient= readInfoFromPatient();
+				patient.setId(id);
 				administratorUseCase.updatePatient(patient);
 				return true;
 			}
@@ -115,6 +118,8 @@ private Patient readInfoFromPatient() throws Exception {
 	    Gender gender = Gender.valueOf(genderInput);
 	    System.out.println("ingrese el documento del doctor");
 	    String doctorDocument = reader.nextLine();
+	    
+	    
 	    
 	    return patientBuilder.build(fullName, doctorDocument, document, email, phoneNumber, address, genderInput, birthDate, weigth, size);
 	    		

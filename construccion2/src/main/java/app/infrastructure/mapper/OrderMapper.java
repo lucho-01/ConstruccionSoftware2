@@ -18,7 +18,7 @@ public class OrderMapper {
         if (order == null) return null;
 
         OrderEntity entity = new OrderEntity();
-        entity.setOrderId(order.getOrderId());
+        entity.setId(order.getOrderId());
         entity.setMedications(order.getMedications());
         entity.setProcedure(order.getProcedure());
         entity.setDiagnosticAid(order.getDiagnosticAid());
@@ -32,7 +32,7 @@ public class OrderMapper {
         if (entity == null) return null;
 
         Order order = new Order();
-        order.setOrderId(entity.getOrderId());
+        order.setOrderId(entity.getId());
         order.setMedications(entity.getMedications());
         order.setProcedure(entity.getProcedure());
         order.setDiagnosticAid(entity.getDiagnosticAid());

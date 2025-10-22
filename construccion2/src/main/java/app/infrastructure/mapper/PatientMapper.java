@@ -12,7 +12,7 @@ import app.infrastructure.entities.PatientEntity;
 @Component
 public class PatientMapper {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // 🔁 Domain → Entity
     public static PatientEntity toEntity(Patient patient) {

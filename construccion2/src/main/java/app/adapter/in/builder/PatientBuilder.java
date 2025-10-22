@@ -28,6 +28,7 @@ public class PatientBuilder {
 		patient.setWeigth(patientValidator.weigthValidator(weigth));
 		patient.setSize(patientValidator.sizeValidator(size));
 		doctor.setDocument(employeeValidator.documentValidator(doctorDocument));
+		patient.setDoctor(doctor);
 		
 		return patient;
 		
