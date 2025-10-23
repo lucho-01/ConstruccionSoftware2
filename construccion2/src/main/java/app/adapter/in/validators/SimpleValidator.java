@@ -21,6 +21,7 @@ public abstract class SimpleValidator {
 	}
 	
 	public long longValidator(String element, String value) throws Exception {
+		stringValidator(element, value);
 		try {
 			long longValue = Long.parseLong(value);
 			return longValue;

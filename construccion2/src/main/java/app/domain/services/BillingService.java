@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.domain.model.Billing;
+import app.domain.model.Patient;
 import app.domain.port.BillingPort;
+import app.domain.port.PatientPort;
 @Service
 public class BillingService {
 	@Autowired
 	private BillingPort billingPort;
+	@Autowired
+	private PatientPort patientPort;
 	
     public void createBilling(Billing billing) throws Exception {
         if (billing == null) throw new Exception("La factura no puede ser nula");
@@ -50,7 +54,10 @@ public class BillingService {
         if (endDate.before(validity)) 
             throw new Exception("La fecha de finalización debe ser posterior a la fecha de validez");
 
-        if (billingPort.findByDocument(billing) == null) 
+        Patient tempPatient = new Patient();
+        tempPatient.setDocument(billing.getPatientDocument());
+
+        if (patientPort.findByDocument(tempPatient) == null)
             throw new Exception("El paciente no existe");
 
         billingPort.save(billing);

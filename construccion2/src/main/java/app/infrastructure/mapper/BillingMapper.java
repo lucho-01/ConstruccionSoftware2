@@ -9,9 +9,8 @@ import app.infrastructure.entities.BillingEntity;
 @Component
 public class BillingMapper {
 
-	@Autowired
+
     private final EmployeeMapper employeeMapper;
-	@Autowired
     private final PatientMapper patientMapper;
 
     public BillingMapper(EmployeeMapper employeeMapper, PatientMapper patientMapper) {

@@ -22,13 +22,11 @@ public class EmployeeMapper {
         entity.setUserName(employee.getUserName());
         entity.setPassword(employee.getPassword());
 
-        // Manejo de fecha
         try {
             if (employee.getBirthdate() != null && !employee.getBirthdate().isEmpty()) {
                 entity.setBirthdate(employee.getBirthdate());
             }
         } catch (Exception e) {
-            // Manejo básico de error (puedes usar logger si lo prefieres)
             System.err.println("Error al convertir birthdate: " + e.getMessage());
         }
 

@@ -5,6 +5,6 @@ import app.domain.model.Patient;
 
 public interface BillingPort {
 	
-	public Billing findByDocument(Billing billing) throws Exception;
 	public void save(Billing billing) throws Exception;
+	public Billing findByPatientDocument(Billing billing) throws Exception;
 }
