@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.domain.model.Billing;
+import app.domain.model.Employee;
 import app.domain.model.Patient;
 import app.domain.port.BillingPort;
+import app.domain.port.EmployeePort;
 import app.domain.port.PatientPort;
 @Service
 public class BillingService {
@@ -15,6 +17,8 @@ public class BillingService {
 	private BillingPort billingPort;
 	@Autowired
 	private PatientPort patientPort;
+	@Autowired
+	private EmployeePort employeePort;
 	
     public void createBilling(Billing billing) throws Exception {
         if (billing == null) throw new Exception("La factura no puede ser nula");
@@ -56,9 +60,18 @@ public class BillingService {
 
         Patient tempPatient = new Patient();
         tempPatient.setDocument(billing.getPatientDocument());
+        
+        Patient patient = patientPort.findByDocument(tempPatient);
 
-        if (patientPort.findByDocument(tempPatient) == null)
+        if (patient == null)
             throw new Exception("El paciente no existe");
+        
+        
+        Employee doctor = employeePort.findByDocument(billing.getDoctorName());
+        if (doctor == null)
+            throw new Exception("El doc no existe");
+        billing.setDoctorName(doctor);
+        billing.setPatientName(patient);
 
         billingPort.save(billing);
     }

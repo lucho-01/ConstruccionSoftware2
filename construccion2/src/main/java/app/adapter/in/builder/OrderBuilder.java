@@ -22,6 +22,7 @@ public class OrderBuilder {
 		order.setMedications(orderValidator.MedicationsValidator(medications));
 		order.setProcedure(orderValidator.ProcedureValidator(procedure));	
 		patient.setDocument(patientValidator.documentValidator(patientDocument));
+		order.setPatient(patient);
 
 		
 		return order;

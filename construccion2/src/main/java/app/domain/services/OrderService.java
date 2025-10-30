@@ -7,6 +7,7 @@ import app.domain.model.Order;
 import app.domain.model.Patient;
 import app.domain.port.OrderPort;
 import app.domain.port.PatientPort;
+import jakarta.transaction.Transactional;
 @Service
 public class OrderService {
 	@Autowired
@@ -14,6 +15,8 @@ public class OrderService {
 	@Autowired
 	private PatientPort patientPort;
 
+	
+	@Transactional
     public void createOrder(Order order) throws Exception {
     	Patient patient= patientPort.findByDocument(order.getPatient());
         if (patient == null) {

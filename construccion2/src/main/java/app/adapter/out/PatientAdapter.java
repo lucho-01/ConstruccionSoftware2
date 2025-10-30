@@ -95,5 +95,4 @@ public class PatientAdapter implements PatientPort {
 		System.out.println("Paciente guardado correctamente: " + patientEntity.getFullName());
 		
 	}
-
 }
