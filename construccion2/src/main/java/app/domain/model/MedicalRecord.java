@@ -3,6 +3,7 @@ package app.domain.model;
 import java.sql.Date;
 
 public class MedicalRecord {
+	private long id;
 	private Employee doctor;
 	private long doctorDocument;
 	private String symptomatology;
@@ -53,5 +54,12 @@ public class MedicalRecord {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	
 }

@@ -28,7 +28,7 @@ public class MedicalRecordService {
 		
 		Employee doctor = employeePort.findByDocument(medicalRecord.getDoctor());
 		
-		if(doctor == null || doctor.getRole().equals(Role.DOCTORS)) {
+		if(doctor == null || !doctor.getRole().equals(Role.DOCTORS)) {
 			throw new Exception("La historia clinica debe ser registrada por un doctor valido");
 		}
 		

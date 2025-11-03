@@ -11,17 +11,25 @@ import app.domain.port.PatientPort;
 import app.domain.port.SearchMedicalRecordPort;
 @Service
 public class SearchMedicalRecordService {
-	@Autowired
-	private PatientPort patientPort;
-	@Autowired
-	private SearchMedicalRecordPort searchMedicalRecordPort;
+    @Autowired
+    private PatientPort patientPort;
+    @Autowired
+    private SearchMedicalRecordPort searchMedicalRecordPort;
 
-	public List<MedicalRecord> search(Patient patient) throws Exception {
-		patient = patientPort.findById(patient);
-		if (patient == null) {
-			throw new Exception("debe consultar historia clinica de un paciente registrado");
-		}
-		return searchMedicalRecordPort.findByPatient(patient);
+    public List<MedicalRecord> search(Patient patient) throws Exception {
+        Patient existingPatient = patientPort.findByDocument(patient);
 
-	}
+        if (existingPatient == null) {
+            throw new Exception("Debe consultar historia clínica de un paciente registrado");
+        }
+
+        List<MedicalRecord> records = searchMedicalRecordPort.findByPatient(existingPatient);
+
+        if (records == null || records.isEmpty()) {
+            throw new Exception("El paciente no tiene historias clínicas registradas");
+        }
+
+        return records;
+    }
 }
+

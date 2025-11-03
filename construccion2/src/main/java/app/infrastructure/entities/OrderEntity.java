@@ -8,7 +8,7 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id; // puedes dejarlo como orderId si prefieres
+    private Long id; // puedes dejarlo como orderId si prefieres
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)

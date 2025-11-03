@@ -3,6 +3,6 @@ package app.domain.port;
 import app.domain.model.RegisterVisit;
 
 public interface RegisterVisitPort {
-	
-	public void save(RegisterVisit registerVisit);
+    void save(RegisterVisit registerVisit) throws Exception;
+    RegisterVisit findByPatientDocument(long document) throws Exception;
 }

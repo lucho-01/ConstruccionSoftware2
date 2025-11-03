@@ -20,7 +20,7 @@ public class EmployeeService {
 	        throw new Exception("El número de teléfono debe tener exactamente 10 dígitos");
 	    }
 	    if (employee.getBirthdate() == null || employee.getBirthdate().trim().isEmpty()) {
-	        throw new Exception(" no puede estar vacío");
+	        throw new Exception(" la fecha no puede estar vacia");
 	    }
 
 	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

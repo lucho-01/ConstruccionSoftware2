@@ -16,6 +16,7 @@ import app.domain.services.SearchMedicalRecordService;
 public class DoctorsUseCase {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
+	@Autowired
 	private SearchMedicalRecordService searchMedicalRecordService;
 	@Autowired
 	private OrderService orderService;
