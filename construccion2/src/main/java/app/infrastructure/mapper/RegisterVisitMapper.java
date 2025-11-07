@@ -12,15 +12,6 @@ public class RegisterVisitMapper {
     @Autowired
     private PatientMapper patientMapper;
 
-    @Autowired
-    private MedicationsMapper medicationsMapper;
-
-    @Autowired
-    private ProcedureMapper procedureMapper;
-
-    @Autowired
-    private DiagnosticAidMapper diagnosticAidMapper;
-
     public RegisterVisit toDomain(RegisterVisitEntity entity) {
         if (entity == null) return null;
 
@@ -30,9 +21,9 @@ public class RegisterVisitMapper {
         registerVisit.setPulse(entity.getPulse());
         registerVisit.setOxygenLevel(entity.getOxygenLevel());
         registerVisit.setPatient(patientMapper.toDomain(entity.getPatient()));
-        registerVisit.setMedications(medicationsMapper.toDomain(entity.getMedications()));
-        registerVisit.setProcedure(procedureMapper.toDomain(entity.getProcedure()));
-        registerVisit.setDiagnosticAid(diagnosticAidMapper.toDomain(entity.getDiagnosticAid()));
+        registerVisit.setMedications(entity.getMedications());
+        registerVisit.setProcedure(entity.getProcedure());
+        registerVisit.setDiagnosticAid(entity.getDiagnosticAid());
 
         return registerVisit;
     }
@@ -46,9 +37,9 @@ public class RegisterVisitMapper {
         entity.setPulse(registerVisit.getPulse());
         entity.setOxygenLevel(registerVisit.getOxygenLevel());
         entity.setPatient(patientMapper.toEntity(registerVisit.getPatient()));
-        entity.setMedications(medicationsMapper.toEntity(registerVisit.getMedications()));
-        entity.setProcedure(procedureMapper.toEntity(registerVisit.getProcedure()));
-        entity.setDiagnosticAid(diagnosticAidMapper.toEntity(registerVisit.getDiagnosticAid()));
+        entity.setMedications(registerVisit.getMedications());
+        entity.setProcedure(registerVisit.getProcedure());
+        entity.setDiagnosticAid(registerVisit.getDiagnosticAid());
 
         return entity;
     }

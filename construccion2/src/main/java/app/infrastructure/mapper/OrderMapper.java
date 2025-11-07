@@ -7,8 +7,7 @@ import app.infrastructure.entities.OrderEntity;
 @Component
 public class OrderMapper {
 
-    // === Domain → Entity ===
-    public static OrderEntity toEntity(Order order) {
+    public OrderEntity toEntity(Order order) {
         if (order == null) return null;
 
         OrderEntity entity = new OrderEntity();
@@ -17,13 +16,11 @@ public class OrderMapper {
         entity.setProcedure(order.getProcedure());
         entity.setDiagnosticAid(order.getDiagnosticAid());
         entity.setPatient(PatientMapper.toEntity(order.getPatient()));
-        
 
         return entity;
     }
 
-    // === Entity → Domain ===
-    public static Order toDomain(OrderEntity entity) {
+    public Order toDomain(OrderEntity entity) {
         if (entity == null) return null;
 
         Order order = new Order();
@@ -36,3 +33,4 @@ public class OrderMapper {
         return order;
     }
 }
+

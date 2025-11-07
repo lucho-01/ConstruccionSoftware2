@@ -1,19 +1,8 @@
 package app.infrastructure.entities;
 
 import java.time.LocalDate;
-
 import app.domain.model.enums.Gender;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "patients")
@@ -50,21 +39,18 @@ public class PatientEntity {
     @JoinColumn(name = "doctor_id")
     private EmployeeEntity doctor;
 
-    // ✅ Spring Boot y JPA no requieren constructor manual si hay uno por defecto (implícito)
-
     // === Getters y Setters ===
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Long getDocument() { return document; }
     public void setDocument(Long document) { this.document = document; }
 
-    public Long getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; }
-
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public Long getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
@@ -87,4 +73,3 @@ public class PatientEntity {
     public EmployeeEntity getDoctor() { return doctor; }
     public void setDoctor(EmployeeEntity doctor) { this.doctor = doctor; }
 }
-

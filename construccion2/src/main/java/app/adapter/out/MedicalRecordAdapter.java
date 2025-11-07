@@ -24,7 +24,6 @@ public class MedicalRecordAdapter implements MedicalRecordPort {
         entity.setId(null);
         medicalRecordRepository.save(entity);
 
-        System.out.println(" Historia clínica guardada correctamente.");
     }
 
     @Override
@@ -38,7 +37,6 @@ public class MedicalRecordAdapter implements MedicalRecordPort {
         existing.setDate(medicalRecord.getDate().toLocalDate());
 
         medicalRecordRepository.save(existing);
-        System.out.println(" Historia clínica actualizada correctamente.");
     }
 
 }

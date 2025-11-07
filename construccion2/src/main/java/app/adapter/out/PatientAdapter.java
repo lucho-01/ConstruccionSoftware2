@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,9 +41,32 @@ public class PatientAdapter implements PatientPort {
 
 	@Override
 	public List<Patient> findByPatient(Patient patient) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	    if (patient.getDocument() == 0) {
+	        throw new Exception("Debe ingresar el documento del paciente");
+	    }
+
+	    PatientEntity entity = patientRepository.findByDocument(patient.getDocument());
+
+	    if (entity == null) {
+	        throw new Exception("No se encontró ningún paciente con documento: " + patient.getDocument());
+	    }
+
+	    Patient p = new Patient();
+	    p.setId(entity.getId());
+	    p.setDocument(entity.getDocument());
+	    p.setFullName(entity.getFullName());
+	    p.setEmail(entity.getEmail());
+	    p.setPhoneNumber(entity.getPhoneNumber());
+	    p.setAddress(entity.getAddress());
+	    p.setGender(entity.getGender());
+	    p.setWeigth(entity.getWeight());
+	    p.setSize(entity.getSize());
+
+	    return List.of(p);
 	}
+
+
+
 
 	@Override
 	public Patient updatePatient(Patient patient) throws Exception {
