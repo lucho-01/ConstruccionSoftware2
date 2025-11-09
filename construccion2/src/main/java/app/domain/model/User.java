@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import app.domain.model.enums.Role;
+
 public class User {
 
 	private long id;
@@ -11,6 +13,7 @@ public class User {
 	private String address;
 	private String userName;
 	private String password;
+	private Role role;	
 	
 	
 	public long getId() {
@@ -66,5 +69,11 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

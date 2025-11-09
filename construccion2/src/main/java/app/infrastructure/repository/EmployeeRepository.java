@@ -10,7 +10,7 @@ import app.infrastructure.entities.EmployeeEntity;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long>{
 
 	EmployeeEntity findByDocument(String document);
-
+	EmployeeEntity findByUserName(String userName);
 	EmployeeEntity findByFullName(String fullName);
 	
 

@@ -79,4 +79,10 @@ public class EmployeeAdapter implements EmployeePort {
 		System.out.println("Empleado guardado correctamente: " + employeeEntity.getFullName());
 	}
 
+	@Override
+	public Employee findByUserName(Employee employee) throws Exception {
+		EmployeeEntity employeeEntity = employeeRepository.findByUserName(employee.getUserName());
+		return EmployeeMapper.toDomain(employeeEntity);
+	}
+
 }
