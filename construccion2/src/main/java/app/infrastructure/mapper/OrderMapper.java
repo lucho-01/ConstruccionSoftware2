@@ -9,14 +9,13 @@ public class OrderMapper {
 
     public OrderEntity toEntity(Order order) {
         if (order == null) return null;
-
         OrderEntity entity = new OrderEntity();
-        entity.setId(order.getOrderId());
+        if (order.getOrderId() > 0) {
+            entity.setId(order.getOrderId());
+        }
         entity.setMedications(order.getMedications());
         entity.setProcedure(order.getProcedure());
         entity.setDiagnosticAid(order.getDiagnosticAid());
-        entity.setPatient(PatientMapper.toEntity(order.getPatient()));
-
         return entity;
     }
 
@@ -33,4 +32,5 @@ public class OrderMapper {
         return order;
     }
 }
+
 
