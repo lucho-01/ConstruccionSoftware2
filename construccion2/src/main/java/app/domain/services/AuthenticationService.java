@@ -38,6 +38,9 @@ public class AuthenticationService {
     }
 
     private void validatePassword(String inputPassword, String storedPassword) throws Exception {
+        if(inputPassword == null || inputPassword.isEmpty()) {
+            throw new BusinessException("La contraseña no puede estar vacía");
+        }
         if (!inputPassword.equals(storedPassword)) {
             throw new BusinessException("Contraseña incorrecta");
         }
