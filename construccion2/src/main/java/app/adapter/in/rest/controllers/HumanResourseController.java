@@ -7,13 +7,13 @@ import app.application.usercases.HumanResourseUseCase;
 import app.domain.model.Employee;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/humanResource")
 public class HumanResourseController {
 
     @Autowired
     private HumanResourseUseCase humanResourseUseCase;
 
-    @PostMapping
+    @PostMapping("employees")
     public String createEmployee(@RequestBody Employee employee) {
         try {
             humanResourseUseCase.createEmployee(employee);

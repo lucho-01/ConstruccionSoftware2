@@ -53,9 +53,7 @@ public class EmployeeService {
 		if(employeePort.findByDocument(employee)!=null) {
 			throw new Exception("Ya existe un empleado con esa cedula");		
 		}		
-		if(employeePort.findByEmployeeName(employee)!=null) {
-			throw new Exception("Ya existe un empleado con ese nombre de usuario");
-		}
+
 		employeePort.save(employee);
 		
 	}
