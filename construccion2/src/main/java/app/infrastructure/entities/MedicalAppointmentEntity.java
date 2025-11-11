@@ -13,12 +13,12 @@ public class MedicalAppointmentEntity {
     private Long appointmentId;
 
     // Relación con el médico (Employee)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private EmployeeEntity doctor;
 
     // Relación con el paciente
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientEntity patient;
 

@@ -1,4 +1,4 @@
-package app.adapter.in.builder;
+/*package app.adapter.in.builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,3 +34,4 @@ public class PatientBuilder {
 		
 	}
 }
+*/

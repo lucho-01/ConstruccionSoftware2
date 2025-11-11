@@ -1,10 +1,6 @@
 package app.adapter.in.validators;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
-
-import app.domain.model.DiagnosticAid;
 
 @Component
 public class OrderValidator extends SimpleValidator{
