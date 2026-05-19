@@ -20,26 +20,81 @@ public class DoctorsController {
     private DoctorsUseCase doctorsUseCase;
 
     @PostMapping("/orders")
-    public ResponseEntity<String> createOrder(@RequestBody Order order) {
+    public ResponseEntity<?> createOrder(@RequestBody Order order) {
         try {
-            doctorsUseCase.createOrder(order);
+            Order createdOrder = doctorsUseCase.createOrder(order);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(" Orden médica creada exitosamente");
+                    .body(createdOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(" Error al crear la orden médica: " + e.getMessage());
         }
     }
 
-    @PostMapping("/medical-records")
-    public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+    @GetMapping("/orders")
+    public ResponseEntity<?> getAllOrders() {
         try {
-            doctorsUseCase.createMedicalRecord(medicalRecord);
+            return ResponseEntity.ok(doctorsUseCase.getAllOrders());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al obtener órdenes médicas: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/orders/patient/{patientDocument}")
+    public ResponseEntity<?> getOrdersByPatient(@PathVariable long patientDocument) {
+        try {
+            return ResponseEntity.ok(doctorsUseCase.searchOrdersByPatient(patientDocument));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al buscar órdenes médicas: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/orders/{id}")
+    public ResponseEntity<String> updateOrder(@PathVariable long id, @RequestBody Order order) {
+        try {
+            order.setOrderId(id);
+            doctorsUseCase.updateOrder(order);
+            return ResponseEntity.ok("Orden médica actualizada exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al actualizar la orden médica: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<String> deleteOrder(@PathVariable long id) {
+        try {
+            Order order = new Order();
+            order.setOrderId(id);
+            doctorsUseCase.deleteOrder(order);
+            return ResponseEntity.ok("Orden médica eliminada exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al eliminar la orden médica: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/medical-records")
+    public ResponseEntity<?> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+        try {
+            MedicalRecord createdRecord = doctorsUseCase.createMedicalRecord(medicalRecord);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(" Registro médico creado exitosamente");
+                    .body(createdRecord);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(" Error al crear el registro médico: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/medical-records")
+    public ResponseEntity<?> getAllMedicalRecords() {
+        try {
+            return ResponseEntity.ok(doctorsUseCase.getAllMedicalRecords());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al obtener registros médicos: " + e.getMessage());
         }
     }
 
@@ -54,6 +109,19 @@ public class DoctorsController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error al actualizar el registro médico: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/medical-records/{id}")
+    public ResponseEntity<String> deleteMedicalRecord(@PathVariable Long id) {
+        try {
+            MedicalRecord medicalRecord = new MedicalRecord();
+            medicalRecord.setId(id);
+            doctorsUseCase.deleteMedicalRecord(medicalRecord);
+            return ResponseEntity.ok("Registro médico eliminado exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al eliminar el registro médico: " + e.getMessage());
         }
     }
 

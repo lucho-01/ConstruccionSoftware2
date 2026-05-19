@@ -13,6 +13,7 @@ public class EmergencyContactMapper {
         if (contact == null) return null;
 
         EmergencyContactEntity entity = new EmergencyContactEntity();
+        entity.setId(contact.getId());
         entity.setName(contact.getName());
         entity.setLastName(contact.getLastName());
         entity.setPhoneNumber(contact.getPhoneNumber());
@@ -25,6 +26,7 @@ public class EmergencyContactMapper {
         if (entity == null) return null;
 
         EmergencyContact contact = new EmergencyContact();
+        contact.setId(entity.getId());
         contact.setName(entity.getName());
         contact.setLastName(entity.getLastName());
         contact.setPhoneNumber(entity.getPhoneNumber());

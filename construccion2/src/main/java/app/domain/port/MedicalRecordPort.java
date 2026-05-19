@@ -4,7 +4,10 @@ import app.domain.model.MedicalRecord;
 
 public interface MedicalRecordPort {
 	
-	public void save(MedicalRecord medicalRecord) throws Exception;
+	public MedicalRecord save(MedicalRecord medicalRecord) throws Exception;
+	public MedicalRecord findById(MedicalRecord medicalRecord) throws Exception;
+	public java.util.List<MedicalRecord> findAll() throws Exception;
 	public void update(MedicalRecord medicalRecord) throws Exception;
+	public void deleteById(MedicalRecord medicalRecord) throws Exception;
 
 }

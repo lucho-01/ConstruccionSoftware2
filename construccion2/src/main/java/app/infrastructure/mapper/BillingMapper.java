@@ -23,6 +23,7 @@ public class BillingMapper {
         if (billing == null) return null;
 
         BillingEntity entity = new BillingEntity();
+        entity.setId(billing.getId() > 0 ? billing.getId() : null);
         entity.setPatientDocument(billing.getPatientDocument());
         entity.setPolicyNumber(billing.getPolicyNumber());
         entity.setPatientAge(billing.getPatientAge());
@@ -46,6 +47,7 @@ public class BillingMapper {
         if (entity == null) return null;
 
         Billing billing = new Billing();
+        billing.setId(entity.getId() != null ? entity.getId() : 0);
         billing.setPatientDocument(entity.getPatientDocument());
         billing.setPolicyNumber(entity.getPolicyNumber());
         billing.setPatientAge(entity.getPatientAge());

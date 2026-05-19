@@ -16,6 +16,7 @@ public class RegisterVisitMapper {
         if (entity == null) return null;
 
         RegisterVisit registerVisit = new RegisterVisit();
+        registerVisit.setId(entity.getId());
         registerVisit.setBloodPressure(entity.getBloodPressure());
         registerVisit.setTemperature(entity.getTemperature());
         registerVisit.setPulse(entity.getPulse());
@@ -32,6 +33,7 @@ public class RegisterVisitMapper {
         if (registerVisit == null) return null;
 
         RegisterVisitEntity entity = new RegisterVisitEntity();
+        entity.setId(registerVisit.getId());
         entity.setBloodPressure(registerVisit.getBloodPressure());
         entity.setTemperature(registerVisit.getTemperature());
         entity.setPulse(registerVisit.getPulse());

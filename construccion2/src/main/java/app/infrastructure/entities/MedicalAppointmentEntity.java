@@ -1,6 +1,6 @@
 package app.infrastructure.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
@@ -22,9 +22,9 @@ public class MedicalAppointmentEntity {
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientEntity patient;
 
-    // Fecha de la cita
+    // Fecha y hora de la cita
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     // ====== Getters y Setters ======
 
@@ -52,11 +52,11 @@ public class MedicalAppointmentEntity {
         this.patient = patient;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

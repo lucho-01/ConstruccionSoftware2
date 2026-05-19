@@ -1,6 +1,7 @@
 package app.domain.model;
 
 public class RegisterVisit {
+    private Long id;
     private Patient patient;
     private double bloodPressure;
     private double temperature;
@@ -9,6 +10,9 @@ public class RegisterVisit {
     private String medications;
     private String procedure;
     private String diagnosticAid;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public double getBloodPressure() { return bloodPressure; }
     public void setBloodPressure(double bloodPressure) { this.bloodPressure = bloodPressure; }

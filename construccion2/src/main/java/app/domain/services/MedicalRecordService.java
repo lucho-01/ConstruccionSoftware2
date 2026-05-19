@@ -20,7 +20,7 @@ public class MedicalRecordService {
 	@Autowired
 	private PatientPort patientPort;
 	
-	public void create(MedicalRecord medicalRecord) throws Exception{
+	public MedicalRecord create(MedicalRecord medicalRecord) throws Exception{
 		Patient patient = patientPort.findByDocument(medicalRecord.getPatient());
 		if(patient == null) {
 			throw new Exception("La historia clinica debe tener un paciente valido");
@@ -34,15 +34,25 @@ public class MedicalRecordService {
 		
 		medicalRecord.setPatient(patient);
 		medicalRecord.setDoctor(doctor);
-		medicalRecordPort.save(medicalRecord);
+		return medicalRecordPort.save(medicalRecord);
 	}
 	
 	public void update(MedicalRecord medicalRecord) throws Exception{
-		Patient patient = patientPort.findByDocument(medicalRecord.getPatient());
-		if(patient == null) {
-			throw new Exception("La historia clinica debe tener un paciente valido");					
+		if (medicalRecord.getId() <= 0 || medicalRecordPort.findById(medicalRecord) == null) {
+			throw new Exception("La historia clínica no existe");
 		}
 		medicalRecordPort.update(medicalRecord);
+	}
+
+	public java.util.List<MedicalRecord> getAll() throws Exception {
+		return medicalRecordPort.findAll();
+	}
+
+	public void delete(MedicalRecord medicalRecord) throws Exception {
+		if (medicalRecord.getId() <= 0 || medicalRecordPort.findById(medicalRecord) == null) {
+			throw new Exception("La historia clínica no existe");
+		}
+		medicalRecordPort.deleteById(medicalRecord);
 	}
 	
 }

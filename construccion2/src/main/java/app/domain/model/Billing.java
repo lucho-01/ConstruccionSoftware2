@@ -3,6 +3,7 @@ package app.domain.model;
 import java.sql.Date;
 
 public class Billing {
+	private long id;
 	private long patientDocument;
 	private long policyNumber;
 	private int patientAge;
@@ -11,6 +12,14 @@ public class Billing {
 	private String  insuranceCompanyName;
 	private Date policyValidity;
 	private Date policyEndDate;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
     public Employee getDoctorName() {
         return doctorName;

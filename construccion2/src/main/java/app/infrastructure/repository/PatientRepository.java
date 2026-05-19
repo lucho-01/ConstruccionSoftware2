@@ -11,4 +11,6 @@ import app.infrastructure.entities.PatientEntity;
 public interface PatientRepository extends JpaRepository<PatientEntity, Long>{
 	PatientEntity findByDocument(Long document);
 	List<PatientEntity> findAllByDocument(Long document);
+	PatientEntity findByUsername(String username);
+	PatientEntity findByEmail(String email);
 }

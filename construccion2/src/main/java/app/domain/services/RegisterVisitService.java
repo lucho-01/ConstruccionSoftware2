@@ -15,12 +15,44 @@ public class RegisterVisitService {
 	private PatientPort patientPort;
 
     public void registerVisit(RegisterVisit registerVisit) throws Exception {
-        // 🔹 Validar que la visita esté asociada a un paciente válido
-        Patient patient = patientPort.findByDocument(registerVisit.getPatient());
-        if (patient == null) {
+        validateVisit(registerVisit, true);
+        registerVisitPort.save(registerVisit);
+    }
+
+    public java.util.List<RegisterVisit> getAllVisits() throws Exception {
+        return registerVisitPort.findAll();
+    }
+
+    public RegisterVisit findByPatientDocument(long document) throws Exception {
+        return registerVisitPort.findByPatientDocument(document);
+    }
+
+    public void updateVisit(RegisterVisit registerVisit) throws Exception {
+        if (registerVisit.getId() == null || registerVisitPort.findById(registerVisit) == null) {
+            throw new Exception("La visita no existe.");
+        }
+        validateVisit(registerVisit, false);
+        registerVisitPort.update(registerVisit);
+    }
+
+    public void deleteVisit(RegisterVisit registerVisit) throws Exception {
+        if (registerVisit.getId() == null || registerVisitPort.findById(registerVisit) == null) {
+            throw new Exception("La visita no existe.");
+        }
+        registerVisitPort.deleteById(registerVisit);
+    }
+
+    private void validateVisit(RegisterVisit registerVisit, boolean requirePatient) throws Exception {
+        Patient patient = null;
+        if (registerVisit.getPatient() != null) {
+            patient = patientPort.findByDocument(registerVisit.getPatient());
+        }
+        if (requirePatient && patient == null) {
             throw new Exception("Debe asociar la visita a un paciente registrado.");
         }
-        registerVisit.setPatient(patient);
+        if (patient != null) {
+            registerVisit.setPatient(patient);
+        }
 
         // 🔹 Validar presión arterial (en mmHg)
         if (registerVisit.getBloodPressure() == 0 || registerVisit.getBloodPressure() < 50 || registerVisit.getBloodPressure() > 250) {
@@ -42,7 +74,5 @@ public class RegisterVisitService {
             throw new Exception("Debe registrar un nivel de oxígeno válido (entre 70% y 100%).");
         }
 
-        // ✅ Si todo está correcto, guardar la visita
-        registerVisitPort.save(registerVisit);
     }
 }

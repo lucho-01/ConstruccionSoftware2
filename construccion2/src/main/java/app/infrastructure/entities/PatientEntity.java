@@ -35,9 +35,25 @@ public class PatientEntity {
 
     private double size;
 
+    @Column(unique = true)
+    private Long policyNumber;
+
+    @Column(length = 100)
+    private String insuranceCompanyName;
+
+    private LocalDate policyValidity;
+
+    private LocalDate policyEndDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private EmployeeEntity doctor;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     // === Getters y Setters ===
     public Long getId() { return id; }
@@ -70,6 +86,24 @@ public class PatientEntity {
     public double getSize() { return size; }
     public void setSize(double size) { this.size = size; }
 
+    public Long getPolicyNumber() { return policyNumber; }
+    public void setPolicyNumber(Long policyNumber) { this.policyNumber = policyNumber; }
+
+    public String getInsuranceCompanyName() { return insuranceCompanyName; }
+    public void setInsuranceCompanyName(String insuranceCompanyName) { this.insuranceCompanyName = insuranceCompanyName; }
+
+    public LocalDate getPolicyValidity() { return policyValidity; }
+    public void setPolicyValidity(LocalDate policyValidity) { this.policyValidity = policyValidity; }
+
+    public LocalDate getPolicyEndDate() { return policyEndDate; }
+    public void setPolicyEndDate(LocalDate policyEndDate) { this.policyEndDate = policyEndDate; }
+
     public EmployeeEntity getDoctor() { return doctor; }
     public void setDoctor(EmployeeEntity doctor) { this.doctor = doctor; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

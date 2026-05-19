@@ -1,15 +1,12 @@
 package app.domain.model;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-
-import app.domain.model.enums.Role;
 
 public class MedicalAppointment {
 	private long AppointmentId;
 	private Employee Doctor;
 	private Patient patient;
-	private Date date;
+	private LocalDateTime date;
 	
 	public Employee getDoctor() {
 		return Doctor;
@@ -29,13 +26,13 @@ public class MedicalAppointment {
 	public void setAppointmentId(long appointmentId) {
 		AppointmentId = appointmentId;
 	}
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public Date getDateTime() {
+	public LocalDateTime getDateTime() {
 		return date;
 	}
 	

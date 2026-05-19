@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import app.domain.model.MedicalAppointment;
+import app.infrastructure.entities.EmployeeEntity;
 import app.infrastructure.entities.MedicalAppointmentEntity;
+import app.infrastructure.entities.PatientEntity;
 
 @Component
 public class MedicalAppointmentMapper {
@@ -26,11 +28,21 @@ public class MedicalAppointmentMapper {
 
         MedicalAppointmentEntity entity = new MedicalAppointmentEntity();
         entity.setAppointmentId(appointment.getAppointmentId());
-        entity.setDoctor(employeeMapper.toEntity(appointment.getDoctor()));
-        entity.setPatient(patientMapper.toEntity(appointment.getPatient()));
+
+        if (appointment.getDoctor() != null) {
+            EmployeeEntity doctor = new EmployeeEntity();
+            doctor.setId(appointment.getDoctor().getId());
+            entity.setDoctor(doctor);
+        }
+
+        if (appointment.getPatient() != null) {
+            PatientEntity patient = new PatientEntity();
+            patient.setId(appointment.getPatient().getId());
+            entity.setPatient(patient);
+        }
 
         if (appointment.getDate() != null)
-            entity.setDate(appointment.getDate().toLocalDate());
+            entity.setDate(appointment.getDate());
 
         return entity;
     }
@@ -45,7 +57,7 @@ public class MedicalAppointmentMapper {
         appointment.setPatient(patientMapper.toDomain(entity.getPatient()));
 
         if (entity.getDate() != null)
-            appointment.setDate(java.sql.Date.valueOf(entity.getDate()));
+            appointment.setDate(entity.getDate());
 
         return appointment;
     }

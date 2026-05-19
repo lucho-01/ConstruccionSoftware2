@@ -21,22 +21,46 @@ public class DoctorsUseCase {
 	@Autowired
 	private OrderService orderService;
 	
-	public void createMedicalRecord(MedicalRecord medicalRecord) throws Exception {
+	public MedicalRecord createMedicalRecord(MedicalRecord medicalRecord) throws Exception {
 		
-		medicalRecordService.create(medicalRecord);		
+		return medicalRecordService.create(medicalRecord);		
 	}
 	
     public void updateMedicalRecord(MedicalRecord medicalRecord) throws Exception {
     	
         medicalRecordService.update(medicalRecord);
     }
+
+	public List<MedicalRecord> getAllMedicalRecords() throws Exception {
+		return medicalRecordService.getAll();
+	}
+
+	public void deleteMedicalRecord(MedicalRecord medicalRecord) throws Exception {
+		medicalRecordService.delete(medicalRecord);
+	}
     
 	public List<MedicalRecord> searchMedicalRecord(Patient patient) throws Exception{
 		return searchMedicalRecordService.search(patient);
 	}
 	
-	public void createOrder(Order order) throws Exception {
+	public Order createOrder(Order order) throws Exception {
 		
-		orderService.createOrder(order);		
+		return orderService.createOrder(order);		
+	}
+
+	public List<Order> getAllOrders() throws Exception {
+		return orderService.getAllOrders();
+	}
+
+	public List<Order> searchOrdersByPatient(long patientDocument) throws Exception {
+		return orderService.findByPatientDocument(patientDocument);
+	}
+
+	public void updateOrder(Order order) throws Exception {
+		orderService.updateOrder(order);
+	}
+
+	public void deleteOrder(Order order) throws Exception {
+		orderService.deleteOrder(order);
 	}
 }

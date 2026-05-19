@@ -25,6 +25,9 @@ public class MedicalRecordMapper {
         if (record == null) return null;
 
         MedicalRecordEntity entity = new MedicalRecordEntity();
+        if (record.getId() > 0) {
+            entity.setId(record.getId());
+        }
         entity.setDoctorDocument(record.getDoctorDocument());
         entity.setSymptomatology(record.getSymptomatology());
         entity.setReasonConsultation(record.getReasonConsultation());
@@ -44,6 +47,7 @@ public class MedicalRecordMapper {
         if (entity == null) return null;
 
         MedicalRecord record = new MedicalRecord();
+        record.setId(entity.getId());
         record.setDoctorDocument(entity.getDoctorDocument());
         record.setSymptomatology(entity.getSymptomatology());
         record.setReasonConsultation(entity.getReasonConsultation());

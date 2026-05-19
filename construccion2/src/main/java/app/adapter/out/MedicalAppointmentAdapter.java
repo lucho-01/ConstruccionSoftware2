@@ -1,7 +1,8 @@
 package app.adapter.out;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,24 +37,24 @@ public class MedicalAppointmentAdapter implements MedicalAppointmentPort {
     }
 
     @Override
-    public boolean isDoctorAvailable(Employee doctor, Date date) throws Exception {
+    public boolean isDoctorAvailable(Employee doctor, LocalDateTime date) throws Exception {
         Long doctorId = doctor.getId();
-        if (doctorId == null) {
+        if (doctorId <= 0) {
             throw new Exception("El doctor no tiene un ID asignado.");
         }
 
-        boolean exists = appointmentRepository.existsByDoctorIdAndDate(doctorId, date.toLocalDate());
+        boolean exists = appointmentRepository.existsByDoctorIdAndDate(doctorId, date);
         return !exists;
     }
 
     @Override
-    public boolean isPatientAvailable(Patient patient, Date date) throws Exception {
+    public boolean isPatientAvailable(Patient patient, LocalDateTime date) throws Exception {
         Long patientId = patient.getId();
-        if (patientId == null) {
+        if (patientId <= 0) {
             throw new Exception("El paciente no tiene un ID asignado.");
         }
 
-        boolean exists = appointmentRepository.existsByPatientIdAndDate(patientId, date.toLocalDate());
+        boolean exists = appointmentRepository.existsByPatientIdAndDate(patientId, date);
         return !exists;
     }
 
@@ -63,5 +64,25 @@ public class MedicalAppointmentAdapter implements MedicalAppointmentPort {
         entity.setAppointmentId(null); 
         appointmentRepository.save(entity);
         System.out.println("Cita médica guardada correctamente para el doctor " + appointment.getDoctor().getFullName() + " y el paciente " + appointment.getPatient().getFullName());
+    }
+
+    @Override
+    public java.util.List<MedicalAppointment> findAll() throws Exception {
+        return appointmentRepository.findAll().stream()
+            .map(appointmentMapper::toDomain)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public void update(MedicalAppointment appointment) throws Exception {
+        MedicalAppointmentEntity entity = appointmentMapper.toEntity(appointment);
+        appointmentRepository.save(entity);
+        System.out.println("Cita médica actualizada correctamente");
+    }
+
+    @Override
+    public void deleteById(MedicalAppointment appointment) throws Exception {
+        appointmentRepository.deleteById(appointment.getAppointmentId());
+        System.out.println("Cita médica eliminada correctamente");
     }
 }

@@ -1,8 +1,9 @@
 package app.adapter.out;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -77,6 +78,13 @@ public class EmployeeAdapter implements EmployeePort {
 		
 		employeeRepository.save(employeeEntity);
 		System.out.println("Empleado guardado correctamente: " + employeeEntity.getFullName());
+	}
+
+	@Override
+	public java.util.List<Employee> findAll() throws Exception {
+		return employeeRepository.findAll().stream()
+			.map(EmployeeMapper::toDomain)
+			.collect(Collectors.toList());
 	}
 
 	@Override

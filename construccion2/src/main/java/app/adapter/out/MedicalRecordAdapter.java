@@ -2,6 +2,7 @@ package app.adapter.out;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 import app.domain.model.MedicalRecord;
 import app.domain.port.MedicalRecordPort;
@@ -19,11 +20,24 @@ public class MedicalRecordAdapter implements MedicalRecordPort {
     private MedicalRecordMapper medicalRecordMapper;
 
     @Override
-    public void save(MedicalRecord medicalRecord) throws Exception {
+    public MedicalRecord save(MedicalRecord medicalRecord) throws Exception {
         MedicalRecordEntity entity = medicalRecordMapper.toEntity(medicalRecord);
         entity.setId(null);
-        medicalRecordRepository.save(entity);
+        return medicalRecordMapper.toDomain(medicalRecordRepository.save(entity));
+    }
 
+    @Override
+    public MedicalRecord findById(MedicalRecord medicalRecord) throws Exception {
+        return medicalRecordRepository.findById(medicalRecord.getId())
+                .map(medicalRecordMapper::toDomain)
+                .orElse(null);
+    }
+
+    @Override
+    public java.util.List<MedicalRecord> findAll() throws Exception {
+        return medicalRecordRepository.findAll().stream()
+                .map(medicalRecordMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -39,4 +53,10 @@ public class MedicalRecordAdapter implements MedicalRecordPort {
         medicalRecordRepository.save(existing);
     }
 
+    @Override
+    public void deleteById(MedicalRecord medicalRecord) throws Exception {
+        MedicalRecordEntity existing = medicalRecordRepository.findById(medicalRecord.getId())
+                .orElseThrow(() -> new Exception("No se encontró la historia clínica para eliminar."));
+        medicalRecordRepository.delete(existing);
+    }
 }

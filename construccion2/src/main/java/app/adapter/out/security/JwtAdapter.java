@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtAdapter implements AuthenticationPort {
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME = 3 * 60 * 1000;
+    private static final long EXPIRATION_TIME = 30 * 60 * 1000; // 30 minutos
 
     @Override
     public TokenResponse authenticate(AuthCredentials credentials, String role) {

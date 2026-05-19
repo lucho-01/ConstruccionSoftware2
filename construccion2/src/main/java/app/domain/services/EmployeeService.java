@@ -57,6 +57,15 @@ public class EmployeeService {
 		employeePort.save(employee);
 		
 	}
+
+	public java.util.List<Employee> getAllEmployees() throws Exception {
+		return employeePort.findAll();
+	}
+
+	public Employee findByDocument(Employee employee) throws Exception {
+		return employeePort.findByDocument(employee);
+	}
+
 	public void deleteEmployee(Employee employee) throws Exception {
 		Employee existing = employeePort.findById(employee);
 

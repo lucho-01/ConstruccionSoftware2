@@ -21,7 +21,11 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/admin/**").hasRole("ADMINISTRATOR")
+                .requestMatchers("/api/administrator/**").hasRole("ADMINISTRATOR")
+                .requestMatchers("/api/doctors/**").hasRole("DOCTORS")
+                .requestMatchers("/api/nurses/**").hasRole("NURSES")
+                .requestMatchers("/api/patient/**").hasRole("PATIENT")
                 .anyRequest().authenticated()
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -25,6 +25,8 @@ public class PatientMapper {
         entity.setFullName(patient.getFullName());
         entity.setAddress(patient.getAddress());
         entity.setEmail(patient.getEmail());
+        entity.setUsername(patient.getUserName());
+        entity.setPassword(patient.getPassword());
 
         if (patient.getBirthdate() != null && !patient.getBirthdate().isEmpty()) {
             entity.setBirthdate(LocalDate.parse(patient.getBirthdate(), FORMATTER));
@@ -33,10 +35,20 @@ public class PatientMapper {
         entity.setGender(patient.getGender());
         entity.setWeight(patient.getWeigth());
         entity.setSize(patient.getSize());
+        entity.setPolicyNumber(patient.getPolicyNumber());
+        entity.setInsuranceCompanyName(patient.getInsuranceCompanyName());
 
-        if (patient.getDoctor() != null) {
+        if (patient.getPolicyValidity() != null && !patient.getPolicyValidity().isEmpty()) {
+            entity.setPolicyValidity(LocalDate.parse(patient.getPolicyValidity()));
+        }
+
+        if (patient.getPolicyEndDate() != null && !patient.getPolicyEndDate().isEmpty()) {
+            entity.setPolicyEndDate(LocalDate.parse(patient.getPolicyEndDate()));
+        }
+
+        if (patient.getDoctorDocument() != null) {
             EmployeeEntity doctorEntity = new EmployeeEntity();
-            doctorEntity.setId(patient.getDoctor().getId());
+            doctorEntity.setId(patient.getDoctorDocument().getId());
             entity.setDoctor(doctorEntity);
         }
 
@@ -54,6 +66,8 @@ public class PatientMapper {
         patient.setFullName(entity.getFullName());
         patient.setAddress(entity.getAddress());
         patient.setEmail(entity.getEmail());
+        patient.setUserName(entity.getUsername());
+        patient.setPassword(entity.getPassword());
 
         if (entity.getBirthdate() != null) {
             patient.setBirthdate(entity.getBirthdate().format(FORMATTER));
@@ -62,11 +76,29 @@ public class PatientMapper {
         patient.setGender(entity.getGender());
         patient.setWeigth(entity.getWeight());
         patient.setSize(entity.getSize());
+        if (entity.getPolicyNumber() != null) {
+            patient.setPolicyNumber(entity.getPolicyNumber());
+        }
+        patient.setInsuranceCompanyName(entity.getInsuranceCompanyName());
+        if (entity.getPolicyValidity() != null) {
+            patient.setPolicyValidity(entity.getPolicyValidity().toString());
+        }
+        if (entity.getPolicyEndDate() != null) {
+            patient.setPolicyEndDate(entity.getPolicyEndDate().toString());
+        }
 
         if (entity.getDoctor() != null) {
             app.domain.model.Employee doctor = new app.domain.model.Employee();
             doctor.setId(entity.getDoctor().getId());
-            patient.setDoctor(doctor);
+            if (entity.getDoctor().getDocument() != null) {
+                try {
+                    doctor.setDocument(Long.parseLong(entity.getDoctor().getDocument()));
+                } catch (NumberFormatException e) {
+                    doctor.setDocument(0);
+                }
+            }
+            doctor.setFullName(entity.getDoctor().getFullName());
+            patient.setDoctorDocument(doctor);
         }
 
         return patient;
