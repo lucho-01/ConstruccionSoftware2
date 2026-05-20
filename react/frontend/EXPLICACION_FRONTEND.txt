@@ -1,0 +1,739 @@
+EXPLICACION DEL FRONTEND - CLINICOSTA
+
+Este archivo explica como funciona el frontend del sistema CliniCosta, como se conecta con el backend y que hace cada pantalla por rol.
+
+
+1. TECNOLOGIA USADA
+
+El frontend esta desarrollado con:
+
+- React:
+  Libreria principal para construir la interfaz.
+
+- Vite:
+  Herramienta para levantar el servidor de desarrollo y compilar el proyecto.
+
+- React Router:
+  Maneja rutas como /login, /register, /admin, /doctor, /nurse y /patient.
+
+- Axios:
+  Se usa para llamar al backend Spring Boot.
+
+
+2. ESTRUCTURA GENERAL
+
+Carpetas y archivos principales:
+
+- frontend/package.json:
+  Define dependencias y scripts.
+
+- frontend/vite.config.js:
+  Configura Vite y el proxy hacia Spring Boot.
+
+- frontend/src/main.jsx:
+  Punto de entrada de React. Renderiza App.jsx.
+
+- frontend/src/App.jsx:
+  Maneja autenticacion, rutas, redireccion por rol y logout.
+
+- frontend/src/services/api.js:
+  Centraliza todas las llamadas HTTP al backend.
+
+- frontend/src/components/Sidebar.jsx:
+  Menu lateral reutilizable para dashboards.
+
+- frontend/src/components/ProtectedRoute.jsx:
+  Protege rutas segun autenticacion y rol.
+
+- frontend/src/components/ConfirmDialog.jsx:
+  Modal reutilizable para confirmar eliminaciones.
+
+- frontend/src/pages/Login.jsx:
+  Pantalla de inicio de sesion.
+
+- frontend/src/pages/Register.jsx:
+  Registro publico de paciente.
+
+- frontend/src/pages/AdminDashboard.jsx:
+  Panel del administrador.
+
+- frontend/src/pages/DoctorDashboard.jsx:
+  Panel del doctor.
+
+- frontend/src/pages/NurseDashboard.jsx:
+  Panel de enfermeria.
+
+- frontend/src/pages/PatientDashboard.jsx:
+  Panel del paciente.
+
+- frontend/src/pages/UserDashboard.jsx:
+  Panel para Recursos Humanos y Soporte de Informacion.
+
+- frontend/src/pages/AdminDashboard.css:
+  Estilos compartidos por los dashboards.
+
+- frontend/src/pages/Login.css:
+  Estilos del login.
+
+- frontend/src/pages/Register.css:
+  Estilos del registro publico del paciente.
+
+
+3. COMANDOS IMPORTANTES
+
+Desde frontend:
+
+npm run dev
+Levanta el frontend en desarrollo.
+
+npm run build
+Compila el frontend para produccion.
+
+npm run lint
+Ejecuta reglas de revision del codigo.
+
+
+4. CONEXION CON EL BACKEND
+
+React llama al backend usando rutas que empiezan por /api.
+
+En services/api.js:
+
+baseURL: /api
+
+Eso significa que una llamada como:
+
+GET /patient/profile
+
+se convierte en:
+
+GET /api/patient/profile
+
+En vite.config.js existe un proxy:
+
+/api -> http://localhost:8080
+
+Por eso, durante desarrollo:
+
+- React corre normalmente en http://localhost:5173.
+- Spring Boot corre en http://localhost:8080.
+- React llama /api/...
+- Vite reenvia la peticion a Spring Boot.
+
+
+5. AUTENTICACION
+
+El login funciona asi:
+
+1. El usuario escribe usuario y contrasena.
+2. Login.jsx llama loginRequest(username, password).
+3. loginRequest manda POST /api/auth/login.
+4. El backend responde con un JWT.
+5. App.jsx guarda el token en localStorage con la clave clinicToken.
+6. App.jsx decodifica el token para obtener username, fullName y role.
+7. Segun el rol, redirige al dashboard correcto.
+
+Rutas por rol:
+
+- ADMINISTRATOR o ADMIN: /admin
+- DOCTORS: /doctor
+- NURSES: /nurse
+- HUMANRESOURCES: /humanResources
+- INFORMATIONSUPPORT: /informationSupport
+- PATIENT: /patient
+
+Detalle importante:
+ProtectedRoute protege la interfaz, pero la seguridad real esta en el backend. El backend tambien valida el token y el rol.
+
+
+6. TOKEN Y AXIOS
+
+api.js tiene un interceptor de Axios.
+
+Antes de cada peticion:
+
+- Lee clinicToken desde localStorage.
+- Si existe, agrega:
+
+Authorization: Bearer <token>
+
+Esto permite que Spring Security autorice o bloquee cada endpoint.
+
+
+7. REGISTRO DE PACIENTE
+
+Archivo:
+src/pages/Register.jsx
+
+Ruta:
+/register
+
+Endpoint:
+POST /api/auth/register
+
+Esta pantalla permite que un paciente se registre por si solo sin depender del administrador.
+
+Datos que pide:
+
+- Nombre completo
+- Email
+- Documento
+- Telefono
+- Direccion
+- Fecha de nacimiento
+- Genero
+- Peso
+- Estatura
+- Numero de poliza
+- Aseguradora
+- Inicio de poliza
+- Fin de poliza
+- Usuario
+- Contrasena
+- Confirmacion de contrasena
+
+Validaciones del frontend:
+
+- Campos obligatorios.
+- Email con formato valido.
+- Contrasenas iguales.
+- Contrasena minimo de 6 caracteres.
+
+Detalle importante:
+El input type="date" envia fecha como yyyy-MM-dd. El backend fue ajustado para aceptar ese formato.
+
+
+8. LOGIN
+
+Archivo:
+src/pages/Login.jsx
+
+Funciones principales:
+
+- Guarda username y password en useState.
+- Llama onLogin al enviar el formulario.
+- Muestra errores del backend.
+- Permite mostrar u ocultar contrasena.
+- Tiene enlace "Crear cuenta" hacia /register.
+
+El estilo de login esta en Login.css y usa:
+
+- Fondo clinico.
+- Card blanca.
+- Azul institucional.
+- Tipografia compacta.
+
+
+9. APP.JSX
+
+App.jsx es el organizador principal.
+
+Responsabilidades:
+
+- Leer token guardado.
+- Guardar token nuevo al iniciar sesion.
+- Borrar token al cerrar sesion.
+- Decidir ruta por rol.
+- Crear rutas publicas y privadas.
+- Renderizar header cuando el usuario esta autenticado.
+
+Rutas publicas:
+
+- /
+- /login
+- /register
+
+Rutas privadas:
+
+- /admin
+- /doctor
+- /nurse
+- /humanResources
+- /informationSupport
+- /patient
+
+
+10. ADMIN DASHBOARD
+
+Archivo:
+src/pages/AdminDashboard.jsx
+
+Rol:
+ADMINISTRATOR
+
+Endpoint base:
+/api/administrator
+
+Secciones:
+
+- Pacientes
+- Empleados
+- Citas medicas
+- Facturas
+- Contactos de emergencia
+
+El administrador puede crear, listar, editar y eliminar gran parte de la informacion del sistema.
+
+
+10.1 Pacientes
+
+Funciones usadas:
+
+- fetchPatients
+- createPatient
+- updatePatient
+- deletePatient
+
+Campos:
+
+- Documento
+- Nombre completo
+- Email
+- Fecha de nacimiento
+- Direccion
+- Telefono
+- Genero
+- Peso
+- Estatura
+- Doctor asignado
+- Poliza
+- Aseguradora
+- Fechas de poliza
+
+Detalle:
+Al crear paciente desde admin, se puede asignar doctor usando el documento del doctor.
+
+
+10.2 Empleados
+
+Funciones usadas:
+
+- fetchEmployees
+- createEmployee
+- updateEmployee
+- deleteEmployee
+
+Roles disponibles:
+
+- ADMINISTRATOR
+- HUMANRESOURCES
+- INFORMATIONSUPPORT
+- NURSES
+- DOCTORS
+
+El frontend muestra nombres legibles como Administrador, Doctor o Enfermera, pero internamente envia el codigo del rol.
+
+
+10.3 Citas
+
+Funciones usadas:
+
+- fetchAppointments
+- createAppointment
+- updateAppointment
+- deleteAppointment
+
+Payload importante:
+
+doctor: { document }
+patient: { document }
+date
+time
+
+El frontend envia documentos y el backend resuelve las entidades reales.
+
+
+10.4 Facturas
+
+Funciones usadas:
+
+- fetchBillings
+- createBilling
+- updateBilling
+- deleteBilling
+
+Se usan datos de poliza del paciente y referencias por documento.
+
+
+10.5 Contactos de emergencia
+
+Funciones usadas:
+
+- fetchEmergencyContacts
+- createEmergencyContact
+- updateEmergencyContact
+- deleteEmergencyContact
+
+Campos:
+
+- Paciente
+- Nombre
+- Apellido
+- Telefono
+
+
+11. DOCTOR DASHBOARD
+
+Archivo:
+src/pages/DoctorDashboard.jsx
+
+Rol:
+DOCTORS
+
+Endpoint base:
+/api/doctors
+
+Secciones:
+
+- Ordenes medicas
+- Registros medicos
+
+
+11.1 Ordenes medicas
+
+Funciones:
+
+- createOrder
+- fetchOrders
+- fetchOrdersByPatient
+- updateOrder
+- deleteOrder
+
+Campos:
+
+- Documento del paciente
+- Medicamentos
+- Procedimiento
+- Ayuda diagnostica
+
+Detalle:
+El doctor crea ordenes para que enfermeria pueda consultarlas.
+
+
+11.2 Registros medicos
+
+Funciones:
+
+- createMedicalRecord
+- fetchMedicalRecords
+- fetchMedicalRecord
+- updateMedicalRecord
+- deleteMedicalRecord
+
+Campos:
+
+- Paciente
+- Doctor
+- Sintomatologia
+- Motivo de consulta
+- Diagnostico
+- Fecha
+
+Detalle:
+Al editar un registro no se cambia el paciente ni el doctor, solo los datos medicos.
+
+
+12. NURSE DASHBOARD
+
+Archivo:
+src/pages/NurseDashboard.jsx
+
+Rol:
+NURSES
+
+Endpoint base:
+/api/nurses
+
+Secciones:
+
+- Buscar Orden
+- Visitas
+- Contactos de Emergencia
+
+
+12.1 Buscar Orden
+
+La enfermera busca ordenes medicas por documento del paciente.
+
+Funcion:
+searchOrder
+
+Endpoint:
+POST /api/nurses/orders/search
+
+Detalle:
+La enfermera no crea ordenes. Solo consulta ordenes que fueron creadas por el doctor.
+
+
+12.2 Visitas
+
+Funciones:
+
+- registerVisit
+- fetchVisits
+- fetchVisitByPatient
+- updateVisit
+- deleteVisit
+
+Campos:
+
+- Paciente
+- Presion arterial
+- Temperatura
+- Pulso
+- Nivel de oxigeno
+- Medicamentos
+- Procedimiento
+- Ayuda diagnostica
+
+
+12.3 Contactos de emergencia
+
+Funciones:
+
+- createNurseEmergencyContact
+- fetchNurseEmergencyContacts
+- updateNurseEmergencyContact
+- deleteNurseEmergencyContact
+
+Endpoint:
+/api/nurses/emergency-contacts
+
+Motivo:
+La enfermera tambien puede registrar contactos de emergencia porque normalmente atiende al paciente durante la visita.
+
+
+13. PATIENT DASHBOARD
+
+Archivo:
+src/pages/PatientDashboard.jsx
+
+Rol:
+PATIENT
+
+Endpoint base:
+/api/patient
+
+Secciones:
+
+- Mi Perfil
+- Mis Citas
+- Historial Medico
+- Doctores
+
+
+13.1 Mi Perfil
+
+Funcion:
+fetchPatientProfile
+
+Endpoint:
+GET /api/patient/profile
+
+Muestra:
+
+- Nombre
+- Usuario
+- Documento
+- Email
+- Telefono
+- Direccion
+
+
+13.2 Mis Citas
+
+Funciones:
+
+- fetchPatientAppointments
+- createPatientAppointment
+- deletePatientAppointment
+
+Endpoints:
+
+- GET /api/patient/appointments
+- POST /api/patient/appointments
+- DELETE /api/patient/appointments/{id}
+
+El paciente puede:
+
+- Ver sus citas.
+- Agendar una cita seleccionando doctor, fecha y hora.
+- Cancelar una cita propia.
+
+Detalle importante:
+El backend valida que el paciente solo pueda cancelar citas que le pertenecen.
+
+
+13.3 Historial Medico
+
+Funcion:
+fetchPatientMedicalRecords
+
+Endpoint:
+GET /api/patient/medical-records
+
+Muestra:
+
+- Fecha
+- Doctor
+- Sintomatologia
+- Motivo
+- Diagnostico
+
+Detalle:
+El paciente solo consulta su historial. No lo crea ni lo edita.
+
+
+13.4 Doctores
+
+Funcion:
+fetchPatientDoctors
+
+Endpoint:
+GET /api/patient/doctors
+
+Muestra:
+
+- Documento
+- Nombre
+- Email
+- Telefono
+
+Se usa para que el paciente pueda elegir doctor al agendar una cita.
+
+
+14. USER DASHBOARD
+
+Archivo:
+src/pages/UserDashboard.jsx
+
+Este archivo maneja dos roles:
+
+- HUMANRESOURCES
+- INFORMATIONSUPPORT
+
+Si el rol es HUMANRESOURCES:
+Muestra HumanResourcesDashboard.
+
+Si el rol es INFORMATIONSUPPORT:
+Muestra InformationSupportDashboard.
+
+
+14.1 Recursos Humanos
+
+Endpoint base:
+/api/humanResource
+
+Permite gestionar empleados:
+
+- Listar
+- Crear
+- Editar
+- Eliminar
+
+Funciones:
+
+- fetchHumanResourceEmployees
+- createHumanResourceEmployee
+- updateHumanResourceEmployee
+- deleteHumanResourceEmployee
+
+
+14.2 Soporte de Informacion
+
+Endpoint base:
+/api/informationSupport
+
+Permite consultar informacion en modo lectura:
+
+- Pacientes
+- Empleados
+- Citas
+- Facturas
+- Contactos de emergencia
+
+Funciones:
+
+- fetchSupportPatients
+- fetchSupportEmployees
+- fetchSupportAppointments
+- fetchSupportBillings
+- fetchSupportEmergencyContacts
+
+Detalle:
+Este rol no crea ni edita. Solo consulta.
+
+
+15. COMPONENTES REUTILIZABLES
+
+Sidebar:
+Renderiza el menu lateral segun las secciones que cada dashboard le envia.
+
+ProtectedRoute:
+Verifica si el usuario esta autenticado y si su rol esta permitido.
+
+ConfirmDialog:
+Modal de confirmacion para acciones peligrosas como eliminar o cancelar.
+
+TableList:
+Patron de tabla usado dentro de varios dashboards.
+
+SectionPanel:
+Patron visual de seccion con titulo, formulario, contador y lista.
+
+
+16. PATRONES IMPORTANTES DEL FRONTEND
+
+useState:
+Se usa para formularios, listas, seccion actual, mensajes y errores.
+
+useEffect:
+Se usa para cargar datos cuando cambia la seccion activa.
+
+ensureArray:
+Convierte respuestas del backend en arreglos para que las tablas no fallen.
+
+apiError:
+Extrae mensajes de error de Axios de forma mas legible.
+
+Number(...):
+Convierte valores de inputs a numeros antes de enviarlos al backend.
+
+Objetos por documento:
+Para relaciones se envia algo como:
+
+patient: { document: 1234567890 }
+doctor: { document: 9876543210 }
+
+El backend busca la entidad real.
+
+
+17. FLUJO EJEMPLO: PACIENTE SE REGISTRA
+
+1. En login hace clic en Crear cuenta.
+2. Entra a /register.
+3. Llena datos personales, poliza y acceso.
+4. React valida campos basicos.
+5. registerPatient manda POST /api/auth/register.
+6. Backend guarda el paciente con contrasena encriptada.
+7. React muestra mensaje de exito.
+8. Redirige al login.
+9. El paciente inicia sesion.
+10. App.jsx detecta rol PATIENT y lo envia a /patient.
+
+
+18. FLUJO EJEMPLO: PACIENTE AGENDA CITA
+
+1. Paciente entra a Mis Citas.
+2. React carga doctores con GET /api/patient/doctors.
+3. Paciente selecciona doctor, fecha y hora.
+4. React envia POST /api/patient/appointments.
+5. Backend toma el paciente desde el token, no desde el formulario.
+6. Backend valida doctor, fecha y disponibilidad.
+7. Si todo esta bien, guarda la cita.
+8. React recarga la lista de citas.
+
+
+19. RESPUESTA CORTA PARA EXPONER
+
+El frontend de CliniCosta es una aplicacion React organizada por roles. Usa JWT para mantener sesion, Axios para comunicarse con Spring Boot y rutas protegidas para separar las funciones de administrador, doctor, enfermera, paciente, recursos humanos y soporte de informacion. Cada dashboard consume endpoints especificos del backend y muestra formularios, tablas, mensajes de exito o error y confirmaciones para acciones sensibles.

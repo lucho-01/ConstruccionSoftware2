@@ -15,6 +15,10 @@ public class PatientRegisterRequest {
     private Long document;
     private double weight;
     private double size;
+    private long policyNumber;
+    private String insuranceCompanyName;
+    private String policyValidity;
+    private String policyEndDate;
 
     // Getters y Setters
     public String getFullName() {
@@ -103,5 +107,37 @@ public class PatientRegisterRequest {
 
     public void setSize(double size) {
         this.size = size;
+    }
+
+    public long getPolicyNumber() {
+        return policyNumber;
+    }
+
+    public void setPolicyNumber(long policyNumber) {
+        this.policyNumber = policyNumber;
+    }
+
+    public String getInsuranceCompanyName() {
+        return insuranceCompanyName;
+    }
+
+    public void setInsuranceCompanyName(String insuranceCompanyName) {
+        this.insuranceCompanyName = insuranceCompanyName;
+    }
+
+    public String getPolicyValidity() {
+        return policyValidity;
+    }
+
+    public void setPolicyValidity(String policyValidity) {
+        this.policyValidity = policyValidity;
+    }
+
+    public String getPolicyEndDate() {
+        return policyEndDate;
+    }
+
+    public void setPolicyEndDate(String policyEndDate) {
+        this.policyEndDate = policyEndDate;
     }
 }

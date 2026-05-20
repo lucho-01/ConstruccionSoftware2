@@ -2,6 +2,7 @@ package app.infrastructure.mapper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import app.infrastructure.entities.PatientEntity;
 @Component
 public class PatientMapper {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // 🔁 Domain → Entity
     public static PatientEntity toEntity(Patient patient) {
@@ -29,7 +30,7 @@ public class PatientMapper {
         entity.setPassword(patient.getPassword());
 
         if (patient.getBirthdate() != null && !patient.getBirthdate().isEmpty()) {
-            entity.setBirthdate(LocalDate.parse(patient.getBirthdate(), FORMATTER));
+            entity.setBirthdate(parseBirthdate(patient.getBirthdate()));
         }
 
         entity.setGender(patient.getGender());
@@ -70,7 +71,7 @@ public class PatientMapper {
         patient.setPassword(entity.getPassword());
 
         if (entity.getBirthdate() != null) {
-            patient.setBirthdate(entity.getBirthdate().format(FORMATTER));
+            patient.setBirthdate(entity.getBirthdate().format(DISPLAY_FORMATTER));
         }
 
         patient.setGender(entity.getGender());
@@ -102,6 +103,15 @@ public class PatientMapper {
         }
 
         return patient;
+    }
+
+    private static LocalDate parseBirthdate(String value) {
+        String trimmed = value.trim();
+        try {
+            return LocalDate.parse(trimmed);
+        } catch (DateTimeParseException ignored) {
+            return LocalDate.parse(trimmed, DISPLAY_FORMATTER);
+        }
     }
 }
 

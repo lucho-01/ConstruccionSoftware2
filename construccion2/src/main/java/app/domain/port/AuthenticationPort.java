@@ -5,7 +5,7 @@ import app.domain.model.auth.TokenResponse;
 
 public interface AuthenticationPort {
 	
-    TokenResponse authenticate(AuthCredentials credentials, String role);
+    TokenResponse authenticate(AuthCredentials credentials, String role, String fullName);
     boolean validateToken(String token);
     String extractUsername(String token);
     String extractRole(String token);

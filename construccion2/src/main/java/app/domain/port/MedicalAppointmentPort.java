@@ -13,7 +13,7 @@ public interface MedicalAppointmentPort {
 	public boolean isPatientAvailable(Patient patient, LocalDateTime date) throws Exception;
 	public void save(MedicalAppointment appointment) throws Exception;
 	public java.util.List<MedicalAppointment> findAll() throws Exception;
+	public java.util.List<MedicalAppointment> findByPatientDocument(long patientDocument) throws Exception;
 	public void update(MedicalAppointment appointment) throws Exception;
 	public void deleteById(MedicalAppointment appointment) throws Exception;
 }
-

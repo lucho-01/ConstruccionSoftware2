@@ -19,5 +19,7 @@ public interface MedicalAppointmentRepository extends JpaRepository<MedicalAppoi
     boolean existsByDoctorIdAndDate(Long doctorId, LocalDateTime date);
 
     boolean existsByPatientIdAndDate(Long patientId, LocalDateTime date);
-}
 
+    @EntityGraph(attributePaths = {"doctor", "patient"})
+    List<MedicalAppointmentEntity> findByPatient_Document(Long document);
+}

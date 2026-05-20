@@ -3,6 +3,7 @@ package app.adapter.out;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,12 @@ public class AuthRestMappers {
     }
 
     public TokenResponseDto toResponse(TokenResponse token) {
-        return new TokenResponseDto(token.getToken());
+        return new TokenResponseDto(
+            token.getToken(),
+            token.getUsername(),
+            token.getFullName(),
+            token.getRole()
+        );
     }
 
     public Patient toDomain(PatientRegisterRequest req) {
@@ -45,6 +51,10 @@ public class AuthRestMappers {
         patient.setDocument(req.getDocument());
         patient.setWeigth(req.getWeight());
         patient.setSize(req.getSize());
+        patient.setPolicyNumber(req.getPolicyNumber());
+        patient.setInsuranceCompanyName(req.getInsuranceCompanyName());
+        patient.setPolicyValidity(req.getPolicyValidity());
+        patient.setPolicyEndDate(req.getPolicyEndDate());
         
         return patient;
     }
@@ -57,11 +67,20 @@ public class AuthRestMappers {
             patient.getUserName(),
             patient.getPhoneNumber(),
             patient.getAddress(),
-            patient.getBirthdate() != null ? LocalDate.parse(patient.getBirthdate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null,
+            patient.getBirthdate() != null ? parseBirthdate(patient.getBirthdate()) : null,
             patient.getGender(),
             patient.getDocument(),
             patient.getWeigth(),
             patient.getSize()
         );
+    }
+
+    private LocalDate parseBirthdate(String value) {
+        String trimmed = value.trim();
+        try {
+            return LocalDate.parse(trimmed);
+        } catch (DateTimeParseException ignored) {
+            return LocalDate.parse(trimmed, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
     }
 }

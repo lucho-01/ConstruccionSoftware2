@@ -53,6 +53,11 @@ public class EmergencyContactService {
         if (emergencyContact.getLastName() == null) {
             throw new Exception("El Apellido del contacto de emergencia no puede estar vacío.");
         }
+
+        if (emergencyContact.getPatient() == null
+                || (emergencyContact.getPatient().getId() <= 0 && emergencyContact.getPatient().getDocument() <= 0)) {
+            throw new Exception("El contacto de emergencia debe estar asociado a un paciente.");
+        }
     }
 
     public java.util.List<EmergencyContact> getAllEmergencyContacts() throws Exception {

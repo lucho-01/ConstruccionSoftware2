@@ -1,0 +1,751 @@
+EXPLICACION DEL BACKEND - CLINICOSTA
+
+Este archivo explica como funciona el backend Spring Boot del sistema CliniCosta, su estructura, seguridad, rutas, capas y flujo general.
+
+
+1. TECNOLOGIA USADA
+
+El backend esta desarrollado con:
+
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- JWT
+- MySQL
+- Maven
+
+Archivo principal:
+src/main/java/app/Software2Application.java
+
+Este archivo contiene el metodo main y arranca la aplicacion Spring Boot.
+
+
+2. CONFIGURACION PRINCIPAL
+
+Archivo:
+src/main/resources/application.properties
+
+Configuraciones importantes:
+
+- spring.datasource.url:
+  Conexion a MySQL.
+
+- spring.datasource.username:
+  Usuario de base de datos.
+
+- spring.datasource.password:
+  Contrasena de base de datos.
+
+- server.port=8080:
+  El backend corre en el puerto 8080.
+
+- spring.jpa.hibernate.ddl-auto=update:
+  Hibernate actualiza tablas segun entidades.
+
+- spring.jpa.show-sql=true:
+  Muestra SQL en consola.
+
+
+3. ARQUITECTURA GENERAL
+
+El proyecto esta organizado por capas parecidas a arquitectura hexagonal:
+
+- adapter/in:
+  Entrada al sistema. Aqui estan controladores REST, validadores y builders.
+
+- application/usercases:
+  Casos de uso. Agrupan acciones que puede realizar cada rol.
+
+- domain/model:
+  Modelos del dominio, por ejemplo Patient, Employee, MedicalAppointment.
+
+- domain/services:
+  Reglas de negocio.
+
+- domain/port:
+  Interfaces que definen operaciones necesarias para persistencia o servicios externos.
+
+- adapter/out:
+  Implementaciones de puertos. Conectan dominio con repositorios JPA.
+
+- infrastructure/entities:
+  Entidades JPA que se guardan en base de datos.
+
+- infrastructure/repository:
+  Repositorios Spring Data JPA.
+
+- infrastructure/mapper:
+  Convierte entre entidades JPA y modelos de dominio.
+
+- infrastructure/security:
+  Seguridad, JWT y configuracion de permisos.
+
+
+4. FLUJO GENERAL DE UNA PETICION
+
+Ejemplo: crear una cita desde administrador.
+
+1. React envia POST /api/administrator/appointments.
+2. Spring Security valida token y rol.
+3. AdministratorController recibe el request.
+4. El controlador arma un objeto MedicalAppointment.
+5. AdministratorUseCase recibe el objeto.
+6. MedicalAppointmentService valida reglas de negocio.
+7. MedicalAppointmentPort define la operacion de guardado.
+8. MedicalAppointmentAdapter implementa el puerto.
+9. MedicalAppointmentRepository guarda en MySQL.
+10. El backend responde exito o error.
+
+
+5. SEGURIDAD
+
+Archivo:
+src/main/java/app/infrastructure/security/SecurityConfig.java
+
+Define que rutas puede usar cada rol.
+
+Reglas principales:
+
+- /api/auth/**
+  Publico. Permite login y registro.
+
+- /api/administrator/**
+  Solo ADMINISTRATOR.
+
+- /api/humanResource/**
+  Solo HUMANRESOURCES.
+
+- /api/informationSupport/**
+  Solo INFORMATIONSUPPORT.
+
+- /api/doctors/**
+  Solo DOCTORS.
+
+- /api/nurses/**
+  Solo NURSES.
+
+- /api/patient/**
+  Solo PATIENT.
+
+Tambien registra JwtAuthenticationFilter antes del filtro normal de autenticacion.
+
+
+6. JWT
+
+Archivos:
+
+- JwtAdapter.java
+- JwtAuthenticationFilter.java
+
+JwtAdapter:
+
+- Genera el token al iniciar sesion.
+- Guarda username como subject.
+- Guarda role como claim.
+- Guarda fullName como claim.
+- Valida token.
+- Extrae username y rol.
+
+JwtAuthenticationFilter:
+
+- Lee el header Authorization.
+- Espera formato Bearer <token>.
+- Valida el token.
+- Extrae username y role.
+- Crea un Authentication con autoridad ROLE_<ROL>.
+- Lo guarda en SecurityContextHolder.
+
+Detalle importante:
+La clave JWT se genera en memoria. Si se reinicia el backend, los tokens anteriores dejan de funcionar.
+
+
+7. ROLES DEL SISTEMA
+
+Archivo:
+domain/model/enums/Role.java
+
+Roles:
+
+- ADMINISTRATOR
+- HUMANRESOURCES
+- INFORMATIONSUPPORT
+- NURSES
+- DOCTORS
+- PATIENT
+
+Role.fromCode permite convertir numeros a roles.
+
+Ejemplo:
+
+1 = ADMINISTRATOR
+2 = HUMANRESOURCES
+3 = INFORMATIONSUPPORT
+4 = NURSES
+5 = DOCTORS
+6 = PATIENT
+
+
+8. AUTENTICACION Y REGISTRO
+
+Controlador:
+AuthController.java
+
+Endpoint:
+POST /api/auth/login
+
+Recibe:
+
+- username
+- password
+
+Flujo:
+
+1. AuthController recibe AuthRequest.
+2. AuthRestMappers convierte request a AuthCredentials.
+3. LoginUseCase llama AuthenticationService.
+4. AuthenticationService intenta autenticar como empleado.
+5. Si no encuentra empleado, intenta autenticar como paciente.
+6. Si es correcto, JwtAdapter crea token.
+7. Se responde TokenResponseDto.
+
+
+8.1 Registro publico de paciente
+
+Endpoint:
+POST /api/auth/register
+
+Recibe PatientRegisterRequest con:
+
+- fullName
+- email
+- username
+- password
+- phoneNumber
+- address
+- birthdate
+- gender
+- document
+- weight
+- size
+- policyNumber
+- insuranceCompanyName
+- policyValidity
+- policyEndDate
+
+Flujo:
+
+1. AuthController recibe el request.
+2. AuthRestMappers crea Patient.
+3. RegisterPatientUseCase valida username, email y documento duplicado.
+4. Encripta la contrasena con BCrypt.
+5. PatientServices/PatientAdapter guardan el paciente.
+
+Detalle:
+El registro acepta fecha de nacimiento en formato yyyy-MM-dd porque viene de un input HTML type=date.
+
+
+9. CAPA DE CONTROLADORES
+
+Los controladores exponen endpoints REST.
+
+Controladores principales:
+
+- AuthController
+- AdministratorController
+- DoctorsController
+- NursesController
+- HumanResourseController
+- InformationSupportController
+- PatientController
+- GlobalExceptionHandler
+
+
+10. ADMINISTRATOR CONTROLLER
+
+Ruta base:
+/api/administrator
+
+Rol:
+ADMINISTRATOR
+
+Permite:
+
+- Gestionar pacientes.
+- Gestionar empleados.
+- Gestionar citas.
+- Gestionar facturas.
+- Gestionar contactos de emergencia.
+
+Endpoints:
+
+- GET /patients
+- POST /patients
+- PUT /patients/{id}
+- DELETE /patients/{id}
+
+- GET /employees
+- POST /employees
+- PUT /employees/{id}
+- DELETE /employees/{id}
+
+- GET /appointments
+- POST /appointments
+- PUT /appointments/{id}
+- DELETE /appointments/{id}
+
+- GET /billings
+- POST /billings
+- PUT /billings/{id}
+- DELETE /billings/{id}
+
+- GET /emergency-contacts
+- POST /emergency-contacts
+- PUT /emergency-contacts/{id}
+- DELETE /emergency-contacts/{id}
+
+Detalle importante:
+Para crear citas, el controlador recibe documento del doctor y del paciente. Luego busca las entidades reales antes de guardar.
+
+
+11. DOCTORS CONTROLLER
+
+Ruta base:
+/api/doctors
+
+Rol:
+DOCTORS
+
+Permite:
+
+- Crear y gestionar ordenes medicas.
+- Crear y gestionar registros medicos.
+
+Endpoints de ordenes:
+
+- POST /orders
+- GET /orders
+- GET /orders/patient/{patientDocument}
+- PUT /orders/{id}
+- DELETE /orders/{id}
+
+Endpoints de registros:
+
+- POST /medical-records
+- GET /medical-records
+- GET /medical-records/{patientDocument}
+- PUT /medical-records/{id}
+- DELETE /medical-records/{id}
+
+Detalle:
+El doctor crea ordenes medicas y registros clinicos. La enfermera solo consulta ordenes y registra visitas.
+
+
+12. NURSES CONTROLLER
+
+Ruta base:
+/api/nurses
+
+Rol:
+NURSES
+
+Permite:
+
+- Buscar ordenes medicas.
+- Registrar visitas.
+- Buscar pacientes.
+- Gestionar contactos de emergencia.
+
+Endpoints:
+
+- POST /orders/search
+- POST /register-visit
+- GET /visits
+- GET /visits/patient/{patientDocument}
+- PUT /visits/{id}
+- DELETE /visits/{id}
+- POST /patients/search
+
+Contactos de emergencia:
+
+- GET /emergency-contacts
+- POST /emergency-contacts
+- PUT /emergency-contacts/{id}
+- DELETE /emergency-contacts/{id}
+
+Detalle:
+Se agregaron contactos de emergencia a enfermeria porque en la atencion de una visita puede ser necesario registrar esa informacion.
+
+
+13. PATIENT CONTROLLER
+
+Ruta base:
+/api/patient
+
+Rol:
+PATIENT
+
+Permite al paciente:
+
+- Ver su perfil.
+- Ver doctores.
+- Agendar citas.
+- Ver sus citas.
+- Cancelar sus citas.
+- Consultar su historial medico.
+
+Endpoints:
+
+- GET /profile
+- GET /doctors
+- GET /appointments
+- POST /appointments
+- DELETE /appointments/{id}
+- GET /medical-records
+
+Detalle de seguridad:
+El paciente autenticado se obtiene desde Principal, es decir, desde el token. El frontend no decide que paciente es. El backend busca el paciente usando el username del token.
+
+Al cancelar cita:
+El backend verifica que la cita pertenezca al paciente autenticado antes de eliminarla.
+
+
+14. HUMAN RESOURCE CONTROLLER
+
+Ruta base:
+/api/humanResource
+
+Rol:
+HUMANRESOURCES
+
+Permite gestionar empleados:
+
+- GET /employees
+- POST /employees
+- PUT /employees/{id}
+- DELETE /employees/{id}
+
+
+15. INFORMATION SUPPORT CONTROLLER
+
+Ruta base:
+/api/informationSupport
+
+Rol:
+INFORMATIONSUPPORT
+
+Permite consultar informacion:
+
+- GET /patients
+- GET /employees
+- GET /appointments
+- GET /billings
+- GET /emergency-contacts
+
+Detalle:
+Es un rol de lectura. No crea, edita ni elimina.
+
+
+16. CASOS DE USO
+
+Carpeta:
+application/usercases
+
+Casos principales:
+
+- AdministratorUseCase:
+  Coordina acciones del administrador.
+
+- DoctorsUseCase:
+  Coordina ordenes y registros medicos.
+
+- NursesUseCase:
+  Coordina visitas, busqueda de ordenes, pacientes y contactos de emergencia.
+
+- HumanResourseUseCase:
+  Coordina funciones de recursos humanos.
+
+- LoginUseCase:
+  Ejecuta autenticacion.
+
+- RegisterPatientUseCase:
+  Ejecuta registro publico de paciente.
+
+Los casos de uso sirven para que los controladores no llamen directamente todos los servicios de dominio.
+
+
+17. SERVICIOS DE DOMINIO
+
+Carpeta:
+domain/services
+
+Servicios principales:
+
+- AuthenticationService:
+  Valida login de empleados y pacientes.
+
+- PatientServices:
+  Valida y gestiona pacientes.
+
+- EmployeeService:
+  Valida y gestiona empleados.
+
+- MedicalAppointmentService:
+  Valida disponibilidad y gestiona citas.
+
+- MedicalRecordService:
+  Gestiona registros medicos.
+
+- OrderService:
+  Gestiona ordenes medicas.
+
+- RegisterVisitService:
+  Gestiona visitas de enfermeria.
+
+- EmergencyContactService:
+  Gestiona contactos de emergencia.
+
+- BillingService:
+  Gestiona facturas.
+
+Detalle:
+Las reglas de negocio deben estar en servicios, no en el frontend.
+
+
+18. MODELOS DE DOMINIO
+
+Carpeta:
+domain/model
+
+Modelos principales:
+
+- User
+- Patient
+- Employee
+- MedicalAppointment
+- MedicalRecord
+- Order
+- RegisterVisit
+- EmergencyContact
+- Billing
+- Medications
+- Procedure
+- DiagnosticAid
+
+Estos modelos representan la logica del sistema, no necesariamente la tabla exacta de base de datos.
+
+
+19. ENTIDADES JPA
+
+Carpeta:
+infrastructure/entities
+
+Entidades principales:
+
+- PatientEntity
+- EmployeeEntity
+- MedicalAppointmentEntity
+- MedicalRecordEntity
+- OrderEntity
+- RegisterVisitEntity
+- EmergencyContactEntity
+- BillingEntity
+
+Estas entidades son las que Hibernate usa para crear o actualizar tablas en MySQL.
+
+Ejemplo:
+PatientEntity tiene campos como document, fullName, email, birthdate, policyNumber y doctor.
+
+
+20. REPOSITORIOS
+
+Carpeta:
+infrastructure/repository
+
+Usan Spring Data JPA.
+
+Ejemplos:
+
+- PatientRepository
+- EmployeeRepository
+- MedicalAppointmentRepository
+- MedicalRecordRepository
+- OrderRepository
+- RegisterVisitRepository
+- EmergencyContactRepository
+- BillingRepository
+
+Los repositorios tienen metodos como:
+
+- findAll
+- findById
+- findByDocument
+- findByUsername
+- existsByDoctorIdAndDate
+- findByPatient_Document
+
+
+21. PUERTOS Y ADAPTADORES
+
+Carpeta de puertos:
+domain/port
+
+Carpeta de adaptadores:
+adapter/out
+
+Idea:
+
+- El dominio define interfaces.
+- La infraestructura implementa esas interfaces.
+
+Ejemplo:
+
+MedicalAppointmentPort define:
+
+- save
+- findAll
+- findByPatientDocument
+- deleteById
+
+MedicalAppointmentAdapter implementa esas operaciones usando MedicalAppointmentRepository.
+
+Ventaja:
+El dominio no depende directamente de JPA.
+
+
+22. MAPPERS
+
+Carpeta:
+infrastructure/mapper
+
+Los mappers convierten:
+
+- Domain -> Entity
+- Entity -> Domain
+
+Ejemplo:
+PatientMapper convierte Patient a PatientEntity y viceversa.
+
+Detalle importante:
+PatientMapper acepta fecha de nacimiento en:
+
+- yyyy-MM-dd
+- dd/MM/yyyy
+
+Esto evita errores cuando la fecha viene desde input type=date del frontend.
+
+
+23. VALIDADORES
+
+Carpeta:
+adapter/in/validators
+
+Ejemplos:
+
+- PatientValidator
+- EmployeeValidator
+- MedicalAppointmentValidator
+- RegisterVisitValidator
+
+MedicalAppointmentValidator:
+
+- Acepta fecha y hora separadas.
+- Acepta dateTime completo.
+- Valida formatos yyyy-MM-dd y yyyy-MM-ddTHH:mm.
+
+
+24. MANEJO DE ERRORES
+
+Archivo:
+GlobalExceptionHandler.java
+
+Maneja:
+
+- InputsException
+- BusinessException
+- Exception general
+
+Devuelve respuestas con formato:
+
+{
+  "error": "mensaje"
+}
+
+Tambien varios controladores manejan try/catch y devuelven BAD_REQUEST con mensajes especificos.
+
+
+25. BASE DE DATOS
+
+Base configurada:
+clinica1234
+
+Motor:
+MySQL
+
+Hibernate:
+ddl-auto=update
+
+Eso significa que Hibernate intenta mantener la estructura de tablas actualizada segun las entidades.
+
+
+26. FLUJO EJEMPLO: LOGIN
+
+1. React envia POST /api/auth/login.
+2. AuthController recibe AuthRequest.
+3. LoginUseCase llama AuthenticationService.
+4. AuthenticationService busca empleado por username.
+5. Si no existe empleado, busca paciente.
+6. Valida contrasena.
+7. JwtAdapter genera token.
+8. Backend responde token, username, fullName y role.
+9. React guarda token y redirige segun rol.
+
+
+27. FLUJO EJEMPLO: PACIENTE AGENDA CITA
+
+1. Paciente inicia sesion.
+2. React envia POST /api/patient/appointments con doctor, fecha y hora.
+3. PatientController obtiene el paciente desde Principal.
+4. Busca el doctor por documento.
+5. MedicalAppointmentValidator valida fecha y hora.
+6. MedicalAppointmentService valida disponibilidad.
+7. MedicalAppointmentAdapter guarda con JPA.
+8. Backend responde "Cita médica agendada exitosamente".
+
+
+28. FLUJO EJEMPLO: DOCTOR CREA HISTORIAL
+
+1. Doctor envia POST /api/doctors/medical-records.
+2. DoctorsController recibe MedicalRecord.
+3. DoctorsUseCase llama MedicalRecordService.
+4. MedicalRecordService busca paciente por documento.
+5. Busca doctor por documento.
+6. Valida que el empleado tenga rol DOCTORS.
+7. Guarda el registro medico.
+
+
+29. FLUJO EJEMPLO: ENFERMERA REGISTRA VISITA
+
+1. Enfermera busca orden medica por documento del paciente.
+2. Revisa medicamentos, procedimiento o ayuda diagnostica.
+3. Entra a Visitas.
+4. Envia POST /api/nurses/register-visit.
+5. RegisterVisitService valida y guarda la visita.
+
+
+30. RESPUESTA CORTA PARA EXPONER
+
+El backend de CliniCosta es una API REST en Spring Boot con seguridad JWT y permisos por rol. Esta organizado por controladores, casos de uso, servicios de dominio, puertos, adaptadores, repositorios JPA y entidades. El frontend consume los endpoints bajo /api, el backend valida tokens y roles, aplica reglas de negocio y guarda la informacion en MySQL.
+
+
+31. COMANDOS UTILES
+
+Desde construccion2:
+
+.\mvnw.cmd test
+Compila y ejecuta pruebas.
+
+.\mvnw.cmd spring-boot:run
+Levanta el backend en http://localhost:8080.
+

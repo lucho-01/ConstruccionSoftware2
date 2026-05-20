@@ -3,7 +3,9 @@ package app.infrastructure.mapper;
 import org.springframework.stereotype.Component;
 
 import app.domain.model.EmergencyContact;
+import app.domain.model.Patient;
 import app.infrastructure.entities.EmergencyContactEntity;
+import app.infrastructure.entities.PatientEntity;
 
 @Component
 public class EmergencyContactMapper {
@@ -17,6 +19,12 @@ public class EmergencyContactMapper {
         entity.setName(contact.getName());
         entity.setLastName(contact.getLastName());
         entity.setPhoneNumber(contact.getPhoneNumber());
+        if (contact.getPatient() != null) {
+            PatientEntity patient = new PatientEntity();
+            patient.setId(contact.getPatient().getId());
+            patient.setDocument(contact.getPatient().getDocument());
+            entity.setPatient(patient);
+        }
 
         return entity;
     }
@@ -30,6 +38,13 @@ public class EmergencyContactMapper {
         contact.setName(entity.getName());
         contact.setLastName(entity.getLastName());
         contact.setPhoneNumber(entity.getPhoneNumber());
+        if (entity.getPatient() != null) {
+            Patient patient = new Patient();
+            patient.setId(entity.getPatient().getId());
+            patient.setDocument(entity.getPatient().getDocument());
+            patient.setFullName(entity.getPatient().getFullName());
+            contact.setPatient(patient);
+        }
 
         return contact;
     }

@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import app.application.usercases.exceptions.BusinessException;
 import app.domain.model.Employee;
 import app.domain.model.Patient;
-import app.domain.model.User;
 import app.domain.model.auth.AuthCredentials;
 import app.domain.model.auth.TokenResponse;
-import app.domain.model.enums.Role;
 import app.domain.port.AuthenticationPort;
 import app.domain.port.EmployeePort;
 
@@ -35,7 +33,7 @@ public class AuthenticationService {
         try {
             Employee employee = this.getEmployeeByUsername(credentials.getUsername());
             this.validatePassword(credentials.getPassword(), employee.getPassword());
-            return authenticationPort.authenticate(credentials, String.valueOf(employee.getRole()));
+            return authenticationPort.authenticate(credentials, String.valueOf(employee.getRole()), employee.getFullName());
         } catch (Exception e) {
             // Si no es empleado, intentar como paciente
             Patient patient = this.getPatientByUsername(credentials.getUsername());
@@ -46,7 +44,7 @@ public class AuthenticationService {
             patientCredentials.setUsername(credentials.getUsername());
             patientCredentials.setPassword(credentials.getPassword());
             
-            return authenticationPort.authenticate(patientCredentials, "PATIENT");
+            return authenticationPort.authenticate(patientCredentials, "PATIENT", patient.getFullName());
         }
     }
 

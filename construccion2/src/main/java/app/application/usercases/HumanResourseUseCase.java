@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.domain.model.Employee;
-import app.domain.model.enums.Role;
 import app.domain.services.EmployeeService;
 @Service
 public class HumanResourseUseCase {
@@ -14,6 +13,10 @@ public class HumanResourseUseCase {
 	
 	public void createEmployee(Employee employee) throws Exception {
 		employeeService.createEmployee(employee);		
+	}
+
+	public java.util.List<Employee> getAllEmployees() throws Exception {
+		return employeeService.getAllEmployees();
 	}
 	
 	public void deleteEmployee(Employee employee) throws Exception {

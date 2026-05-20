@@ -74,6 +74,13 @@ public class MedicalAppointmentAdapter implements MedicalAppointmentPort {
     }
 
     @Override
+    public java.util.List<MedicalAppointment> findByPatientDocument(long patientDocument) throws Exception {
+        return appointmentRepository.findByPatient_Document(patientDocument).stream()
+            .map(appointmentMapper::toDomain)
+            .collect(Collectors.toList());
+    }
+
+    @Override
     public void update(MedicalAppointment appointment) throws Exception {
         MedicalAppointmentEntity entity = appointmentMapper.toEntity(appointment);
         appointmentRepository.save(entity);

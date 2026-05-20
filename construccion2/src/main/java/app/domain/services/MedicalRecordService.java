@@ -48,6 +48,10 @@ public class MedicalRecordService {
 		return medicalRecordPort.findAll();
 	}
 
+	public java.util.List<MedicalRecord> getByPatientDocument(long patientDocument) throws Exception {
+		return medicalRecordPort.findByPatientDocument(patientDocument);
+	}
+
 	public void delete(MedicalRecord medicalRecord) throws Exception {
 		if (medicalRecord.getId() <= 0 || medicalRecordPort.findById(medicalRecord) == null) {
 			throw new Exception("La historia clínica no existe");

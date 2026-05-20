@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import app.domain.model.Employee;
@@ -30,7 +31,7 @@ public class EmployeeAdapter implements EmployeePort {
 	@Override
 	public Employee findById(Employee employee) throws Exception {
 		Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(employee.getId());
-		return EmployeeMapper.toDomain(employeeEntity.get());
+		return employeeEntity.map(EmployeeMapper::toDomain).orElse(null);
 	}
 
 	@Override
@@ -39,11 +40,15 @@ public class EmployeeAdapter implements EmployeePort {
 	    if (optionalEntity.isPresent()) {
 	        EmployeeEntity entityToDelete = optionalEntity.get();
 	        Employee deletedEmployee = EmployeeMapper.toDomain(entityToDelete);
-	        employeeRepository.delete(entityToDelete);
+	        try {
+	            employeeRepository.delete(entityToDelete);
+	            employeeRepository.flush();
+	        } catch (DataIntegrityViolationException e) {
+	            throw new Exception("No se puede eliminar el empleado porque tiene registros relacionados.");
+	        }
 	        return deletedEmployee;
 	    } else {
-	        System.out.println("No se encontró un empleado con ID: " + employee.getId());
-	        return null;
+	        throw new Exception("No se encontró un empleado con ID: " + employee.getId());
 	    }
 	}
 
@@ -62,7 +67,14 @@ public class EmployeeAdapter implements EmployeePort {
             existingEntity.setFullName(employee.getFullName());
             existingEntity.setEmail(employee.getEmail());
             existingEntity.setDocument(String.valueOf(employee.getDocument()));
-            existingEntity.setBirthdate(employee.getBirthdate());           
+            existingEntity.setBirthdate(employee.getBirthdate());
+            existingEntity.setAddress(employee.getAddress());
+            existingEntity.setPhoneNumber(String.valueOf(employee.getPhoneNumber()));
+            existingEntity.setUserName(employee.getUserName());
+            existingEntity.setRole(employee.getRole());
+            if (employee.getPassword() != null && !employee.getPassword().isBlank()) {
+                existingEntity.setPassword(employee.getPassword());
+            }
             EmployeeEntity updatedEntity = employeeRepository.save(existingEntity);
             return EmployeeMapper.toDomain(updatedEntity);
         } else {

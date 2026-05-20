@@ -19,6 +19,10 @@ public class EmergencyContactEntity {
     @Column(nullable = false, length = 20)
     private String phoneNumber;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private PatientEntity patient;
+
     // ====== Getters y Setters ======
 
     public Long getId() {
@@ -51,5 +55,13 @@ public class EmergencyContactEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public PatientEntity getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
     }
 }

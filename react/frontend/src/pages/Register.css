@@ -1,0 +1,201 @@
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 20px;
+  background:
+    linear-gradient(rgba(244, 247, 251, 0.72), rgba(244, 247, 251, 0.72)),
+    url("/clinic-background.png") center / cover no-repeat;
+}
+
+.register-card {
+  width: min(980px, 100%);
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(38, 72, 110, 0.14);
+}
+
+.register-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e9edf4;
+}
+
+.register-brand-mark {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  color: #0e5bb5;
+  border: 3px solid #17c5c6;
+  border-left-color: #0e5bb5;
+  border-radius: 50%;
+}
+
+.register-brand-mark span {
+  position: relative;
+  width: 26px;
+  height: 26px;
+}
+
+.register-brand-mark span::before,
+.register-brand-mark span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.register-brand-mark span::before {
+  width: 26px;
+  height: 7px;
+}
+
+.register-brand-mark span::after {
+  width: 7px;
+  height: 26px;
+}
+
+.register-brand h1 {
+  margin: 0;
+  color: #073f8f;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.register-brand p {
+  margin: 6px 0 0;
+  color: #667085;
+  font-size: 14px;
+}
+
+.register-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.register-form h2 {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.register-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.register-form input,
+.register-form select {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 12px;
+  color: #172033;
+  background: #ffffff;
+  border: 1px solid #d9e1ec;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  border-color: #0f5db8;
+  box-shadow: 0 0 0 3px rgba(15, 93, 184, 0.12);
+}
+
+.register-error,
+.register-success {
+  grid-column: 1 / -1;
+  padding: 13px 16px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.register-error {
+  color: #b4232c;
+  background: #fff0f0;
+  border: 1px solid #ffd2d2;
+}
+
+.register-success {
+  color: #087344;
+  background: #e8f8ef;
+  border: 1px solid #bfefd2;
+}
+
+.register-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.register-submit {
+  min-height: 40px;
+  padding: 10px 18px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0d67df, #0754c3);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 8px 18px rgba(8, 89, 207, 0.2);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.register-submit:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.register-actions a {
+  color: #0b57c5;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.register-actions a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+  .register-card {
+    padding: 24px;
+  }
+
+  .register-form {
+    grid-template-columns: 1fr;
+  }
+
+  .register-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .register-submit {
+    width: 100%;
+  }
+}

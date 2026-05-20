@@ -20,10 +20,13 @@ public class JwtAdapter implements AuthenticationPort {
     private static final long EXPIRATION_TIME = 30 * 60 * 1000; // 30 minutos
 
     @Override
-    public TokenResponse authenticate(AuthCredentials credentials, String role) {
-        String token = this.generateToken(credentials.getUsername(), role);
+    public TokenResponse authenticate(AuthCredentials credentials, String role, String fullName) {
+        String token = this.generateToken(credentials.getUsername(), role, fullName);
         TokenResponse response = new TokenResponse();
         response.setToken(token);
+        response.setUsername(credentials.getUsername());
+        response.setFullName(fullName);
+        response.setRole(role);
         return response;
     }
 
@@ -49,13 +52,14 @@ public class JwtAdapter implements AuthenticationPort {
         return claims.get("role", String.class);
     }
 
-    private String generateToken(String username, String role) {
+    private String generateToken(String username, String role, String fullName) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + EXPIRATION_TIME);
 
         String token = Jwts.builder()
             .setSubject(username)
             .claim("role", role)
+            .claim("fullName", fullName)
             .setId(UUID.randomUUID().toString())
             .setIssuedAt(now)
             .setExpiration(expiration)

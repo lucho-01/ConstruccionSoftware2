@@ -17,6 +17,10 @@ public class RegisterPatientUseCase {
     private PasswordEncoder passwordEncoder;
 
     public Patient registerPatient(Patient patient) throws Exception {
+        if (patient.getPassword() == null || patient.getPassword().trim().isEmpty()) {
+            throw new BusinessException("La contraseña no puede estar vacía");
+        }
+
         // Validar que el paciente no exista
         if (patientServices.findByUsername(patient.getUserName()) != null) {
             throw new BusinessException("El nombre de usuario ya está registrado");
@@ -24,6 +28,10 @@ public class RegisterPatientUseCase {
 
         if (patientServices.findByEmail(patient.getEmail()) != null) {
             throw new BusinessException("El email ya está registrado");
+        }
+
+        if (patientServices.findPatientByDocument(patient) != null) {
+            throw new BusinessException("El documento ya está registrado");
         }
 
         // Encriptar la contraseña

@@ -41,6 +41,13 @@ public class MedicalRecordAdapter implements MedicalRecordPort {
     }
 
     @Override
+    public java.util.List<MedicalRecord> findByPatientDocument(long patientDocument) throws Exception {
+        return medicalRecordRepository.findByPatient_Document(patientDocument).stream()
+                .map(medicalRecordMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void update(MedicalRecord medicalRecord) throws Exception {
         MedicalRecordEntity existing = medicalRecordRepository.findById(medicalRecord.getId())
                 .orElseThrow(() -> new Exception("No se encontró la historia clínica para actualizar."));

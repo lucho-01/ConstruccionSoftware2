@@ -2,6 +2,7 @@ package app.adapter.out;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -100,8 +101,7 @@ public class PatientAdapter implements PatientPort {
 	        }
 
 	        if (patient.getBirthdate() != null && !patient.getBirthdate().isEmpty()) {
-	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	            existingEntity.setBirthdate(LocalDate.parse(patient.getBirthdate(), formatter));
+	            existingEntity.setBirthdate(parseBirthdate(patient.getBirthdate()));
 	        }
 
 	        if (patient.getDoctorDocument() != null) {
@@ -180,6 +180,16 @@ public class PatientAdapter implements PatientPort {
 		} else {
 			System.out.println("No se encontró un paciente con ID: " + patient.getId());
 			return null;
+		}
+	}
+
+	private LocalDate parseBirthdate(String value) {
+		String trimmed = value.trim();
+		try {
+			return LocalDate.parse(trimmed);
+		} catch (DateTimeParseException ignored) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			return LocalDate.parse(trimmed, formatter);
 		}
 	}
 }

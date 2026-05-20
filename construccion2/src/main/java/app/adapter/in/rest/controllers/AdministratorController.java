@@ -18,6 +18,7 @@ import app.adapter.rest.request.EmployeeRequest;
 import app.adapter.rest.request.MedicalAppointmentRequest;
 import app.adapter.rest.request.PatientRequest;
 import app.adapter.rest.response.AdminPatientResponse;
+import app.adapter.rest.response.EmergencyContactResponse;
 import app.adapter.rest.response.MedicalAppointmentResponse;
 import app.application.usercases.AdministratorUseCase;
 import app.domain.model.Billing;
@@ -288,9 +289,11 @@ public class AdministratorController {
     }
 
     @GetMapping("/emergency-contacts")
-    public ResponseEntity<java.util.List<EmergencyContact>> getAllEmergencyContacts() {
+    public ResponseEntity<java.util.List<EmergencyContactResponse>> getAllEmergencyContacts() {
         try {
-            return ResponseEntity.ok(administratorUseCase.getAllEmergencyContacts());
+            return ResponseEntity.ok(administratorUseCase.getAllEmergencyContacts().stream()
+                    .map(EmergencyContactResponse::new)
+                    .collect(Collectors.toList()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

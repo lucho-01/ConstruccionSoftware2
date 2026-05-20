@@ -16,6 +16,10 @@ public class MedicalAppointmentService {
         return medicalAppointmentPort.findAll();
     }
 
+    public java.util.List<MedicalAppointment> getAppointmentsByPatient(long patientDocument) throws Exception {
+        return medicalAppointmentPort.findByPatientDocument(patientDocument);
+    }
+
     public void createMedicalAppointment(MedicalAppointment appointment) throws Exception {
         if (appointment == null || appointment.getDate() == null) {
             throw new Exception("La fecha de la cita no puede estar vacía");

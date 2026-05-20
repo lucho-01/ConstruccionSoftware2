@@ -5,6 +5,7 @@ public class EmergencyContact {
 	private String name;
 	private String lastName;
 	private String phoneNumber;
+	private Patient patient;
 	
 	public Long getId() {
 		return id;
@@ -29,6 +30,12 @@ public class EmergencyContact {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 }
