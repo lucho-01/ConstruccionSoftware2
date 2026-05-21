@@ -38,11 +38,11 @@ public class EmployeeMapper {
 
         Employee employee = new Employee();
         employee.setId(entity.getId());
-        employee.setDocument(Long.parseLong(entity.getDocument()));
+        employee.setDocument(parseLongOrZero(entity.getDocument()));
         employee.setFullName(entity.getFullName());
         employee.setEmail(entity.getEmail());
         employee.setAddress(entity.getAddress());
-        employee.setPhoneNumber(Long.parseLong(entity.getPhoneNumber() != null ? entity.getPhoneNumber() : "0"));
+        employee.setPhoneNumber(parseLongOrZero(entity.getPhoneNumber()));
         employee.setRole(entity.getRole());
         employee.setUserName(entity.getUserName());
         employee.setPassword(entity.getPassword());
@@ -52,5 +52,17 @@ public class EmployeeMapper {
         }
 
         return employee;
+    }
+
+    private static long parseLongOrZero(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return 0;
+        }
+
+        try {
+            return Long.parseLong(value.trim());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

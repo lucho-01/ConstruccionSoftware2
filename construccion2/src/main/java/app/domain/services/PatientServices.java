@@ -25,10 +25,7 @@ public class PatientServices {
 		if(patientPort.findByDocument(patient)!=null) {
 			throw new Exception("Ya existe una persona con esa cedula");
 		}
-		long phoneNumber = patient.getPhoneNumber();
-	    if (String.valueOf(phoneNumber).length() != 10) {
-	        throw new Exception("El número de teléfono debe tener exactamente 10 dígitos");
-	    }
+		validateColombianDocumentAndPhone(patient);
 	    if (patient.getBirthdate() == null || patient.getBirthdate().trim().isEmpty()) {
 	        throw new Exception(" no puede estar vacío");
 	    }
@@ -54,11 +51,6 @@ public class PatientServices {
 	    if (patient.getEmail() == null || patient.getEmail().trim().isEmpty()) {
 	        throw new Exception("El correo electrónico no puede estar vacío");
 	    }
-	    long patientDocument = patient.getDocument();
-	    if (String.valueOf(patientDocument).length() < 6 || String.valueOf(patientDocument).length() >10) {
-	        throw new Exception("El número de documento es invalido, debe tener entre 6 y 10 digitos");
-	    }
-
 	    // Expresión regular para validar formato de email
 	    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
@@ -85,6 +77,7 @@ public class PatientServices {
 				throw new Exception("El paciente no existe");
 			}
 			else {
+				validateColombianDocumentAndPhone(patient);
 				validatePolicy(patient);
 				patientPort.updatePatient(patient);
 				System.out.println("Paciente actualizado correctamente! ");
@@ -120,6 +113,22 @@ public class PatientServices {
 			throw new Exception("Las fechas de la póliza deben tener formato yyyy-MM-dd");
 		}
 	}
+
+	private void validateColombianDocumentAndPhone(Patient patient) throws Exception {
+		long patientDocument = patient.getDocument();
+		String document = String.valueOf(patientDocument);
+
+		if (patientDocument <= 0 || !document.matches("[1-9][0-9]{5,9}")) {
+			throw new Exception("El documento debe tener entre 6 y 10 dígitos numéricos y no puede iniciar en 0");
+		}
+
+		long phoneNumber = patient.getPhoneNumber();
+		String phone = String.valueOf(phoneNumber);
+
+		if (phoneNumber <= 0 || !phone.matches("(3[0-9]{9}|60[1-8][0-9]{7})")) {
+			throw new Exception("El teléfono debe ser: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60");
+		}
+	}
 		
 		public Patient findByUsername(String username) throws Exception {
 			return patientPort.findByUsername(username);
@@ -134,6 +143,7 @@ public class PatientServices {
 	}
 
 		public Patient save(Patient patient) throws Exception {
+			validateColombianDocumentAndPhone(patient);
 			return patientPort.save(patient);
 		}
 

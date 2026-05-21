@@ -38,6 +38,9 @@ const emptyEmployeeForm = {
   roleType: 'DOCTORS',
 }
 
+const colombianDocumentRegex = /^[1-9][0-9]{5,9}$/
+const colombianPhoneRegex = /^(3[0-9]{9}|60[1-8][0-9]{7})$/
+
 function AdminDashboard({ user }) {
   const [currentSection, setCurrentSection] = useState('home')
   const [expandedSection, setExpandedSection] = useState('')
@@ -248,6 +251,16 @@ function AdminDashboard({ user }) {
 
   const handleCreatePatient = async () => {
     try {
+      if (!colombianDocumentRegex.test(String(patientForm.document).trim())) {
+        showError('El documento colombiano debe tener entre 6 y 10 dígitos y no puede iniciar en 0')
+        return
+      }
+
+      if (!colombianPhoneRegex.test(String(patientForm.phoneNumber).trim())) {
+        showError('El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60')
+        return
+      }
+
       const payload = {
         document: Number(patientForm.document),
         fullName: patientForm.fullName,
@@ -314,6 +327,16 @@ function AdminDashboard({ user }) {
 
   const handleUpdatePatient = async () => {
     try {
+      if (!colombianDocumentRegex.test(String(patientForm.document).trim())) {
+        showError('El documento colombiano debe tener entre 6 y 10 dígitos y no puede iniciar en 0')
+        return
+      }
+
+      if (!colombianPhoneRegex.test(String(patientForm.phoneNumber).trim())) {
+        showError('El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60')
+        return
+      }
+
       const payload = {
         document: Number(patientForm.document),
         fullName: patientForm.fullName,
@@ -358,6 +381,16 @@ function AdminDashboard({ user }) {
 
   const handleCreateEmployee = async () => {
     try {
+      if (!colombianDocumentRegex.test(String(employeeForm.document).trim())) {
+        showError('El documento colombiano debe tener entre 6 y 10 dígitos y no puede iniciar en 0')
+        return
+      }
+
+      if (!colombianPhoneRegex.test(String(employeeForm.phoneNumber).trim())) {
+        showError('El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60')
+        return
+      }
+
       const payload = {
         fullName: employeeForm.fullName,
         document: Number(employeeForm.document),
@@ -400,6 +433,16 @@ function AdminDashboard({ user }) {
 
   const handleUpdateEmployee = async () => {
     try {
+      if (!colombianDocumentRegex.test(String(employeeForm.document).trim())) {
+        showError('El documento colombiano debe tener entre 6 y 10 dígitos y no puede iniciar en 0')
+        return
+      }
+
+      if (!colombianPhoneRegex.test(String(employeeForm.phoneNumber).trim())) {
+        showError('El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60')
+        return
+      }
+
       const payload = {
         fullName: employeeForm.fullName,
         document: Number(employeeForm.document),
@@ -621,9 +664,13 @@ const confirmDelete = async () => {
     }
 
     if (confirmData?.type === 'employee') {
-      await deleteEmployee(confirmData.id)
-      showSuccess('Empleado eliminado correctamente')
-      loadSectionData('employees')
+      try {
+        await deleteEmployee(confirmData.id)
+        showSuccess('Empleado eliminado correctamente')
+        loadSectionData('employees')
+      } catch (err) {
+        showError(getApiErrorMessage(err, 'No se puede eliminar porque este empleado tiene registros asignados.'))
+      }
     }
 
     if (confirmData?.type === 'appointment') {
@@ -741,7 +788,7 @@ const confirmDelete = async () => {
       <div className="form-card">
         <label>
           Documento
-          <input type="text" value={patientForm.document} onChange={(e) => setPatientForm({ ...patientForm, document: e.target.value })} placeholder="Ej: 1234567890" />
+          <input type="text" value={patientForm.document} onChange={(e) => setPatientForm({ ...patientForm, document: e.target.value })} placeholder="Ej: 1234567890" inputMode="numeric" />
         </label>
         <label>
           Nombre Completo
@@ -761,7 +808,7 @@ const confirmDelete = async () => {
         </label>
         <label>
           Teléfono
-          <input type="text" value={patientForm.phoneNumber} onChange={(e) => setPatientForm({ ...patientForm, phoneNumber: e.target.value })} placeholder="Ej: 3001234567" />
+          <input type="text" value={patientForm.phoneNumber} onChange={(e) => setPatientForm({ ...patientForm, phoneNumber: e.target.value })} placeholder="Ej: 3001234567" inputMode="numeric" />
         </label>
         <label>
           Género
@@ -850,7 +897,7 @@ const confirmDelete = async () => {
         </label>
         <label>
           Documento
-          <input type="text" value={employeeForm.document} onChange={(e) => updateEmployeeField('document', e.target.value)} placeholder="Ej: 1234567890" />
+          <input type="text" value={employeeForm.document} onChange={(e) => updateEmployeeField('document', e.target.value)} placeholder="Ej: 1234567890" inputMode="numeric" />
         </label>
         <label>
           Usuario
@@ -874,7 +921,7 @@ const confirmDelete = async () => {
         </label>
         <label>
           Teléfono
-          <input type="text" value={employeeForm.phoneNumber} onChange={(e) => updateEmployeeField('phoneNumber', e.target.value)} placeholder="Ej: 3001234567" />
+          <input type="text" value={employeeForm.phoneNumber} onChange={(e) => updateEmployeeField('phoneNumber', e.target.value)} placeholder="Ej: 3001234567" inputMode="numeric" />
         </label>
         <label>
           Edad

@@ -22,6 +22,9 @@ const emptyForm = {
   policyEndDate: '',
 }
 
+const colombianDocumentRegex = /^[1-9][0-9]{5,9}$/
+const colombianPhoneRegex = /^(3[0-9]{9}|60[1-8][0-9]{7})$/
+
 function Register() {
   const [form, setForm] = useState(emptyForm)
   const [message, setMessage] = useState('')
@@ -43,6 +46,7 @@ function Register() {
       'password',
       'confirmPassword',
       'document',
+      'phoneNumber',
       'policyNumber',
       'insuranceCompanyName',
       'policyValidity',
@@ -74,6 +78,18 @@ function Register() {
       return
     }
 
+    if (!colombianDocumentRegex.test(form.document.trim())) {
+      setError('El documento colombiano debe tener entre 6 y 10 dígitos y no puede iniciar en 0')
+      setMessage('')
+      return
+    }
+
+    if (!colombianPhoneRegex.test(form.phoneNumber.trim())) {
+      setError('El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60')
+      setMessage('')
+      return
+    }
+
     setLoading(true)
     setError('')
     setMessage('')
@@ -85,7 +101,7 @@ function Register() {
         username: form.username,
         password: form.password,
         document: Number(form.document),
-        phoneNumber: form.phoneNumber ? Number(form.phoneNumber) : null,
+        phoneNumber: Number(form.phoneNumber),
         address: form.address,
         birthdate: form.birthdate || null,
         gender: form.gender || null,
@@ -123,8 +139,8 @@ function Register() {
           <h2>Datos personales</h2>
           <label>Nombre completo*<input value={form.fullName} onChange={(event) => updateField('fullName', event.target.value)} placeholder="Juan Pérez" required /></label>
           <label>Email*<input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="correo@example.com" required /></label>
-          <label>Documento de identidad*<input value={form.document} onChange={(event) => updateField('document', event.target.value)} placeholder="1234567890" required /></label>
-          <label>Teléfono<input value={form.phoneNumber} onChange={(event) => updateField('phoneNumber', event.target.value)} placeholder="3001234567" /></label>
+          <label>Documento de identidad*<input value={form.document} onChange={(event) => updateField('document', event.target.value)} placeholder="1234567890" inputMode="numeric" required /></label>
+          <label>Teléfono*<input value={form.phoneNumber} onChange={(event) => updateField('phoneNumber', event.target.value)} placeholder="3001234567" inputMode="numeric" required /></label>
           <label>Dirección<input value={form.address} onChange={(event) => updateField('address', event.target.value)} placeholder="Calle Principal 123" /></label>
           <label>Fecha de nacimiento<input type="date" value={form.birthdate} onChange={(event) => updateField('birthdate', event.target.value)} /></label>
           <label>

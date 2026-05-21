@@ -44,12 +44,30 @@ public class EmployeeAdapter implements EmployeePort {
 	            employeeRepository.delete(entityToDelete);
 	            employeeRepository.flush();
 	        } catch (DataIntegrityViolationException e) {
-	            throw new Exception("No se puede eliminar el empleado porque tiene registros relacionados.");
+	            throw new Exception("No se puede eliminar porque este empleado tiene registros asignados.");
+	        } catch (RuntimeException e) {
+	            if (isIntegrityViolation(e)) {
+	                throw new Exception("No se puede eliminar porque este empleado tiene registros asignados.");
+	            }
+	            throw e;
 	        }
 	        return deletedEmployee;
 	    } else {
 	        throw new Exception("No se encontró un empleado con ID: " + employee.getId());
 	    }
+	}
+
+	private boolean isIntegrityViolation(Throwable throwable) {
+	    Throwable current = throwable;
+	    while (current != null) {
+	        String className = current.getClass().getName();
+	        if (className.contains("ConstraintViolationException")
+	                || className.contains("DataIntegrityViolationException")) {
+	            return true;
+	        }
+	        current = current.getCause();
+	    }
+	    return false;
 	}
 
 

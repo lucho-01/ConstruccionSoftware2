@@ -1,12 +1,8 @@
 package app.adapter.in.validators;
 
-import app.domain.model.Employee;
-import app.domain.model.Patient;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
-
-import app.domain.model.enums.Gender;
 
 @Component
 public class BillingValidator extends SimpleValidator{

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import ConfirmDialog from '../components/ConfirmDialog'
 import {
@@ -153,7 +153,7 @@ function HumanResourcesDashboard({ user }) {
       showSuccess('Empleado eliminado correctamente')
       loadEmployees()
     } catch (err) {
-      showError(apiError(err, 'Error al eliminar empleado'))
+      showError(apiError(err, 'No se puede eliminar porque este empleado tiene registros asignados.'))
     } finally {
       setConfirmData(null)
     }
@@ -276,16 +276,18 @@ function InformationSupportDashboard({ user }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const latestLoadRef = useRef(0)
 
   const sections = [
     { id: 'patients', label: 'Pacientes' },
     { id: 'employees', label: 'Empleados' },
     { id: 'appointments', label: 'Citas' },
     { id: 'billings', label: 'Facturas' },
-    { id: 'emergency', label: 'Contactos' },
+    { id: 'emergency', label: 'Contactos de Emergencia' },
   ]
 
   useEffect(() => {
+    setRows([])
     if (currentSection !== 'home') loadSection(currentSection)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSection])
@@ -297,10 +299,14 @@ function InformationSupportDashboard({ user }) {
   }
 
   const loadSection = async (section) => {
+    const loadId = latestLoadRef.current + 1
+    latestLoadRef.current = loadId
+
     try {
       setIsLoading(true)
       setError('')
       setSearch('')
+      setRows([])
       const loaders = {
         patients: fetchSupportPatients,
         employees: fetchSupportEmployees,
@@ -308,19 +314,41 @@ function InformationSupportDashboard({ user }) {
         billings: fetchSupportBillings,
         emergency: fetchSupportEmergencyContacts,
       }
-      const response = await loaders[section]()
-      setRows(ensureArray(response.data))
-      setMessage('Información cargada correctamente')
-      window.setTimeout(() => setMessage(''), 1800)
+      const loader = loaders[section]
+      if (!loader) {
+        throw new Error('Sección no disponible')
+      }
+
+      const response = await loader()
+      if (latestLoadRef.current === loadId) {
+        setRows(ensureArray(response.data))
+        setMessage('Información cargada correctamente')
+        window.setTimeout(() => setMessage(''), 1800)
+      }
     } catch (err) {
-      setRows([])
-      setError(apiError(err, 'No se pudo cargar la información'))
+      if (latestLoadRef.current === loadId) {
+        setRows([])
+        setError(apiError(err, 'No se pudo cargar la información'))
+      }
     } finally {
-      setIsLoading(false)
+      if (latestLoadRef.current === loadId) {
+        setIsLoading(false)
+      }
     }
   }
 
-  const filteredRows = rows.filter((row) => !search || JSON.stringify(row).toLowerCase().includes(search.toLowerCase()))
+  const getSearchableText = (row) => {
+    if (!row || typeof row !== 'object') return String(row || '')
+
+    return Object.values(row)
+      .map((value) => {
+        if (!value || typeof value !== 'object') return String(value || '')
+        return Object.values(value).join(' ')
+      })
+      .join(' ')
+  }
+
+  const filteredRows = rows.filter((row) => !search || getSearchableText(row).toLowerCase().includes(search.toLowerCase()))
 
   const renderSection = () => {
     if (currentSection === 'home') {
@@ -371,35 +399,35 @@ function GenericUserDashboard({ user }) {
 function renderReadOnlyList(section, rows) {
   if (section === 'patients') {
     return <TableList headers={['Documento', 'Nombre', 'Email', 'Teléfono', 'Aseguradora', 'Vigencia']} rows={rows} renderRow={(item, index) => (
-      <tr key={item.id || index}><td>{item.document}</td><td>{item.fullName}</td><td>{item.email}</td><td>{item.phoneNumber || '-'}</td><td>{item.insuranceCompanyName || '-'}</td><td>{item.policyValidity || '-'} / {item.policyEndDate || '-'}</td></tr>
+      <tr key={item.id || index}><td>{formatDisplayValue(item.document)}</td><td>{formatDisplayValue(item.fullName)}</td><td>{formatDisplayValue(item.email)}</td><td>{formatDisplayValue(item.phoneNumber)}</td><td>{formatDisplayValue(item.insuranceCompanyName)}</td><td>{formatDisplayValue(item.policyValidity)} / {formatDisplayValue(item.policyEndDate)}</td></tr>
     )} />
   }
 
   if (section === 'employees') {
     return <TableList headers={['Documento', 'Nombre', 'Email', 'Usuario', 'Rol', 'Teléfono']} rows={rows} renderRow={(item, index) => (
-      <tr key={item.id || index}><td>{item.document}</td><td>{item.fullName}</td><td>{item.email}</td><td>{item.userName || '-'}</td><td>{translateRole(item.role?.name || item.role)}</td><td>{item.phoneNumber || '-'}</td></tr>
+      <tr key={item.id || index}><td>{formatDisplayValue(item.document)}</td><td>{formatDisplayValue(item.fullName)}</td><td>{formatDisplayValue(item.email)}</td><td>{formatDisplayValue(item.userName)}</td><td>{translateRole(item.role?.name || item.role)}</td><td>{formatDisplayValue(item.phoneNumber)}</td></tr>
     )} />
   }
 
   if (section === 'appointments') {
     return <TableList headers={['Fecha', 'Hora', 'Paciente', 'Doctor']} rows={rows} renderRow={(item, index) => (
-      <tr key={item.id || index}><td>{formatDate(item.date)}</td><td>{item.time || formatTime(item.date)}</td><td>{formatPerson(item.patientName, item.patientDocument)}</td><td>{formatPerson(item.doctorName, item.doctorDocument)}</td></tr>
+      <tr key={item.id || index}><td>{formatDate(item.date)}</td><td>{formatDisplayValue(item.time || formatTime(item.date))}</td><td>{formatPerson(item.patientName, item.patientDocument)}</td><td>{formatPerson(item.doctorName, item.doctorDocument)}</td></tr>
     )} />
   }
 
   if (section === 'billings') {
     return <TableList headers={['Póliza', 'Paciente', 'Edad', 'Aseguradora', 'Vigencia']} rows={rows} renderRow={(item, index) => (
-      <tr key={item.id || index}><td>{item.policyNumber || '-'}</td><td>{item.patientDocument || item.patientName?.document || '-'}</td><td>{item.patientAge || '-'}</td><td>{item.insuranceCompanyName || '-'}</td><td>{item.policyValidity || '-'} / {item.policyEndDate || '-'}</td></tr>
+      <tr key={item.id || index}><td>{formatDisplayValue(item.policyNumber)}</td><td>{formatDisplayValue(item.patientDocument || item.patientName?.document || item.patientName)}</td><td>{formatDisplayValue(item.patientAge)}</td><td>{formatDisplayValue(item.insuranceCompanyName)}</td><td>{formatDisplayValue(item.policyValidity)} / {formatDisplayValue(item.policyEndDate)}</td></tr>
     )} />
   }
 
   return <TableList headers={['Paciente', 'Documento', 'Nombre', 'Apellido', 'Teléfono']} rows={rows} renderRow={(item, index) => (
     <tr key={item.id || index}>
-      <td>{item.patient?.fullName || item.patientName || '-'}</td>
-      <td>{item.patient?.document || item.patientDocument || '-'}</td>
-      <td>{item.name || '-'}</td>
-      <td>{item.lastName || '-'}</td>
-      <td>{item.phoneNumber || '-'}</td>
+      <td>{formatDisplayValue(item.patient?.fullName || item.patientName)}</td>
+      <td>{formatDisplayValue(item.patient?.document || item.patientDocument)}</td>
+      <td>{formatDisplayValue(item.name)}</td>
+      <td>{formatDisplayValue(item.lastName)}</td>
+      <td>{formatDisplayValue(item.phoneNumber)}</td>
     </tr>
   )} />
 }
@@ -491,8 +519,17 @@ function formatTime(value) {
 }
 
 function formatPerson(name, document) {
-  if (name && document) return `${name} (${document})`
-  return name || document || '-'
+  const safeName = formatDisplayValue(name)
+  const safeDocument = formatDisplayValue(document)
+
+  if (safeName !== '-' && safeDocument !== '-') return `${safeName} (${safeDocument})`
+  return safeName !== '-' ? safeName : safeDocument
+}
+
+function formatDisplayValue(value) {
+  if (value == null || value === '') return '-'
+  if (typeof value !== 'object') return String(value)
+  return value.fullName || value.name || value.document || value.id || '-'
 }
 
 export default UserDashboard

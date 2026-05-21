@@ -361,6 +361,9 @@ public class AdministratorController {
             administratorUseCase.deleteEmployee(employee);
             return ResponseEntity.ok("Empleado eliminado exitosamente");
         } catch (Exception e) {
+            if ("No se puede eliminar porque este empleado tiene registros asignados.".equals(e.getMessage())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error al eliminar el empleado: " + e.getMessage());
         }

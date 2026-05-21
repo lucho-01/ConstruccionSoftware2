@@ -1,7 +1,5 @@
 package app.domain.model;
 
-import app.domain.model.enums.Role;
-
 public class Employee extends User{
 
 	private int age;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import app.adapter.in.validators.EmergencyContactValidator;
 import app.domain.model.EmergencyContact;
-import app.domain.model.Order;
+
 @Component
 public class EmergencyContactBuilder {
 	@Autowired

@@ -15,10 +15,7 @@ public class EmployeeService {
     
 	public void createEmployee(Employee employee) throws Exception {
 		
-	    long phoneNumber = employee.getPhoneNumber();
-	    if (String.valueOf(phoneNumber).length() != 10) {
-	        throw new Exception("El número de teléfono debe tener exactamente 10 dígitos");
-	    }
+	    validateColombianDocumentAndPhone(employee);
 	    if (employee.getBirthdate() == null || employee.getBirthdate().trim().isEmpty()) {
 	        throw new Exception(" la fecha no puede estar vacia");
 	    }
@@ -45,10 +42,6 @@ public class EmployeeService {
 
 	    if (!employee.getEmail().matches(emailRegex)) {
 	        throw new Exception("El correo electrónico no tiene un formato válido (ej. usuario@dominio.com)");
-	    }
-	    long employeeDocument = employee.getDocument();
-	    if (String.valueOf(employeeDocument).length() < 6 || String.valueOf(employeeDocument).length() >10) {
-	        throw new Exception("El número de documento es invalido, debe tener entre 6 y 10 digitos");
 	    }
 		if(employeePort.findByDocument(employee)!=null) {
 			throw new Exception("Ya existe un empleado con esa cedula");		
@@ -84,8 +77,25 @@ public class EmployeeService {
 			throw new Exception("El empleado no existe");
 		}
 		else {
+			validateColombianDocumentAndPhone(employee);
 			employeePort.update(employee);
 			System.out.println("Empleado actualizado correctamente! ");
+		}
+	}
+
+	private void validateColombianDocumentAndPhone(Employee employee) throws Exception {
+		long employeeDocument = employee.getDocument();
+		String document = String.valueOf(employeeDocument);
+
+		if (employeeDocument <= 0 || !document.matches("[1-9][0-9]{5,9}")) {
+			throw new Exception("El documento colombiano debe tener entre 6 y 10 dígitos numéricos y no puede iniciar en 0");
+		}
+
+		long phoneNumber = employee.getPhoneNumber();
+		String phone = String.valueOf(phoneNumber);
+
+		if (phoneNumber <= 0 || !phone.matches("(3[0-9]{9}|60[1-8][0-9]{7})")) {
+			throw new Exception("El teléfono debe ser colombiano: celular de 10 dígitos que empiece por 3 o fijo nacional que empiece por 60");
 		}
 	}
 }
